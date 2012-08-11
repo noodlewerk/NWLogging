@@ -13,5 +13,3 @@
 #import "NWLPrinter.h"
 #import "NWLTools.h"
 #import "NWLLineLogger.h"
-
-#import "NWLLogViewController.h"

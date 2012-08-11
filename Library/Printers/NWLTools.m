@@ -38,9 +38,9 @@
         calendar = NSCalendar.currentCalendar;
     });
     NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
-    NSInteger hour = [components hour];
-    NSInteger minute = [components minute];
-    NSInteger second = [components second];
+    short hour = [components hour];
+    short minute = [components minute];
+    short second = [components second];
     NSString *result = nil;
     if (tag.length) {
         result = [NSString stringWithFormat:@"[%02i:%02i:%02i] [%@] %@\n", hour, minute, second, tag, message];

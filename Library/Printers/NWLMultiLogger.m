@@ -7,7 +7,7 @@
 //
 
 #import "NWLMultiLogger.h"
-#import "NWLogging.h"
+#import "NWLCore.h"
 #import "NWLPrinter.h"
 
 
