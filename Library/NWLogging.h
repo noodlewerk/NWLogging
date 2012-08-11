@@ -7,3 +7,11 @@
 //
 
 #include "NWLCore.h"
+
+#import "NWLFilePrinter.h"
+#import "NWLMultiLogger.h"
+#import "NWLPrinter.h"
+#import "NWLTools.h"
+#import "NWLLineLogger.h"
+
+#import "NWLLogViewController.h"
