@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Logging Demo
+
+  Copyright (c) 2012 noodlewerk. All rights reserved.
+*/
+
+/* NWLogging */
+"NWLoggingEmail_Text" = "I send you the application logs, in the attachment of this email. I'm aware that personal data from this device may be present in these logs.";
+"NWLoggingEmail_Subject" = "Application Logs";
+"NWLoggingEmail_File" = "demo.log";
+"NWLoggingClear_Title" = "Clear Logs";
+"NWLoggingClear_Text" = "Are you sure you want to delete these logs?";
+"NWLoggingClear_Yes" = "Yes";
+"NWLoggingClear_No" = "No";
