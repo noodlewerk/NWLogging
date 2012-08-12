@@ -6,22 +6,35 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		B3B9C2A015D7D59B001483BA /* NWLoggingTouchUniversal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = B3B9C2A115D7D59B001483BA /* Build configuration list for PBXAggregateTarget "NWLoggingTouchUniversal" */;
+			buildPhases = (
+				B3B9C2A415D7D5A9001483BA /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = NWLoggingTouchUniversal;
+			productName = NWLoggingTouchUniversal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		B34EA70815D5007C007B041F /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
 		B34EA70B15D500BA007B041F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA70A15D500B6007B041F /* main.c */; };
 		B34EA70C15D500D1007B041F /* libNWLoggingCocoaStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6E815D4FFBA007B041F /* libNWLoggingCocoaStatic.a */; };
 		B34EA70E15D500E7007B041F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA70D15D500E7007B041F /* CoreFoundation.framework */; };
-		B384682A15D6B6C100780B6C /* NWLFilePrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681D15D6B6C100780B6C /* NWLFilePrinter.h */; };
+		B384682A15D6B6C100780B6C /* NWLFilePrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681D15D6B6C100780B6C /* NWLFilePrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384682B15D6B6C100780B6C /* NWLFilePrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384681E15D6B6C100780B6C /* NWLFilePrinter.m */; };
-		B384682C15D6B6C100780B6C /* NWLLineLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681F15D6B6C100780B6C /* NWLLineLogger.h */; };
+		B384682C15D6B6C100780B6C /* NWLLineLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681F15D6B6C100780B6C /* NWLLineLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384682D15D6B6C100780B6C /* NWLLineLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682015D6B6C100780B6C /* NWLLineLogger.m */; };
-		B384682E15D6B6C100780B6C /* NWLMultiLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682115D6B6C100780B6C /* NWLMultiLogger.h */; };
+		B384682E15D6B6C100780B6C /* NWLMultiLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682115D6B6C100780B6C /* NWLMultiLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384682F15D6B6C100780B6C /* NWLMultiLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682215D6B6C100780B6C /* NWLMultiLogger.m */; };
-		B384683015D6B6C100780B6C /* NWLPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682315D6B6C100780B6C /* NWLPrinter.h */; };
+		B384683015D6B6C100780B6C /* NWLPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682315D6B6C100780B6C /* NWLPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384683115D6B6C100780B6C /* NWLPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682415D6B6C100780B6C /* NWLPrinter.m */; };
-		B384683215D6B6C100780B6C /* NWLTools.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682515D6B6C100780B6C /* NWLTools.h */; };
+		B384683215D6B6C100780B6C /* NWLTools.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682515D6B6C100780B6C /* NWLTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384683315D6B6C100780B6C /* NWLTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682615D6B6C100780B6C /* NWLTools.m */; };
-		B384683415D6B6C100780B6C /* NWLLogViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682815D6B6C100780B6C /* NWLLogViewController.h */; };
 		B384685715D6BBC500780B6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684315D6BB8F00780B6C /* Foundation.framework */; };
 		B384687B15D6BBE100780B6C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B384686A15D6BBE100780B6C /* Localizable.strings */; };
 		B384687C15D6BBE100780B6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B384686B15D6BBE100780B6C /* main.m */; };
@@ -61,6 +74,16 @@
 		B3B9C29615D7CE12001483BA /* NWLObjectiveCppTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = B38468A415D6BC7900780B6C /* NWLObjectiveCppTest.mm */; };
 		B3B9C29715D7CE12001483BA /* NWLObjectiveCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B38468A615D6BC7900780B6C /* NWLObjectiveCTest.m */; };
 		B3B9C29A15D7CE25001483BA /* libNWLoggingTouchStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684215D6BB8F00780B6C /* libNWLoggingTouchStatic.a */; };
+		B3B9C2A515D7D72B001483BA /* NWLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B34EA6E015D4FEC7007B041F /* NWLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2A615D7D735001483BA /* NWLCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B34EA6DF15D4FEC7007B041F /* NWLCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2A815D7D767001483BA /* NWLCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B34EA6DF15D4FEC7007B041F /* NWLCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2A915D7D767001483BA /* NWLFilePrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681D15D6B6C100780B6C /* NWLFilePrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2AA15D7D767001483BA /* NWLLineLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681F15D6B6C100780B6C /* NWLLineLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2AB15D7D767001483BA /* NWLMultiLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682115D6B6C100780B6C /* NWLMultiLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2AC15D7D767001483BA /* NWLPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682315D6B6C100780B6C /* NWLPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2AD15D7D767001483BA /* NWLTools.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682515D6B6C100780B6C /* NWLTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2AE15D7D767001483BA /* NWLLogViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682815D6B6C100780B6C /* NWLLogViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3B9C2AF15D7D767001483BA /* NWLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = B34EA6E015D4FEC7007B041F /* NWLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,7 +183,7 @@
 		B384687815D6BBE100780B6C /* NWLPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLPerformanceViewController.m; sourceTree = "<group>"; };
 		B384687915D6BBE100780B6C /* NWLPersistentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLPersistentViewController.h; sourceTree = "<group>"; };
 		B384687A15D6BBE100780B6C /* NWLPersistentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLPersistentViewController.m; sourceTree = "<group>"; };
-		B384688915D6BC5700780B6C /* NWLoggingMacTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NWLoggingMacTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B384688915D6BC5700780B6C /* NWLoggingMacTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = NWLoggingMacTest.octest; path = NWLoggingCocoaTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B384688A15D6BC5700780B6C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		B384689C15D6BC7900780B6C /* NWLBasicTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLBasicTest.m; sourceTree = "<group>"; };
 		B384689E15D6BC7900780B6C /* NWLCompatibilityTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLCompatibilityTest.m; sourceTree = "<group>"; };
@@ -440,7 +463,23 @@
 				B384682E15D6B6C100780B6C /* NWLMultiLogger.h in Headers */,
 				B384683015D6B6C100780B6C /* NWLPrinter.h in Headers */,
 				B384683215D6B6C100780B6C /* NWLTools.h in Headers */,
-				B384683415D6B6C100780B6C /* NWLLogViewController.h in Headers */,
+				B3B9C2A515D7D72B001483BA /* NWLogging.h in Headers */,
+				B3B9C2A615D7D735001483BA /* NWLCore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B9C2A715D7D74C001483BA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B9C2A815D7D767001483BA /* NWLCore.h in Headers */,
+				B3B9C2A915D7D767001483BA /* NWLFilePrinter.h in Headers */,
+				B3B9C2AA15D7D767001483BA /* NWLLineLogger.h in Headers */,
+				B3B9C2AB15D7D767001483BA /* NWLMultiLogger.h in Headers */,
+				B3B9C2AC15D7D767001483BA /* NWLPrinter.h in Headers */,
+				B3B9C2AD15D7D767001483BA /* NWLTools.h in Headers */,
+				B3B9C2AE15D7D767001483BA /* NWLLogViewController.h in Headers */,
+				B3B9C2AF15D7D767001483BA /* NWLogging.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +528,7 @@
 				B384683E15D6BB8F00780B6C /* Sources */,
 				B384683F15D6BB8F00780B6C /* Frameworks */,
 				B384684015D6BB8F00780B6C /* CopyFiles */,
+				B3B9C2A715D7D74C001483BA /* Headers */,
 			);
 			buildRules = (
 			);
@@ -517,9 +557,9 @@
 			productReference = B384685315D6BBC500780B6C /* NWLoggingTouchDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B384688815D6BC5700780B6C /* NWLoggingMacTest */ = {
+		B384688815D6BC5700780B6C /* NWLoggingCocoaTest */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B384689715D6BC5700780B6C /* Build configuration list for PBXNativeTarget "NWLoggingMacTest" */;
+			buildConfigurationList = B384689715D6BC5700780B6C /* Build configuration list for PBXNativeTarget "NWLoggingCocoaTest" */;
 			buildPhases = (
 				B384688415D6BC5700780B6C /* Sources */,
 				B384688515D6BC5700780B6C /* Frameworks */,
@@ -531,7 +571,7 @@
 			dependencies = (
 				B3AC2E1C15D7CBEB003F4F88 /* PBXTargetDependency */,
 			);
-			name = NWLoggingMacTest;
+			name = NWLoggingCocoaTest;
 			productName = NWLoggingMacTest;
 			productReference = B384688915D6BC5700780B6C /* NWLoggingMacTest.octest */;
 			productType = "com.apple.product-type.bundle";
@@ -579,8 +619,9 @@
 				B384684115D6BB8F00780B6C /* NWLoggingTouchStatic */,
 				B34EA6FD15D4FFEF007B041F /* NWLoggingMacDemo */,
 				B384685215D6BBC500780B6C /* NWLoggingTouchDemo */,
-				B384688815D6BC5700780B6C /* NWLoggingMacTest */,
+				B384688815D6BC5700780B6C /* NWLoggingCocoaTest */,
 				B3AC2E2215D7CD71003F4F88 /* NWLoggingTouchTest */,
+				B3B9C2A015D7D59B001483BA /* NWLoggingTouchUniversal */,
 			);
 		};
 /* End PBXProject section */
@@ -636,6 +677,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		B3B9C2A415D7D5A9001483BA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Removing existing producs\"\nrm -rf \"${SRCROOT}/libNWLoggingTouch.a\"\nrm -rf \"${SRCROOT}/build\"\n\necho \"Building iphoneos and iphonesimulator\"\nxcodebuild -project \"${SRCROOT}/NWLogging.xcodeproj\" -target NWLoggingTouchStatic -configuration Release -arch \"armv6 armv7\" -sdk iphoneos\nxcodebuild -project \"${SRCROOT}/NWLogging.xcodeproj\" -target NWLoggingTouchStatic -configuration Release -arch i386 -sdk iphonesimulator\n\necho \"Lipoing thing together\"\nlipo -create -output \"${SRCROOT}/libNWLoggingTouch.a\" \"${SRCROOT}/build/Release-iphoneos/libNWLoggingTouchStatic.a\" \"${SRCROOT}/build/Release-iphonesimulator/libNWLoggingTouchStatic.a\"\n\necho \"Cleaning up\"\nrm -rf \"${SRCROOT}/build\"\n\necho \"Done\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1121,6 +1175,20 @@
 			};
 			name = Release;
 		};
+		B3B9C2A215D7D59B001483BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B3B9C2A315D7D59B001483BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1169,7 +1237,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B384689715D6BC5700780B6C /* Build configuration list for PBXNativeTarget "NWLoggingMacTest" */ = {
+		B384689715D6BC5700780B6C /* Build configuration list for PBXNativeTarget "NWLoggingCocoaTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B384689815D6BC5700780B6C /* Debug */,
@@ -1183,6 +1251,15 @@
 			buildConfigurations = (
 				B3AC2E3215D7CD71003F4F88 /* Debug */,
 				B3AC2E3315D7CD71003F4F88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3B9C2A115D7D59B001483BA /* Build configuration list for PBXAggregateTarget "NWLoggingTouchUniversal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3B9C2A215D7D59B001483BA /* Debug */,
+				B3B9C2A315D7D59B001483BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
