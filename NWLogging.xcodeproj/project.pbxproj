@@ -7,12 +7,92 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B34EA6EC15D4FFBA007B041F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6EB15D4FFBA007B041F /* Cocoa.framework */; };
 		B34EA70815D5007C007B041F /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
 		B34EA70B15D500BA007B041F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA70A15D500B6007B041F /* main.c */; };
 		B34EA70C15D500D1007B041F /* libNWLoggingCocoaStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6E815D4FFBA007B041F /* libNWLoggingCocoaStatic.a */; };
 		B34EA70E15D500E7007B041F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA70D15D500E7007B041F /* CoreFoundation.framework */; };
+		B384682A15D6B6C100780B6C /* NWLFilePrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681D15D6B6C100780B6C /* NWLFilePrinter.h */; };
+		B384682B15D6B6C100780B6C /* NWLFilePrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384681E15D6B6C100780B6C /* NWLFilePrinter.m */; };
+		B384682C15D6B6C100780B6C /* NWLLineLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681F15D6B6C100780B6C /* NWLLineLogger.h */; };
+		B384682D15D6B6C100780B6C /* NWLLineLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682015D6B6C100780B6C /* NWLLineLogger.m */; };
+		B384682E15D6B6C100780B6C /* NWLMultiLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682115D6B6C100780B6C /* NWLMultiLogger.h */; };
+		B384682F15D6B6C100780B6C /* NWLMultiLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682215D6B6C100780B6C /* NWLMultiLogger.m */; };
+		B384683015D6B6C100780B6C /* NWLPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682315D6B6C100780B6C /* NWLPrinter.h */; };
+		B384683115D6B6C100780B6C /* NWLPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682415D6B6C100780B6C /* NWLPrinter.m */; };
+		B384683215D6B6C100780B6C /* NWLTools.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682515D6B6C100780B6C /* NWLTools.h */; };
+		B384683315D6B6C100780B6C /* NWLTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682615D6B6C100780B6C /* NWLTools.m */; };
+		B384683415D6B6C100780B6C /* NWLLogViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682815D6B6C100780B6C /* NWLLogViewController.h */; };
+		B384685715D6BBC500780B6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684315D6BB8F00780B6C /* Foundation.framework */; };
+		B384687B15D6BBE100780B6C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B384686A15D6BBE100780B6C /* Localizable.strings */; };
+		B384687C15D6BBE100780B6C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B384686B15D6BBE100780B6C /* main.m */; };
+		B384687D15D6BBE100780B6C /* NWLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B384686D15D6BBE100780B6C /* NWLAppDelegate.m */; };
+		B384687F15D6BBE100780B6C /* NWLIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687215D6BBE100780B6C /* NWLIntroViewController.m */; };
+		B384688015D6BBE100780B6C /* NWLMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687415D6BBE100780B6C /* NWLMenuViewController.m */; };
+		B384688115D6BBE100780B6C /* NWLMultiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687615D6BBE100780B6C /* NWLMultiViewController.m */; };
+		B384688215D6BBE100780B6C /* NWLPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687815D6BBE100780B6C /* NWLPerformanceViewController.m */; };
+		B384688315D6BBE100780B6C /* NWLPersistentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687A15D6BBE100780B6C /* NWLPersistentViewController.m */; };
+		B384688B15D6BC5700780B6C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384688A15D6BC5700780B6C /* SenTestingKit.framework */; };
+		B384688C15D6BC5700780B6C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6EB15D4FFBA007B041F /* Cocoa.framework */; };
+		B38468A915D6BC7900780B6C /* NWLBasicTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B384689C15D6BC7900780B6C /* NWLBasicTest.m */; };
+		B38468AA15D6BC7900780B6C /* NWLCompatibilityTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B384689E15D6BC7900780B6C /* NWLCompatibilityTest.m */; };
+		B38468AB15D6BC7900780B6C /* NWLCppTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B384689F15D6BC7900780B6C /* NWLCppTest.cpp */; };
+		B38468AC15D6BC7900780B6C /* NWLCTest.c in Sources */ = {isa = PBXBuildFile; fileRef = B38468A115D6BC7900780B6C /* NWLCTest.c */; };
+		B38468AD15D6BC7900780B6C /* NWLObjectiveCppTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = B38468A415D6BC7900780B6C /* NWLObjectiveCppTest.mm */; };
+		B38468AE15D6BC7900780B6C /* NWLObjectiveCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B38468A615D6BC7900780B6C /* NWLObjectiveCTest.m */; };
+		B39DC10915D7C3F900374BE5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC10415D7C3A400374BE5 /* UIKit.framework */; };
+		B39DC10A15D7C3FF00374BE5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC10215D7C39D00374BE5 /* CoreGraphics.framework */; };
+		B39DC10C15D7C4FB00374BE5 /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
+		B39DC11215D7C51B00374BE5 /* NWLFilePrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384681E15D6B6C100780B6C /* NWLFilePrinter.m */; };
+		B39DC11315D7C51B00374BE5 /* NWLLineLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682015D6B6C100780B6C /* NWLLineLogger.m */; };
+		B39DC11415D7C51B00374BE5 /* NWLMultiLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682215D6B6C100780B6C /* NWLMultiLogger.m */; };
+		B39DC11515D7C51B00374BE5 /* NWLPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682415D6B6C100780B6C /* NWLPrinter.m */; };
+		B39DC11615D7C51B00374BE5 /* NWLTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682615D6B6C100780B6C /* NWLTools.m */; };
+		B39DC11715D7C52000374BE5 /* NWLLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682915D6B6C100780B6C /* NWLLogViewController.m */; };
+		B3AC2E1715D7C582003F4F88 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC11815D7C54500374BE5 /* MessageUI.framework */; };
+		B3AC2E1915D7C598003F4F88 /* libNWLoggingTouchStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684215D6BB8F00780B6C /* libNWLoggingTouchStatic.a */; };
+		B3AC2E1D15D7CBFC003F4F88 /* libNWLoggingCocoaStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6E815D4FFBA007B041F /* libNWLoggingCocoaStatic.a */; };
+		B3AC2E2415D7CD71003F4F88 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384688A15D6BC5700780B6C /* SenTestingKit.framework */; };
+		B3AC2E2515D7CD71003F4F88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC10415D7C3A400374BE5 /* UIKit.framework */; };
+		B3AC2E2615D7CD71003F4F88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684315D6BB8F00780B6C /* Foundation.framework */; };
+		B3B9C29115D7CE05001483BA /* NWLBasicTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B384689C15D6BC7900780B6C /* NWLBasicTest.m */; };
+		B3B9C29315D7CE12001483BA /* NWLCompatibilityTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B384689E15D6BC7900780B6C /* NWLCompatibilityTest.m */; };
+		B3B9C29415D7CE12001483BA /* NWLCppTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B384689F15D6BC7900780B6C /* NWLCppTest.cpp */; };
+		B3B9C29515D7CE12001483BA /* NWLCTest.c in Sources */ = {isa = PBXBuildFile; fileRef = B38468A115D6BC7900780B6C /* NWLCTest.c */; };
+		B3B9C29615D7CE12001483BA /* NWLObjectiveCppTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = B38468A415D6BC7900780B6C /* NWLObjectiveCppTest.mm */; };
+		B3B9C29715D7CE12001483BA /* NWLObjectiveCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B38468A615D6BC7900780B6C /* NWLObjectiveCTest.m */; };
+		B3B9C29A15D7CE25001483BA /* libNWLoggingTouchStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684215D6BB8F00780B6C /* libNWLoggingTouchStatic.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B39DC0FF15D6BEBF00374BE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B34EA6CB15D4FDE4007B041F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B34EA6E715D4FFBA007B041F;
+			remoteInfo = NWLoggingCocoaStatic;
+		};
+		B39DC10615D7C3AB00374BE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B34EA6CB15D4FDE4007B041F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B384684115D6BB8F00780B6C;
+			remoteInfo = NWLoggingTouchStatic;
+		};
+		B3AC2E1B15D7CBEB003F4F88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B34EA6CB15D4FDE4007B041F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B34EA6E715D4FFBA007B041F;
+			remoteInfo = NWLoggingCocoaStatic;
+		};
+		B3B9C29815D7CE21001483BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B34EA6CB15D4FDE4007B041F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B384684115D6BB8F00780B6C;
+			remoteInfo = NWLoggingTouchStatic;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		B34EA6FC15D4FFEF007B041F /* CopyFiles */ = {
@@ -24,6 +104,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		B384684015D6BB8F00780B6C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +120,7 @@
 		B34EA6DE15D4FEC7007B041F /* NWLCore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NWLCore.c; sourceTree = "<group>"; };
 		B34EA6DF15D4FEC7007B041F /* NWLCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NWLCore.h; sourceTree = "<group>"; };
 		B34EA6E015D4FEC7007B041F /* NWLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NWLogging.h; sourceTree = "<group>"; };
-		B34EA6E115D4FEC7007B041F /* NWLoggingCocoa-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NWLoggingCocoa-Prefix.pch"; sourceTree = "<group>"; };
-		B34EA6E215D4FEC7007B041F /* NWLoggingTouch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NWLoggingTouch-Prefix.pch"; sourceTree = "<group>"; };
+		B34EA6E215D4FEC7007B041F /* NWLogging-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NWLogging-Prefix.pch"; sourceTree = "<group>"; };
 		B34EA6E815D4FFBA007B041F /* libNWLoggingCocoaStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNWLoggingCocoaStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34EA6EB15D4FFBA007B041F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B34EA6EE15D4FFBA007B041F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -41,6 +129,55 @@
 		B34EA6FE15D4FFEF007B041F /* NWLoggingMacDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NWLoggingMacDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34EA70A15D500B6007B041F /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		B34EA70D15D500E7007B041F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		B384681D15D6B6C100780B6C /* NWLFilePrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLFilePrinter.h; sourceTree = "<group>"; };
+		B384681E15D6B6C100780B6C /* NWLFilePrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLFilePrinter.m; sourceTree = "<group>"; };
+		B384681F15D6B6C100780B6C /* NWLLineLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLineLogger.h; sourceTree = "<group>"; };
+		B384682015D6B6C100780B6C /* NWLLineLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLLineLogger.m; sourceTree = "<group>"; };
+		B384682115D6B6C100780B6C /* NWLMultiLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLMultiLogger.h; sourceTree = "<group>"; };
+		B384682215D6B6C100780B6C /* NWLMultiLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLMultiLogger.m; sourceTree = "<group>"; };
+		B384682315D6B6C100780B6C /* NWLPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLPrinter.h; sourceTree = "<group>"; };
+		B384682415D6B6C100780B6C /* NWLPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLPrinter.m; sourceTree = "<group>"; };
+		B384682515D6B6C100780B6C /* NWLTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLTools.h; sourceTree = "<group>"; };
+		B384682615D6B6C100780B6C /* NWLTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLTools.m; sourceTree = "<group>"; };
+		B384682815D6B6C100780B6C /* NWLLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLogViewController.h; sourceTree = "<group>"; };
+		B384682915D6B6C100780B6C /* NWLLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLLogViewController.m; sourceTree = "<group>"; };
+		B384684215D6BB8F00780B6C /* libNWLoggingTouchStatic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNWLoggingTouchStatic.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B384684315D6BB8F00780B6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B384685315D6BBC500780B6C /* NWLoggingTouchDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NWLoggingTouchDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B384686A15D6BBE100780B6C /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		B384686B15D6BBE100780B6C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B384686C15D6BBE100780B6C /* NWLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLAppDelegate.h; sourceTree = "<group>"; };
+		B384686D15D6BBE100780B6C /* NWLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLAppDelegate.m; sourceTree = "<group>"; };
+		B384686E15D6BBE100780B6C /* NWLoggingTouchDemo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NWLoggingTouchDemo-Info.plist"; sourceTree = "<group>"; };
+		B384686F15D6BBE100780B6C /* NWLoggingTouchDemo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NWLoggingTouchDemo-Prefix.pch"; sourceTree = "<group>"; };
+		B384687115D6BBE100780B6C /* NWLIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLIntroViewController.h; sourceTree = "<group>"; };
+		B384687215D6BBE100780B6C /* NWLIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLIntroViewController.m; sourceTree = "<group>"; };
+		B384687315D6BBE100780B6C /* NWLMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLMenuViewController.h; sourceTree = "<group>"; };
+		B384687415D6BBE100780B6C /* NWLMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLMenuViewController.m; sourceTree = "<group>"; };
+		B384687515D6BBE100780B6C /* NWLMultiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLMultiViewController.h; sourceTree = "<group>"; };
+		B384687615D6BBE100780B6C /* NWLMultiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLMultiViewController.m; sourceTree = "<group>"; };
+		B384687715D6BBE100780B6C /* NWLPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLPerformanceViewController.h; sourceTree = "<group>"; };
+		B384687815D6BBE100780B6C /* NWLPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLPerformanceViewController.m; sourceTree = "<group>"; };
+		B384687915D6BBE100780B6C /* NWLPersistentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLPersistentViewController.h; sourceTree = "<group>"; };
+		B384687A15D6BBE100780B6C /* NWLPersistentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLPersistentViewController.m; sourceTree = "<group>"; };
+		B384688915D6BC5700780B6C /* NWLoggingMacTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NWLoggingMacTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B384688A15D6BC5700780B6C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		B384689C15D6BC7900780B6C /* NWLBasicTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLBasicTest.m; sourceTree = "<group>"; };
+		B384689E15D6BC7900780B6C /* NWLCompatibilityTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLCompatibilityTest.m; sourceTree = "<group>"; };
+		B384689F15D6BC7900780B6C /* NWLCppTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NWLCppTest.cpp; sourceTree = "<group>"; };
+		B38468A015D6BC7900780B6C /* NWLCppTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLCppTest.h; sourceTree = "<group>"; };
+		B38468A115D6BC7900780B6C /* NWLCTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NWLCTest.c; sourceTree = "<group>"; };
+		B38468A215D6BC7900780B6C /* NWLCTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLCTest.h; sourceTree = "<group>"; };
+		B38468A315D6BC7900780B6C /* NWLObjectiveCppTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLObjectiveCppTest.h; sourceTree = "<group>"; };
+		B38468A415D6BC7900780B6C /* NWLObjectiveCppTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NWLObjectiveCppTest.mm; sourceTree = "<group>"; };
+		B38468A515D6BC7900780B6C /* NWLObjectiveCTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLObjectiveCTest.h; sourceTree = "<group>"; };
+		B38468A615D6BC7900780B6C /* NWLObjectiveCTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLObjectiveCTest.m; sourceTree = "<group>"; };
+		B38468A715D6BC7900780B6C /* NWLoggingTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NWLoggingTest-Info.plist"; sourceTree = "<group>"; };
+		B39DC10215D7C39D00374BE5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		B39DC10415D7C3A400374BE5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		B39DC11815D7C54500374BE5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		B3AC2E1A15D7CBA0003F4F88 /* NWLoggingTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NWLoggingTest-Prefix.pch"; sourceTree = "<group>"; };
+		B3AC2E2315D7CD71003F4F88 /* NWLoggingTouchTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NWLoggingTouchTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +185,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B34EA6EC15D4FFBA007B041F /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +197,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B384683F15D6BB8F00780B6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B384685015D6BBC500780B6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B384685715D6BBC500780B6C /* Foundation.framework in Frameworks */,
+				B39DC10915D7C3F900374BE5 /* UIKit.framework in Frameworks */,
+				B39DC10A15D7C3FF00374BE5 /* CoreGraphics.framework in Frameworks */,
+				B3AC2E1715D7C582003F4F88 /* MessageUI.framework in Frameworks */,
+				B3AC2E1915D7C598003F4F88 /* libNWLoggingTouchStatic.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B384688515D6BC5700780B6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B384688B15D6BC5700780B6C /* SenTestingKit.framework in Frameworks */,
+				B384688C15D6BC5700780B6C /* Cocoa.framework in Frameworks */,
+				B3AC2E1D15D7CBFC003F4F88 /* libNWLoggingCocoaStatic.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3AC2E1F15D7CD71003F4F88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3AC2E2415D7CD71003F4F88 /* SenTestingKit.framework in Frameworks */,
+				B3AC2E2515D7CD71003F4F88 /* UIKit.framework in Frameworks */,
+				B3AC2E2615D7CD71003F4F88 /* Foundation.framework in Frameworks */,
+				B3B9C29A15D7CE25001483BA /* libNWLoggingTouchStatic.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -69,6 +245,8 @@
 			children = (
 				B34EA6DA15D4FE4E007B041F /* README.md */,
 				B34EA6DC15D4FEC7007B041F /* Library */,
+				B384689A15D6BC7900780B6C /* Test */,
+				B384686915D6BBE100780B6C /* TouchDemo */,
 				B34EA70915D500B6007B041F /* MacDemo */,
 				B34EA6EA15D4FFBA007B041F /* Frameworks */,
 				B34EA6E915D4FFBA007B041F /* Products */,
@@ -79,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				B34EA6DD15D4FEC7007B041F /* Core */,
+				B384681C15D6B6C100780B6C /* Printers */,
+				B384682715D6B6C100780B6C /* UI */,
 				B34EA6E315D4FED1007B041F /* Supporting Files */,
 			);
 			path = Library;
@@ -97,8 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				B34EA6E015D4FEC7007B041F /* NWLogging.h */,
-				B34EA6E115D4FEC7007B041F /* NWLoggingCocoa-Prefix.pch */,
-				B34EA6E215D4FEC7007B041F /* NWLoggingTouch-Prefix.pch */,
+				B34EA6E215D4FEC7007B041F /* NWLogging-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -108,6 +287,10 @@
 			children = (
 				B34EA6E815D4FFBA007B041F /* libNWLoggingCocoaStatic.a */,
 				B34EA6FE15D4FFEF007B041F /* NWLoggingMacDemo */,
+				B384684215D6BB8F00780B6C /* libNWLoggingTouchStatic.a */,
+				B384685315D6BBC500780B6C /* NWLoggingTouchDemo.app */,
+				B384688915D6BC5700780B6C /* NWLoggingMacTest.octest */,
+				B3AC2E2315D7CD71003F4F88 /* NWLoggingTouchTest.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,8 +298,13 @@
 		B34EA6EA15D4FFBA007B041F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B39DC11815D7C54500374BE5 /* MessageUI.framework */,
+				B39DC10415D7C3A400374BE5 /* UIKit.framework */,
+				B39DC10215D7C39D00374BE5 /* CoreGraphics.framework */,
 				B34EA70D15D500E7007B041F /* CoreFoundation.framework */,
 				B34EA6EB15D4FFBA007B041F /* Cocoa.framework */,
+				B384684315D6BB8F00780B6C /* Foundation.framework */,
+				B384688A15D6BC5700780B6C /* SenTestingKit.framework */,
 				B34EA6ED15D4FFBA007B041F /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -140,6 +328,106 @@
 			path = MacDemo;
 			sourceTree = "<group>";
 		};
+		B384681C15D6B6C100780B6C /* Printers */ = {
+			isa = PBXGroup;
+			children = (
+				B384681D15D6B6C100780B6C /* NWLFilePrinter.h */,
+				B384681E15D6B6C100780B6C /* NWLFilePrinter.m */,
+				B384681F15D6B6C100780B6C /* NWLLineLogger.h */,
+				B384682015D6B6C100780B6C /* NWLLineLogger.m */,
+				B384682115D6B6C100780B6C /* NWLMultiLogger.h */,
+				B384682215D6B6C100780B6C /* NWLMultiLogger.m */,
+				B384682315D6B6C100780B6C /* NWLPrinter.h */,
+				B384682415D6B6C100780B6C /* NWLPrinter.m */,
+				B384682515D6B6C100780B6C /* NWLTools.h */,
+				B384682615D6B6C100780B6C /* NWLTools.m */,
+			);
+			path = Printers;
+			sourceTree = "<group>";
+		};
+		B384682715D6B6C100780B6C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B384682815D6B6C100780B6C /* NWLLogViewController.h */,
+				B384682915D6B6C100780B6C /* NWLLogViewController.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B384686915D6BBE100780B6C /* TouchDemo */ = {
+			isa = PBXGroup;
+			children = (
+				B384687015D6BBE100780B6C /* ViewControllers */,
+				B39DC0FA15D6BE5600374BE5 /* Supporting Files */,
+			);
+			path = TouchDemo;
+			sourceTree = "<group>";
+		};
+		B384687015D6BBE100780B6C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B384687115D6BBE100780B6C /* NWLIntroViewController.h */,
+				B384687215D6BBE100780B6C /* NWLIntroViewController.m */,
+				B384687315D6BBE100780B6C /* NWLMenuViewController.h */,
+				B384687415D6BBE100780B6C /* NWLMenuViewController.m */,
+				B384687515D6BBE100780B6C /* NWLMultiViewController.h */,
+				B384687615D6BBE100780B6C /* NWLMultiViewController.m */,
+				B384687715D6BBE100780B6C /* NWLPerformanceViewController.h */,
+				B384687815D6BBE100780B6C /* NWLPerformanceViewController.m */,
+				B384687915D6BBE100780B6C /* NWLPersistentViewController.h */,
+				B384687A15D6BBE100780B6C /* NWLPersistentViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B384689A15D6BC7900780B6C /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				B384689B15D6BC7900780B6C /* Basic */,
+				B384689D15D6BC7900780B6C /* Compatibility */,
+				B38468A715D6BC7900780B6C /* NWLoggingTest-Info.plist */,
+				B3AC2E1A15D7CBA0003F4F88 /* NWLoggingTest-Prefix.pch */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		B384689B15D6BC7900780B6C /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				B384689C15D6BC7900780B6C /* NWLBasicTest.m */,
+			);
+			path = Basic;
+			sourceTree = "<group>";
+		};
+		B384689D15D6BC7900780B6C /* Compatibility */ = {
+			isa = PBXGroup;
+			children = (
+				B384689E15D6BC7900780B6C /* NWLCompatibilityTest.m */,
+				B384689F15D6BC7900780B6C /* NWLCppTest.cpp */,
+				B38468A015D6BC7900780B6C /* NWLCppTest.h */,
+				B38468A115D6BC7900780B6C /* NWLCTest.c */,
+				B38468A215D6BC7900780B6C /* NWLCTest.h */,
+				B38468A315D6BC7900780B6C /* NWLObjectiveCppTest.h */,
+				B38468A415D6BC7900780B6C /* NWLObjectiveCppTest.mm */,
+				B38468A515D6BC7900780B6C /* NWLObjectiveCTest.h */,
+				B38468A615D6BC7900780B6C /* NWLObjectiveCTest.m */,
+			);
+			path = Compatibility;
+			sourceTree = "<group>";
+		};
+		B39DC0FA15D6BE5600374BE5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B384686B15D6BBE100780B6C /* main.m */,
+				B384686C15D6BBE100780B6C /* NWLAppDelegate.h */,
+				B384686D15D6BBE100780B6C /* NWLAppDelegate.m */,
+				B384686E15D6BBE100780B6C /* NWLoggingTouchDemo-Info.plist */,
+				B384686F15D6BBE100780B6C /* NWLoggingTouchDemo-Prefix.pch */,
+				B384686A15D6BBE100780B6C /* Localizable.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -147,6 +435,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B384682A15D6B6C100780B6C /* NWLFilePrinter.h in Headers */,
+				B384682C15D6B6C100780B6C /* NWLLineLogger.h in Headers */,
+				B384682E15D6B6C100780B6C /* NWLMultiLogger.h in Headers */,
+				B384683015D6B6C100780B6C /* NWLPrinter.h in Headers */,
+				B384683215D6B6C100780B6C /* NWLTools.h in Headers */,
+				B384683415D6B6C100780B6C /* NWLLogViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,11 +475,85 @@
 			buildRules = (
 			);
 			dependencies = (
+				B39DC10015D6BEBF00374BE5 /* PBXTargetDependency */,
 			);
 			name = NWLoggingMacDemo;
 			productName = NWLoggingMacDemo;
 			productReference = B34EA6FE15D4FFEF007B041F /* NWLoggingMacDemo */;
 			productType = "com.apple.product-type.tool";
+		};
+		B384684115D6BB8F00780B6C /* NWLoggingTouchStatic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B384684C15D6BB8F00780B6C /* Build configuration list for PBXNativeTarget "NWLoggingTouchStatic" */;
+			buildPhases = (
+				B384683E15D6BB8F00780B6C /* Sources */,
+				B384683F15D6BB8F00780B6C /* Frameworks */,
+				B384684015D6BB8F00780B6C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NWLoggingTouchStatic;
+			productName = NWLoggingTouchStatic;
+			productReference = B384684215D6BB8F00780B6C /* libNWLoggingTouchStatic.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B384685215D6BBC500780B6C /* NWLoggingTouchDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B384686615D6BBC500780B6C /* Build configuration list for PBXNativeTarget "NWLoggingTouchDemo" */;
+			buildPhases = (
+				B384684F15D6BBC500780B6C /* Sources */,
+				B384685015D6BBC500780B6C /* Frameworks */,
+				B384685115D6BBC500780B6C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B39DC10715D7C3AB00374BE5 /* PBXTargetDependency */,
+			);
+			name = NWLoggingTouchDemo;
+			productName = NWLoggingTouchDemo;
+			productReference = B384685315D6BBC500780B6C /* NWLoggingTouchDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B384688815D6BC5700780B6C /* NWLoggingMacTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B384689715D6BC5700780B6C /* Build configuration list for PBXNativeTarget "NWLoggingMacTest" */;
+			buildPhases = (
+				B384688415D6BC5700780B6C /* Sources */,
+				B384688515D6BC5700780B6C /* Frameworks */,
+				B384688615D6BC5700780B6C /* Resources */,
+				B384688715D6BC5700780B6C /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3AC2E1C15D7CBEB003F4F88 /* PBXTargetDependency */,
+			);
+			name = NWLoggingMacTest;
+			productName = NWLoggingMacTest;
+			productReference = B384688915D6BC5700780B6C /* NWLoggingMacTest.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		B3AC2E2215D7CD71003F4F88 /* NWLoggingTouchTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3AC2E3115D7CD71003F4F88 /* Build configuration list for PBXNativeTarget "NWLoggingTouchTest" */;
+			buildPhases = (
+				B3AC2E1E15D7CD71003F4F88 /* Sources */,
+				B3AC2E1F15D7CD71003F4F88 /* Frameworks */,
+				B3AC2E2015D7CD71003F4F88 /* Resources */,
+				B3AC2E2115D7CD71003F4F88 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3B9C29915D7CE21001483BA /* PBXTargetDependency */,
+			);
+			name = NWLoggingTouchTest;
+			productName = NWLoggingTouchTest;
+			productReference = B3AC2E2315D7CD71003F4F88 /* NWLoggingTouchTest.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -208,10 +576,68 @@
 			projectRoot = "";
 			targets = (
 				B34EA6E715D4FFBA007B041F /* NWLoggingCocoaStatic */,
+				B384684115D6BB8F00780B6C /* NWLoggingTouchStatic */,
 				B34EA6FD15D4FFEF007B041F /* NWLoggingMacDemo */,
+				B384685215D6BBC500780B6C /* NWLoggingTouchDemo */,
+				B384688815D6BC5700780B6C /* NWLoggingMacTest */,
+				B3AC2E2215D7CD71003F4F88 /* NWLoggingTouchTest */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B384685115D6BBC500780B6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B384687B15D6BBE100780B6C /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B384688615D6BC5700780B6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3AC2E2015D7CD71003F4F88 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B384688715D6BC5700780B6C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		B3AC2E2115D7CD71003F4F88 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B34EA6E415D4FFBA007B041F /* Sources */ = {
@@ -219,6 +645,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B34EA70815D5007C007B041F /* NWLCore.c in Sources */,
+				B384682B15D6B6C100780B6C /* NWLFilePrinter.m in Sources */,
+				B384682D15D6B6C100780B6C /* NWLLineLogger.m in Sources */,
+				B384682F15D6B6C100780B6C /* NWLMultiLogger.m in Sources */,
+				B384683115D6B6C100780B6C /* NWLPrinter.m in Sources */,
+				B384683315D6B6C100780B6C /* NWLTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +661,84 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B384683E15D6BB8F00780B6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B39DC10C15D7C4FB00374BE5 /* NWLCore.c in Sources */,
+				B39DC11215D7C51B00374BE5 /* NWLFilePrinter.m in Sources */,
+				B39DC11315D7C51B00374BE5 /* NWLLineLogger.m in Sources */,
+				B39DC11415D7C51B00374BE5 /* NWLMultiLogger.m in Sources */,
+				B39DC11515D7C51B00374BE5 /* NWLPrinter.m in Sources */,
+				B39DC11615D7C51B00374BE5 /* NWLTools.m in Sources */,
+				B39DC11715D7C52000374BE5 /* NWLLogViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B384684F15D6BBC500780B6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B384687C15D6BBE100780B6C /* main.m in Sources */,
+				B384687D15D6BBE100780B6C /* NWLAppDelegate.m in Sources */,
+				B384687F15D6BBE100780B6C /* NWLIntroViewController.m in Sources */,
+				B384688015D6BBE100780B6C /* NWLMenuViewController.m in Sources */,
+				B384688115D6BBE100780B6C /* NWLMultiViewController.m in Sources */,
+				B384688215D6BBE100780B6C /* NWLPerformanceViewController.m in Sources */,
+				B384688315D6BBE100780B6C /* NWLPersistentViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B384688415D6BC5700780B6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B38468A915D6BC7900780B6C /* NWLBasicTest.m in Sources */,
+				B38468AA15D6BC7900780B6C /* NWLCompatibilityTest.m in Sources */,
+				B38468AB15D6BC7900780B6C /* NWLCppTest.cpp in Sources */,
+				B38468AC15D6BC7900780B6C /* NWLCTest.c in Sources */,
+				B38468AD15D6BC7900780B6C /* NWLObjectiveCppTest.mm in Sources */,
+				B38468AE15D6BC7900780B6C /* NWLObjectiveCTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3AC2E1E15D7CD71003F4F88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B9C29115D7CE05001483BA /* NWLBasicTest.m in Sources */,
+				B3B9C29315D7CE12001483BA /* NWLCompatibilityTest.m in Sources */,
+				B3B9C29415D7CE12001483BA /* NWLCppTest.cpp in Sources */,
+				B3B9C29515D7CE12001483BA /* NWLCTest.c in Sources */,
+				B3B9C29615D7CE12001483BA /* NWLObjectiveCppTest.mm in Sources */,
+				B3B9C29715D7CE12001483BA /* NWLObjectiveCTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B39DC10015D6BEBF00374BE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B34EA6E715D4FFBA007B041F /* NWLoggingCocoaStatic */;
+			targetProxy = B39DC0FF15D6BEBF00374BE5 /* PBXContainerItemProxy */;
+		};
+		B39DC10715D7C3AB00374BE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B384684115D6BB8F00780B6C /* NWLoggingTouchStatic */;
+			targetProxy = B39DC10615D7C3AB00374BE5 /* PBXContainerItemProxy */;
+		};
+		B3AC2E1C15D7CBEB003F4F88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B34EA6E715D4FFBA007B041F /* NWLoggingCocoaStatic */;
+			targetProxy = B3AC2E1B15D7CBEB003F4F88 /* PBXContainerItemProxy */;
+		};
+		B3B9C29915D7CE21001483BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B384684115D6BB8F00780B6C /* NWLoggingTouchStatic */;
+			targetProxy = B3B9C29815D7CE21001483BA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B34EA6D015D4FDE4007B041F /* Debug */ = {
@@ -259,7 +767,7 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Library/NWLoggingCocoa-Prefix.pch";
+				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -269,7 +777,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -289,12 +797,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Library/NWLoggingCocoa-Prefix.pch";
+				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -351,6 +859,268 @@
 			};
 			name = Release;
 		};
+		B384684D15D6BB8F00780B6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/NWLoggingTouchStatic.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B384684E15D6BB8F00780B6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/NWLoggingTouchStatic.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B384686715D6BBC500780B6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TouchDemo/NWLoggingTouchDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "TouchDemo/NWLoggingTouchDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		B384686815D6BBC500780B6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TouchDemo/NWLoggingTouchDemo-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "TouchDemo/NWLoggingTouchDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		B384689815D6BC5700780B6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"NWL_LIB=NWLoggingTest",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Test/NWLoggingTest-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		B384689915D6BC5700780B6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Test/NWLoggingTest-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		B3AC2E3215D7CD71003F4F88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"NWL_LIB=NWLoggingTest",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Test/NWLoggingTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		B3AC2E3315D7CD71003F4F88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Test/NWLoggingTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -370,6 +1140,7 @@
 				B34EA6F915D4FFBA007B041F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B34EA70515D4FFEF007B041F /* Build configuration list for PBXNativeTarget "NWLoggingMacDemo" */ = {
 			isa = XCConfigurationList;
@@ -378,6 +1149,43 @@
 				B34EA70715D4FFEF007B041F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B384684C15D6BB8F00780B6C /* Build configuration list for PBXNativeTarget "NWLoggingTouchStatic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B384684D15D6BB8F00780B6C /* Debug */,
+				B384684E15D6BB8F00780B6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B384686615D6BBC500780B6C /* Build configuration list for PBXNativeTarget "NWLoggingTouchDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B384686715D6BBC500780B6C /* Debug */,
+				B384686815D6BBC500780B6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B384689715D6BC5700780B6C /* Build configuration list for PBXNativeTarget "NWLoggingMacTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B384689815D6BC5700780B6C /* Debug */,
+				B384689915D6BC5700780B6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3AC2E3115D7CD71003F4F88 /* Build configuration list for PBXNativeTarget "NWLoggingTouchTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3AC2E3215D7CD71003F4F88 /* Debug */,
+				B3AC2E3315D7CD71003F4F88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

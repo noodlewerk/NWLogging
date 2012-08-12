@@ -26,15 +26,15 @@
 
     NWLog(@"");
     STAssertEqualObjects(NWLLineLogger.message, @"", @"");
-    
+
     NWLog(@"testNWLLog");
     STAssertEqualObjects(NWLLineLogger.tag, @"", @"");
-    STAssertEqualObjects(NWLLineLogger.lib, @"LoggingTest", @"");
+    STAssertEqualObjects(NWLLineLogger.lib, @"NWLoggingTest", @"");
     STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
-    STAssertEquals(NWLLineLogger.line, 30u, @"");
+    STAssertEquals(NWLLineLogger.line, (NSUInteger)30, @"");
     STAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLog]", @"");
     STAssertEqualObjects(NWLLineLogger.message, @"testNWLLog", @"");
-    STAssertEquals(NWLLineLogger.info, 13u, @"");
+    STAssertEquals(NWLLineLogger.info, (NSUInteger)13, @"");
 }
 
 - (void)testNWLLogTag
@@ -49,10 +49,10 @@
     STAssertEqualObjects(NWLLineLogger.tag, @"tag", @"");
     STAssertEqualObjects(NWLLineLogger.lib, @"NWLDemo", @"");
     STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
-    STAssertEquals(NWLLineLogger.line, 48u, @"");
+    STAssertEquals(NWLLineLogger.line, (NSUInteger)48, @"");
     STAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLogTag]", @"");
     STAssertEqualObjects(NWLLineLogger.message, @"testNWLLogTag", @"");
-    STAssertEquals(NWLLineLogger.info, 14u, @"");
+    STAssertEquals(NWLLineLogger.info, (NSUInteger)14, @"");
 }
 
 - (void)testConfiguring
@@ -126,28 +126,6 @@
     NWLog(@"*%@*", bad);
     NSString *s = [NSString stringWithFormat:@"*%@*", bad];
     STAssertEqualObjects(NWLLineLogger.message, s, @"");
-}
-
-- (void)xtestListCharacters
-{
-    NSFileHandle *handle = [NSFileHandle fileHandleForWritingAtPath:@"/Users/x/unicode.txt"];
-    NSMutableString *m = [NSMutableString string];
-    for (NSUInteger i = 0; i < 65536; i++) {
-        NSData *d = [NSData dataWithBytes:&i length:4];
-        NSString *s = [[NSString alloc] initWithData:d encoding:NSUTF32LittleEndianStringEncoding];
-        [m appendString:s ? s : @"-"];
-        if (i % 8 == 0) {
-            [m appendString:@" "];
-        }
-        if ((i + 1) % 64 == 0) {
-            NSString *t = [NSString stringWithFormat:@"%06x%@\n", i, m];
-            NSData *x = [t dataUsingEncoding:NSUTF8StringEncoding];
-            [handle writeData:x];
-            m = [NSMutableString string];
-        }
-    }
-    [handle synchronizeFile];
-    [handle closeFile];
 }
 
 @end

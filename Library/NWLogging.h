@@ -13,3 +13,7 @@
 #import "NWLPrinter.h"
 #import "NWLTools.h"
 #import "NWLLineLogger.h"
+
+#if TARGET_OS_IPHONE
+#import "NWLLogViewController.h"
+#endif
