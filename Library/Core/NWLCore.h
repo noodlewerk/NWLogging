@@ -54,10 +54,12 @@ extern "C" {
 
 /** Log on an 'warn' tag if the condition is false. */
 #define NWLogWarnIfNot(_condition, _format, ...) do {if (!(_condition)) NWLLogWithFilter(warn, NWL_LIB, _format, ##__VA_ARGS__);} while (0)
+#define NWAssert(_condition, _format, ...)       NWLogWarnIfNot(_condition, _format, ##__VA_ARGS__)
 
 /** Log on an error object on the 'warn' tag. */
 #define NWLogWarnIfError(_error)                 do {if(_error) NWLLogWithFilter(warn, NWL_LIB, @"Caught: %@", _error);} while (0)
-    
+#define NWError(_error)                          NWLogWarnIfError(_error)
+
 /** Log on a custom tag. */
 #define NWLogTag(_tag, _format, ...)             NWLLogWithFilter(_tag, NWL_LIB, _format, ##__VA_ARGS__)
     
