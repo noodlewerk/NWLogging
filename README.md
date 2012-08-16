@@ -7,7 +7,9 @@ NWLogging
 <a name="NWL_About"></a>
 About
 -----
-NWLogging is a Cocoa logging framework that provides logging functions similar to NSLog. What makes it particularly useful is the flexibility with which logs can be filtered and directed to different outputs, both in source and at runtime. This makes NWLogging a useful tool for debugging and error reporting, without the log spam of a growing project.
+NWLogging is a Cocoa logging framework that provides logging functions similar to NSLog. It consists of a light-weight core written in C that needs little configuration and a collection of tools for convenient configuration and log access.
+
+What makes it particularly useful is the flexibility with which logs can be filtered and directed to different outputs, both in source and at runtime. This makes NWLogging a tool for both debugging and error reporting, without the log spam of a growing project.
 
 
 <a name="NWL_GettingStarted"></a>
@@ -28,21 +30,41 @@ You can get started with NWLogging in your Cocoa or Cocoa Touch application in j
 
         [12:34:56.789000 AppDelegate.m:123] Application did finish launching: <AppDelegate: 0xd80da1>
 
-This is just a minimal setup to demonstrate the necessary steps to get NWLogging to run. In general it is recommended to link with `libNWLogging.a` en use precompiled headers to include `NWLogging.h`. See the [Project Setup](#NWL_ProjectSetup) section for detailed instructions.
+This is just a minimal setup to demonstrate the necessary steps to get NWLogging to run. In general it is recommended to link with `libNWLogging.a` en use precompiled headers to include `NWLogging.h`.
+
+See the [Project Setup](#NWL_ProjectSetup) section for detailed instructions. For more example code, check out the source and take a look a the TouchDemo and MacDemo applications.
 
 
 <a name="NWL_Features"></a>
 Features
 --------
-+ Logging functionality similar to NSLog.
-+ Log filtering based on target, file, function, and custom tags.
-+ Log output to console, file, and custom printers.
-+ Alternative log actions like pause debugger or throw exception.
-+ Configuration both statically from source code and in the debugger at runtime.
-+ Easy to migrate from NSLog: NWLog == NSLog (kinda)
-+ Supports pure C and C++ projects.
-+ Concurrent, but free of locking.
-+ No heap allocation if not logging.
++ *Logging functionality similar to NSLog.*
+   
+   <p>Although NWLogging offers configurable filters and outputs, by default it just prints what you tell it to. Simply replace `NSLog` by `NWLog`.</p>
+  
++ *Log filtering based on target, file, function, and custom tags.*
+
+   <p>No useless floods of log messages, but fine-grained filtering so you only get the logs you need.</p>
+   
++ *Log output to console, file, and custom printers.*
+
+   <p>By default all logs are printed to stderr, but you also can redirect this to a file, stream, or a text view for in-app display.</p>
+   
++ *Alternative log actions like pause debugger or throw exception.*
+
+   <p>Use logs to handle your asserts and exceptions. Configure which lines should trigger the debugger to break. Simply replace `NSAssert` with `NWAssert`.</p>
+   
++ *Configuration both statically from source code and from the debugger at runtime.*
+
+   <p>Configuration methods are available both in source and debugger. This allows you to run a standard configuration and further configure while debugging.</p>
+   
++ *Supports pure C and C++ projects.*
+
+   <p>The core of NWLogging is not tied to Objective-C or Cocoa. It only requires standard C and Core Foundation libraries.</p>
+
++ *Concurrent, but free of locking.*
+
+   <p>To have a minimal impact on your app's runtime, NWLogging avoids thread locking, heap allocation, and message sending.</p>
 
 
 <a name="NWL_ProjectSetup"></a>
@@ -52,7 +74,7 @@ NWLogging can be added to your project either by linking with a static library o
 
 There are many ways to link with NWLogging in Xcode. You can for example run the NWLoggingUniversal target, which outputs a `libNWLogging.a` in the project root. By simply dragging this file into your application sources, Xcode will do all the configuration for you. Alternatively you can add the NWLogging project to your workspace and link with `libNWLogging.a` directly.
 
-Next, you should add the library header files to your project. Again, there are severa ways to to this. For example by adding all header files to your application's sources. A convenient way to include the main `NWLogging.h` header in your project, is by referencing it in your Prefix Header file (`.pch`). For example:
+Next, you should add the library header files to your project. Again, there are several ways to to this. For example by adding all header files to your application's sources. A convenient way to include the main `NWLogging.h` header in your project, is by referencing it in your Prefix Header file (`.pch`). For example:
 
     #ifdef __OBJC__
         #import <UIKit/UIKit.h>
@@ -85,30 +107,30 @@ Having completed the setup, it's time for some action in the [How to](#NWL_HowTo
 <a name="NWL_HowTo"></a>
 How to
 ------
-#### How to log some text to the console output?
+*How to log some text to the console output?*
 
     NWLog(@"some text");
     
-#### How to log debug text that can be filtered out later on?
+*How to log debug text that can be filtered out later on?*
 
     NWLogDbug(@"debug text that is not shown");
     NWLPrintDbug();  // turn on printing of 'dbug' tag
     NWLogDbug(@"debug text that is printed");
     
-#### How to log a warning text?
+*How to log a warning text?*
 
     NWLogWarn(@"warning text!");
     
-#### How to log some warning text when a condition fails?
+*How to log some warning text when a condition fails?*
     
     NWLogWarnIfNot(index < length, @"Expected index (%i) to be less than length (%i)", index, length);
 
-#### How to print text of the 'info' level?
+*How to print text of the 'info' level?*
 
     NWLPrintInfo();  // turn on 'info' tag
     NWLogInfo(@"some info");
 
-#### How to see which filters and printers are active?
+*How to see which filters and printers are active?*
 
     NWLDump();
 
