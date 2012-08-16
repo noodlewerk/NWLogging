@@ -101,7 +101,7 @@ When run, this should output something like:
 
     [12:34:56.789000 MyApp main.c:012] Works like a charm
     
-Having completed the setup, it's time for some action in the [How to](#NWL_HowTo) section. If you'd like a more conceptual understanding, take a look in the [Concepts](#NWL_Concepts) section.
+Having completed the setup, it's time for some action in the [How to](#NWL_HowTo) section. If you'd like a more conceptual understanding, take a look in the [Design](#NWL_Design) section.
 
 
 <a name="NWL_HowTo"></a>
@@ -135,11 +135,22 @@ How to
     NWLDump();
 
 
-<!--
-<a name="NWL_Concepts"></a>
-Concepts
---------
--->
+<a name="NWL_Design"></a>
+Design
+------
+NWLogging consists of a small core written in C and a collection of tools written in Objective-C.
+
+### Core
+The core has been designed with a simplicity and performance focus. It has three main parts:
+
+1. Generic logging methods for direct logging and filtered logging. `NWLLogWithoutFilter` simply forwards the log message to all printers. The NWLog method is based on this. `NWLLogWithFilter` first matches properties like tag, file and function with available filters to see if that message needs printing.
+
+2. Configuration methods to manage filters, printers, and the clock. Th
+
+3. A set of convenience methods for general use. These define the standard tags 'Dbug', 'Info' and 'Warn', which are not present in the previous two parts.
+
+### Tools
+The NWLogging tools set focusses on extending the core into Cocoa. It provide Objective-C interfaces to the core functionality allowing it to be easily integrated into a Cocoa or Cocoa Touch application.
 
 
 <a name="NWL_FAQ"></a>
