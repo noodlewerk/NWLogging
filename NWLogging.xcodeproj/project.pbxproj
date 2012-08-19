@@ -25,6 +25,7 @@
 		B34EA70B15D500BA007B041F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA70A15D500B6007B041F /* main.c */; };
 		B34EA70C15D500D1007B041F /* libNWLoggingCocoaStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6E815D4FFBA007B041F /* libNWLoggingCocoaStatic.a */; };
 		B34EA70E15D500E7007B041F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA70D15D500E7007B041F /* CoreFoundation.framework */; };
+		B3533B4915E17E0D00140917 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B3533B4815E17E0D00140917 /* libz.dylib */; };
 		B384682A15D6B6C100780B6C /* NWLFilePrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681D15D6B6C100780B6C /* NWLFilePrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384682B15D6B6C100780B6C /* NWLFilePrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384681E15D6B6C100780B6C /* NWLFilePrinter.m */; };
 		B384682C15D6B6C100780B6C /* NWLLineLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384681F15D6B6C100780B6C /* NWLLineLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -152,6 +153,7 @@
 		B34EA6FE15D4FFEF007B041F /* NWLoggingMacDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NWLoggingMacDemo; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34EA70A15D500B6007B041F /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		B34EA70D15D500E7007B041F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		B3533B4815E17E0D00140917 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/usr/lib/libz.dylib; sourceTree = DEVELOPER_DIR; };
 		B384681D15D6B6C100780B6C /* NWLFilePrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLFilePrinter.h; sourceTree = "<group>"; };
 		B384681E15D6B6C100780B6C /* NWLFilePrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLFilePrinter.m; sourceTree = "<group>"; };
 		B384681F15D6B6C100780B6C /* NWLLineLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLineLogger.h; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3533B4915E17E0D00140917 /* libz.dylib in Frameworks */,
 				B384685715D6BBC500780B6C /* Foundation.framework in Frameworks */,
 				B39DC10915D7C3F900374BE5 /* UIKit.framework in Frameworks */,
 				B39DC10A15D7C3FF00374BE5 /* CoreGraphics.framework in Frameworks */,
@@ -321,6 +324,7 @@
 		B34EA6EA15D4FFBA007B041F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3533B4815E17E0D00140917 /* libz.dylib */,
 				B39DC11815D7C54500374BE5 /* MessageUI.framework */,
 				B39DC10415D7C3A400374BE5 /* UIKit.framework */,
 				B39DC10215D7C39D00374BE5 /* CoreGraphics.framework */,
