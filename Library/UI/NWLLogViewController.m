@@ -12,6 +12,7 @@
 #import "NWLMultiLogger.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#include <zlib.h>
 
 @implementation NWLLogViewController {
     UITextView *textView;
@@ -21,6 +22,8 @@
     void(^clearBlock)(void);
     NWLMultiLogger *logger;
 }
+
+@synthesize compressAttachment;
 
 
 #pragma mark - View life cycle
@@ -160,8 +163,21 @@
         [mailController setToRecipients:emailAddresses];
     }
     [mailController setMessageBody:NSLocalizedString(@"NWLoggingEmail_Text", @"") isHTML:NO];
+    
+    // attach file
     NSData *data = [textView.text dataUsingEncoding:NSUTF8StringEncoding];
-    [mailController addAttachmentData:data mimeType:@"text/plain" fileName:NSLocalizedString(@"NWLoggingEmail_File", @"")];
+    NSString *filename = NSLocalizedString(@"NWLoggingEmail_File", @"");
+    NSString *mime = @"text/plain";
+    if (compressAttachment) {
+        NSData *compressed = [self.class compress:data];
+        if (compressed.length) {
+            data = compressed;
+            filename = [filename stringByAppendingString:@".gzip"];
+            mime = @"application/gzip";
+        }
+    }
+    [mailController addAttachmentData:data mimeType:mime fileName:filename];
+    
     [self presentViewController:mailController animated:YES completion:NULL];
 }
 
@@ -170,6 +186,30 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
++ (NSData *)compress:(NSData *)data
+{
+    if (data.length) {
+        z_stream stream;
+        memset(&stream, 0, sizeof(z_stream));
+        stream.next_in = (Bytef *)data.bytes;
+        stream.avail_in = data.length;
+        int status = deflateInit2(&stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, 15 + 16, 8, Z_DEFAULT_STRATEGY);
+        if (status == Z_OK) {
+            NSMutableData *result = [[NSMutableData alloc] initWithLength:data.length * 1.01 + 12];
+            while (status == Z_OK) {
+                stream.next_out = result.mutableBytes + stream.total_out;
+                stream.avail_out = result.length - stream.total_out;
+                status = deflate(&stream, Z_FINISH);
+            }
+            deflateEnd(&stream);
+            if (status == Z_STREAM_END) {
+                result.length = stream.total_out;
+                return result;
+            }
+        }
+    }
+    return nil;
+}
 
 #pragma mark - Done button
 

@@ -12,6 +12,8 @@
 
 @interface NWLLogViewController : UIViewController <NWLPrinter>
 
+@property (nonatomic, assign) BOOL compressAttachment;
+
 - (void)addText:(NSString *)text;
 - (void)addEmailButton:(NSString *)address;
 - (void)addClearButton:(void(^)(void))block;
