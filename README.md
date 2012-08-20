@@ -181,7 +181,7 @@ Assuming your console is properly set up and *does show stderr* output, there ar
         
 3. You might run a complex configuration of filters and have no clue which filter does what. Reset all filter actions using:
 
-        NWLRestoreDefaultActions();
+        NWLRestoreDefaultFilters();
                 
 4. Possibly you didn't do all necessary setup. If you run in Release configuration, you need to explicitly define NWL_LIB. Make sure you followed the steps described in the [Project Setup](#NWL_ProjectSetup) section.
 
