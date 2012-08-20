@@ -84,7 +84,7 @@
 - (void)runTiming:(NSTimeInterval)span
 {
     
-    NWLRemoveAllActions();
+    NWLRemoveAllFilters();
     NWLRemoveAllPrinters();
 
     [self appendLine:[NSString stringWithFormat:@"Deativated all filters and printers.\n"]];
@@ -99,7 +99,7 @@
     LOG_TEST(NWLogWarn, String);
     LOG_TEST(NWLogWarn, Format);
 
-    NWLRestoreDefaultActions();
+    NWLRestoreDefaultFilters();
     [self appendLine:[NSString stringWithFormat:@"\nActivated 'warn' filter, but no printers.\n"]];
     
     LOG_TEST(NWLog, Empty);
