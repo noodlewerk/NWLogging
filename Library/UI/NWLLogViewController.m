@@ -88,7 +88,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    return [self.presentingViewController shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+    return YES;
 }
 
 #pragma mark - Printing
@@ -361,7 +361,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    return [self.presentingViewController shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+    return YES;
 }
 
 #pragma mark - Table view data source
