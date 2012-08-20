@@ -18,6 +18,7 @@
 - (void)addEmailButton:(NSString *)address;
 - (void)addClearButton:(void(^)(void))block;
 - (void)addDoneButton;
+- (void)addAboutButton;
 
 - (void)addDefaultFilters;
 - (void)addDefaultFiltersForLib:(const char *)lib;

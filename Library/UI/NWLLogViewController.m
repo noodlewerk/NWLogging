@@ -240,6 +240,21 @@
 }
 
 
+#pragma mark - About button
+
+- (void)addAboutButton
+{
+    NSMutableArray *buttons = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(printAbout)];
+    [buttons addObject:item];
+    self.navigationItem.rightBarButtonItems = buttons;
+}
+
+- (void)printAbout
+{
+    NWLAbout();
+}
+
 #pragma mark - Convenient configuration
 
 - (void)configureWithFilePrinter:(NWLFilePrinter *)printer
