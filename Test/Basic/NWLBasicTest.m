@@ -16,7 +16,7 @@
 - (void)setUp {
     [super setUp];
 
-    NWLRemoveAllActions();
+    NWLRemoveAllFilters();
     NWLRemoveAllPrinters();
 }
 
@@ -57,17 +57,17 @@
 
 - (void)testConfiguring
 {
-    STAssertEquals(NWLActionForContextProperties(NULL, NULL, NULL, NULL), kNWLAction_none, @"");
+    STAssertEquals(NWLHasFilter(NULL, NULL, NULL, NULL), kNWLAction_none, @"");
     NWLPrintAll();
-    STAssertEquals(NWLActionForContextProperties(NULL, NULL, NULL, NULL), kNWLAction_print, @"");
+    STAssertEquals(NWLHasFilter(NULL, NULL, NULL, NULL), kNWLAction_print, @"");
     
-    STAssertEquals(NWLActionForContextProperties("info", NULL, NULL, NULL), kNWLAction_none, @"");
+    STAssertEquals(NWLHasFilter("info", NULL, NULL, NULL), kNWLAction_none, @"");
     NWLPrintInfo();
-    STAssertEquals(NWLActionForContextProperties("info", NULL, NULL, NULL), kNWLAction_print, @"");
+    STAssertEquals(NWLHasFilter("info", NULL, NULL, NULL), kNWLAction_print, @"");
 
-    STAssertEquals(NWLActionForContextProperties("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_none, @"");
+    STAssertEquals(NWLHasFilter("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_none, @"");
     NWLPrintDbugInFile("NWLBasicTest.m");
-    STAssertEquals(NWLActionForContextProperties("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_print, @"");
+    STAssertEquals(NWLHasFilter("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_print, @"");
 }
 
 - (void)testPrinter

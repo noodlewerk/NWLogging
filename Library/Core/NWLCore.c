@@ -145,7 +145,7 @@ void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *info) {
 
 #pragma mark - Filtering
 
-NWLAction NWLActionForContext(NWLContext context) {
+NWLAction NWLMatchingActionForContext(NWLContext context) {
     NWLAction result = kNWLAction_none;
     int bestScore = 0;
     for (int i = 0; i < NWLFilters.count; i++) {
@@ -199,14 +199,14 @@ static int NWLAddActionAndProperties(NWLFilter *filter) {
     return false;
 }
 
-int NWLAddActionForContextProperties(const char *tag, const char *lib, const char *file, const char *function, NWLAction action) {
+int NWLAddFilter(const char *tag, const char *lib, const char *file, const char *function, NWLAction action) {
     NWLFilter filter = {NULL, tag, lib, file, function, action};
     NWLRemoveActionsWithProperties(&filter);
     int result = NWLAddActionAndProperties(&filter);
     return result;
 }
 
-NWLAction NWLActionForContextProperties(const char *tag, const char *lib, const char *file, const char *function) {
+NWLAction NWLHasFilter(const char *tag, const char *lib, const char *file, const char *function) {
     NWLFilter filter = {NULL, tag, lib, file, function, kNWLAction_none};
     for (int i = 0; i < NWLFilters.count; i++) {
         NWLFilter *m = &NWLFilters.elements[i];
@@ -223,11 +223,11 @@ NWLAction NWLActionForContextProperties(const char *tag, const char *lib, const 
     return false;
 }
 
-void NWLRemoveAllActions(void) {
+void NWLRemoveAllFilters(void) {
     NWLFilters.count = 0;
 }
 
-void NWLRestoreDefaultActions(void) {
+void NWLRestoreDefaultFilters(void) {
     NWLFilters.elements[0].action = kNWLAction_print;
     NWLFilters.elements[0].properties[0] = "warn";
     NWLFilters.count = 1;
@@ -280,99 +280,99 @@ void NWLAboutString(char *buffer, int size) {
 #pragma mark - Macro wrappers
 
 void NWLPrintInfo() {
-    NWLAddActionForContextProperties("info", NULL, NULL, NULL, kNWLAction_print);
+    NWLAddFilter("info", NULL, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintWarn() {
-    NWLAddActionForContextProperties("warn", NULL, NULL, NULL, kNWLAction_print);
+    NWLAddFilter("warn", NULL, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintDbug() {
-    NWLAddActionForContextProperties("dbug", NULL, NULL, NULL, kNWLAction_print);
+    NWLAddFilter("dbug", NULL, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintTag(const char *tag) {
-    NWLAddActionForContextProperties(tag, NULL, NULL, NULL, kNWLAction_print);
+    NWLAddFilter(tag, NULL, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintAll() {
-    NWLAddActionForContextProperties(NULL, NULL, NULL, NULL, kNWLAction_print);
+    NWLAddFilter(NULL, NULL, NULL, NULL, kNWLAction_print);
 }
 
 
 
 void NWLPrintInfoInLib(const char *lib) {
-    NWLAddActionForContextProperties("info", lib, NULL, NULL, kNWLAction_print);
+    NWLAddFilter("info", lib, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintWarnInLib(const char *lib) {
-    NWLAddActionForContextProperties("warn", lib, NULL, NULL, kNWLAction_print);
+    NWLAddFilter("warn", lib, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintDbugInLib(const char *lib) {
-    NWLAddActionForContextProperties("dbug", lib, NULL, NULL, kNWLAction_print);
+    NWLAddFilter("dbug", lib, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintTagInLib(const char *tag, const char *lib) {
-    NWLAddActionForContextProperties(tag, lib, NULL, NULL, kNWLAction_print);
+    NWLAddFilter(tag, lib, NULL, NULL, kNWLAction_print);
 }
 
 void NWLPrintAllInLib(const char *lib) {
-    NWLAddActionForContextProperties(NULL, lib, NULL, NULL, kNWLAction_print);
+    NWLAddFilter(NULL, lib, NULL, NULL, kNWLAction_print);
 }
 
 
 
 void NWLPrintDbugInFile(const char *file) {
-    NWLAddActionForContextProperties("dbug", NULL, file, NULL, kNWLAction_print);
+    NWLAddFilter("dbug", NULL, file, NULL, kNWLAction_print);
 }
 
 void NWLPrintDbugInFunction(const char *function) {
-    NWLAddActionForContextProperties("dbug", NULL, NULL, function, kNWLAction_print);
+    NWLAddFilter("dbug", NULL, NULL, function, kNWLAction_print);
 }
 
 
 
 void NWLBreakWarn() {
-    NWLAddActionForContextProperties("warn", NULL, NULL, NULL, kNWLAction_break);
+    NWLAddFilter("warn", NULL, NULL, NULL, kNWLAction_break);
 }
 
 void NWLBreakWarnInLib(const char *lib) {
-    NWLAddActionForContextProperties("warn", lib, NULL, NULL, kNWLAction_break);
+    NWLAddFilter("warn", lib, NULL, NULL, kNWLAction_break);
 }
 
 void NWLBreakTag(const char *tag) {
-    NWLAddActionForContextProperties(tag, NULL, NULL, NULL, kNWLAction_break);
+    NWLAddFilter(tag, NULL, NULL, NULL, kNWLAction_break);
 }
 
 void NWLBreakTagInLib(const char *tag, const char *lib) {
-    NWLAddActionForContextProperties(tag, lib, NULL, NULL, kNWLAction_break);
+    NWLAddFilter(tag, lib, NULL, NULL, kNWLAction_break);
 }
 
 
 
 void NWLClearInfo() {
-    NWLAddActionForContextProperties("info", NULL, NULL, NULL, kNWLAction_none);
+    NWLAddFilter("info", NULL, NULL, NULL, kNWLAction_none);
 }
 
 void NWLClearWarn() {
-    NWLAddActionForContextProperties("warn", NULL, NULL, NULL, kNWLAction_none);
+    NWLAddFilter("warn", NULL, NULL, NULL, kNWLAction_none);
 }
 
 void NWLClearDbug() {
-    NWLAddActionForContextProperties("dbug", NULL, NULL, NULL, kNWLAction_none);
+    NWLAddFilter("dbug", NULL, NULL, NULL, kNWLAction_none);
 }
 
 void NWLClearTag(const char *tag) {
-    NWLAddActionForContextProperties(tag, NULL, NULL, NULL, kNWLAction_none);
+    NWLAddFilter(tag, NULL, NULL, NULL, kNWLAction_none);
 }
 
 void NWLClearAllInLib(const char *lib) {
-    NWLAddActionForContextProperties(NULL, lib, NULL, NULL, kNWLAction_none);
+    NWLAddFilter(NULL, lib, NULL, NULL, kNWLAction_none);
 }
 
 void NWLClearAll(void) {
-    NWLRemoveAllActions();
+    NWLRemoveAllFilters();
 }
 
 

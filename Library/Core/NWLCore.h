@@ -117,7 +117,7 @@ extern "C" {
 #define NWLLogWithFilter(_tag, _lib, _fmt, ...) NWLLogWithFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
 #define NWLLogWithFilter_(_tag, _lib, _fmt, ...) do {\
         NWLContext __context = {(#_tag), (#_lib), _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__};\
-        NWLAction __type = NWLActionForContext(__context);\
+        NWLAction __type = NWLMatchingActionForContext(__context);\
         if (__type) {\
             CFStringRef __message = CFStringCreateWithFormat(NULL, 0, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
             switch (__type) {\
@@ -181,24 +181,28 @@ extern void NWLRemoveAllPrinters(void);
 /** Restore the default stderr printer. */
 extern void NWLRestoreDefaultPrinters(void);
 
-/** Add the defulat stderr printer. */
+/** Add the default stderr printer. */
 extern void NWLAddDefaultPrinter(void);
 
 /** Formatter tailored for debugging, with format: "[hr:mn:sc:micros Library File:line] [tag] message", to stderr. */
 extern void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *info);
 
-/** Tests context (like lib and file name) and returns the matching action. */
-extern NWLAction NWLActionForContext(NWLContext context);
 
-/** Activates and action for three context properties. */
-extern int NWLAddActionForContextProperties(const char *tag, const char *lib, const char *file, const char *function, NWLAction action);
+/** Tests context (like lib and file name) and returns the matching action. */
+extern NWLAction NWLMatchingActionForContext(NWLContext context);
+
+/** Activates and action for these filter properties. */
+extern int NWLAddFilter(const char *tag, const char *lib, const char *file, const char *function, NWLAction action);
+
+/** Finds filter that machtes these filter properties and returns its action. */
+extern NWLAction NWLHasFilter(const char *tag, const char *lib, const char *file, const char *function);
 
 /** Remove all actions for all properties. */
-extern void NWLRemoveAllActions(void);
+extern void NWLRemoveAllFilters(void);
 
-extern NWLAction NWLActionForContextProperties(const char *tag, const char *lib, const char *file, const char *function);
+/** Restore the default print-on-warn filter. */
+extern void NWLRestoreDefaultFilters(void);
 
-extern void NWLRestoreDefaultActions(void);
 
 /** Reset the clock on log prints to 00:00:00. */
 extern void NWLResetPrintClock(void);
