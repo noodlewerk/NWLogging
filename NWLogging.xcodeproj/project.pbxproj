@@ -828,6 +828,7 @@
 				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"NWL_LIB=NWLStatic",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -881,6 +882,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"NWL_LIB=NWLDemo",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -937,6 +939,7 @@
 				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"NWL_LIB=NWLStatic",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -1002,6 +1005,7 @@
 				GCC_PREFIX_HEADER = "TouchDemo/NWLoggingTouchDemo-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"NWL_LIB=NWLDemo",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
