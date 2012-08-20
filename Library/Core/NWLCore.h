@@ -132,33 +132,6 @@ extern "C" {
     } while (0)
 
 
-/** Add a logging action for context properties. */
-#define NWLAddFilter0(_action) NWLAddFilter0_(_action)
-#define NWLAddFilter0_(_action) \
-    NWLAddActionForContextProperties(kNWLProperty_none, NULL, kNWLProperty_none, NULL, kNWLProperty_none, NULL, (kNWLAction_##_action))
-
-#define NWLAddFilter(_property1, _value1, _action) NWLAddFilter_(_property1, _value1, _action)
-#define NWLAddFilter_(_property1, _value1, _action) \
-    NWLAddActionForContextProperties((kNWLProperty_##_property1), (_value1), kNWLProperty_none, NULL, kNWLProperty_none, NULL, (kNWLAction_##_action))
-
-#define NWLAddFilter2(_property1, _value1, _property2, _value2, _action) NWLAddFilter2_(_property1, _value1, _property2, _value2, _action)
-#define NWLAddFilter2_(_property1, _value1, _property2, _value2, _action) \
-    NWLAddActionForContextProperties((kNWLProperty_##_property1), (_value1), (kNWLProperty_##_property2), (_value2), kNWLProperty_none, NULL, (kNWLAction_##_action))
-
-/** Get a logging action for context properties. */
-#define NWLGetFilter0() NWLGetFilter0_()
-#define NWLGetFilter0_() \
-NWLActionForContextProperties(kNWLProperty_none, NULL, kNWLProperty_none, NULL, kNWLProperty_none, NULL)
-    
-#define NWLGetFilter(_property1, _value1) NWLGetFilter_(_property1, _value1)
-#define NWLGetFilter_(_property1, _value1) \
-NWLActionForContextProperties((kNWLProperty_##_property1), (_value1), kNWLProperty_none, NULL, kNWLProperty_none, NULL)
-    
-#define NWLGetFilter2(_property1, _value1, _property2, _value2) NWLGetFilter2_(_property1, _value1, _property2, _value2)
-#define NWLGetFilter2_(_property1, _value1, _property2, _value2) \
-NWLActionForContextProperties((kNWLProperty_##_property1), (_value1), (kNWLProperty_##_property2), (_value2), kNWLProperty_none, NULL)
-
-
 #pragma mark - Type definitions
 
 /** Kinds of context properties to filter on */
@@ -218,12 +191,12 @@ extern void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *inf
 extern NWLAction NWLActionForContext(NWLContext context);
 
 /** Activates and action for three context properties. */
-extern int NWLAddActionForContextProperties(NWLProperty property1, const char *value1, NWLProperty property2, const char *value2, NWLProperty property3, const char *value3, NWLAction action);
+extern int NWLAddActionForContextProperties(const char *tag, const char *lib, const char *file, const char *function, NWLAction action);
 
 /** Remove all actions for all properties. */
 extern void NWLRemoveAllActions(void);
 
-extern NWLAction NWLActionForContextProperties(NWLProperty property1, const char *value1, NWLProperty property2, const char *value2, NWLProperty property3, const char *value3);
+extern NWLAction NWLActionForContextProperties(const char *tag, const char *lib, const char *file, const char *function);
 
 extern void NWLRestoreDefaultActions(void);
 

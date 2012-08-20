@@ -57,17 +57,17 @@
 
 - (void)testConfiguring
 {
-    STAssertEquals(NWLGetFilter0(), kNWLAction_none, @"");
+    STAssertEquals(NWLActionForContextProperties(NULL, NULL, NULL, NULL), kNWLAction_none, @"");
     NWLPrintAll();
-    STAssertEquals(NWLGetFilter0(), kNWLAction_print, @"");
+    STAssertEquals(NWLActionForContextProperties(NULL, NULL, NULL, NULL), kNWLAction_print, @"");
     
-    STAssertEquals(NWLGetFilter(tag, "info"), kNWLAction_none, @"");
+    STAssertEquals(NWLActionForContextProperties("info", NULL, NULL, NULL), kNWLAction_none, @"");
     NWLPrintInfo();
-    STAssertEquals(NWLGetFilter(tag, "info"), kNWLAction_print, @"");
+    STAssertEquals(NWLActionForContextProperties("info", NULL, NULL, NULL), kNWLAction_print, @"");
 
-    STAssertEquals(NWLGetFilter2(tag, "dbug", file, "NWLBasicTest.m"), kNWLAction_none, @"");
+    STAssertEquals(NWLActionForContextProperties("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_none, @"");
     NWLPrintDbugInFile("NWLBasicTest.m");
-    STAssertEquals(NWLGetFilter2(tag, "dbug", file, "NWLBasicTest.m"), kNWLAction_print, @"");
+    STAssertEquals(NWLActionForContextProperties("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_print, @"");
 }
 
 - (void)testPrinter
