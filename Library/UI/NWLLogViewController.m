@@ -7,12 +7,27 @@
 //
 
 #import "NWLLogViewController.h"
+#import "NWLCore.h"
 #import "NWLTools.h"
 #import "NWLFilePrinter.h"
 #import "NWLMultiLogger.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #include <zlib.h>
+
+@interface NWLFilter : NSObject
+@property (nonatomic, assign) const char *tag;
+@property (nonatomic, assign) const char *lib;
+@property (nonatomic, assign) const char *file;
+@property (nonatomic, assign) const char *function;
+@property (nonatomic, assign) BOOL active;
+@property (nonatomic, readonly) NSString *text;
+@end
+
+@interface NWLFilterViewController : UITableViewController
+- (void)loadFilters:(NSArray *)filters;
+@end
+
 
 @implementation NWLLogViewController {
     UITextView *textView;
@@ -21,6 +36,7 @@
     NSMutableArray *emailAddresses;
     void(^clearBlock)(void);
     NWLMultiLogger *logger;
+    NSMutableArray *filters;
 }
 
 @synthesize compressAttachment;
@@ -242,4 +258,148 @@
     logger = _logger;
 }
 
+
+#pragma mark - Filtering
+
+- (void)addFilterWithTag:(const char *)tag lib:(const char *)lib file:(const char *)file function:(const char *)function
+{
+    NWLFilter *filter = [[NWLFilter alloc] init];
+    filter.tag = tag;
+    filter.lib = lib;
+    filter.file = file;
+    filter.function = function;
+    if (!filters) {
+        filters = [[NSMutableArray alloc] init];
+        [self addFilterButton];
+    }
+    [filters addObject:filter];
+}
+
+- (void)addFilterButton
+{
+    NSMutableArray *buttons = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showFilters)];
+    [buttons addObject:item];
+    self.navigationItem.rightBarButtonItems = buttons;
+}
+
+- (void)showFilters
+{
+    NWLFilterViewController *controller = [[NWLFilterViewController alloc] initWithStyle:UITableViewStylePlain];
+    [controller loadFilters:filters];
+    controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:controller action:@selector(dismissModalViewControllerAnimated:)];
+    UINavigationController *c = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self.navigationController presentModalViewController:c animated:YES];
+}
+
+- (void)addDefaultFilters
+{
+    [self addDefaultFiltersForLib:NULL];
+}
+
+- (void)addDefaultFiltersForLib:(const char *)lib
+{
+    [self addFilterWithTag:NULL lib:lib file:NULL function:NULL];
+    [self addFilterWithTag:"warn" lib:lib file:NULL function:NULL];
+    [self addFilterWithTag:"info" lib:lib file:NULL function:NULL];
+    [self addFilterWithTag:"dbug" lib:lib file:NULL function:NULL];
+}
+
+
 @end
+
+
+@implementation NWLFilter
+
+@synthesize tag, lib, file, function;
+
+- (NSString *)text
+{
+    NSMutableString *result = [[NSMutableString alloc] init];
+    if (tag) {
+        [result appendFormat:@"tag:%s ", tag];
+    }
+    if (lib) {
+        [result appendFormat:@"lib:%s ", lib];
+    }
+    if (file) {
+        [result appendFormat:@"file:%s ", file];
+    }
+    if (function) {
+        [result appendFormat:@"function:%s ", function];
+    }
+    if (!result.length) {
+        [result appendString:@"ALL"];
+    }
+   return result;
+}
+
+- (BOOL)active
+{
+    NWLAction action = NWLHasFilter(tag, lib, file, function);
+    BOOL result = (action != kNWLAction_none);
+    return result;
+}
+
+- (void)setActive:(BOOL)active
+{
+    NWLAction action = active ? kNWLAction_print : kNWLAction_none;
+    NWLAddFilter(tag, lib, file, function, action);
+}
+
+@end
+
+
+@implementation NWLFilterViewController {
+    NSArray *filters;
+}
+
+- (void)loadFilters:(NSArray *)_filters
+{
+    filters = _filters;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    return [self.presentingViewController shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return filters.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LogViewCell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] init];
+    }
+    NWLFilter *filter = [filters objectAtIndex:indexPath.row];
+    cell.textLabel.text = filter.text;
+    cell.accessoryType = filter.active ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    return cell;
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    BOOL checked = cell.accessoryType == UITableViewCellAccessoryCheckmark;
+    cell.accessoryType = checked ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+    NWLFilter *filter = [filters objectAtIndex:indexPath.row];
+    filter.active = !checked;
+    NWLDump();
+}
+
+@end
+

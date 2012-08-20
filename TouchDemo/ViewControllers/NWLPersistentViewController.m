@@ -97,7 +97,9 @@ NSTimer *NWLPersistentTimer;
 
 - (void)log
 {
-    NWLog(@"tick");
+    NWLog(@"NWLog(@\"tick\");");
+    NWLogInfo(@"NWLogInfo(@\"tick\");");
+    NWLogDbug(@"NWLogDbug(@\"tick\");");
 }
 
 - (void)updateUI

@@ -19,6 +19,10 @@
 - (void)addClearButton:(void(^)(void))block;
 - (void)addDoneButton;
 
+- (void)addDefaultFilters;
+- (void)addDefaultFiltersForLib:(const char *)lib;
+- (void)addFilterWithTag:(const char *)tag lib:(const char *)lib file:(const char *)file function:(const char *)function;
+
 - (void)configureWithFilePrinter:(NWLFilePrinter *)printer;
 - (void)configureWithMultiLogger:(NWLMultiLogger *)logger;
 

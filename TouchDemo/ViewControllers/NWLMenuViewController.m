@@ -72,6 +72,7 @@
             [c configureWithMultiLogger:NWLMultiLogger.shared];
             [c addEmailButton:@"leonard@noodlewerk.com"];
             c.compressAttachment = YES;
+            [c addDefaultFilters];
             controller = c;
         } break;
     }
