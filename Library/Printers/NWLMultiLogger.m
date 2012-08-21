@@ -122,7 +122,7 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 {
     dispatch_async(serial, ^{
         if (name) {
-            id<NWLPrinter> printer = [[printerEntries objectForKey:name] printer];
+            id<NWLPrinter> printer = [(NWLPrinterEntry *)[printerEntries objectForKey:name] printer];
             [printer printWithTag:tag lib:lib file:file line:line function:function message:message];
         }
     });
@@ -159,7 +159,7 @@ static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void 
     if (self) {
         NSString *_key = [self.class keyWithPrinter:_printer];
         const char *utf8 = _key.UTF8String;
-        int length = strlen(utf8) + 1;
+        size_t length = strlen(utf8) + 1;
         char *_copy = calloc(length, sizeof(char));
         memcpy(_copy, utf8, length);
         printer = _printer;
