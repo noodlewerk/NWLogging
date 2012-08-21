@@ -119,8 +119,8 @@
                 if (text.length > maxLogSize) {
                     text = [text substringFromIndex:text.length - maxLogSize];
                 }
+                [self follow];
                 textView.text = text;
-                [self performSelector:@selector(follow) withObject:nil afterDelay:0];
             });
         }
     });
@@ -153,8 +153,8 @@
 {
     NSUInteger offset = textView.contentOffset.y + textView.bounds.size.height;
     NSUInteger size = textView.contentSize.height;
-    if (offset >= size - 100) {
-        [self scrollDown];
+    if (offset >= size - 50) {
+        [self performSelector:@selector(scrollDown) withObject:nil afterDelay:0];
     }
 }
 
