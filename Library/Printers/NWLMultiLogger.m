@@ -11,9 +11,17 @@
 #import "NWLPrinter.h"
 
 
+@interface NWLPrinterEntry : NSObject
+@property (nonatomic, strong) id<NWLPrinter> printer;
+@property (nonatomic, readonly) char *copy;
+@property (nonatomic, readonly) id key;
+- (id)initWithPrinter:(id<NWLPrinter>)printer;
++ (NSString *)keyWithPrinter:(id<NWLPrinter>)printer;
+@end
+
+
 @implementation NWLMultiLogger {
-    NSMutableDictionary *printers;
-    NSMutableDictionary *printerNames;
+    NSMutableDictionary *printerEntries;
     dispatch_queue_t serial;
 }
 
@@ -30,7 +38,7 @@
     self = [super init];
     if (self) {
         serial = dispatch_queue_create("NWLMultiLogger", DISPATCH_QUEUE_SERIAL);
-        printers = [[NSMutableDictionary alloc] init];
+        printerEntries = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -57,57 +65,44 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 
 - (void)addPrinter:(id<NWLPrinter>)printer
 {
-    dispatch_sync(serial, ^{
-        [self unsafeRemovePrinter:printer];
-        NSString *name = printer.name;
-        const char *n = name.UTF8String;
-        int length = strlen(n);
-        char *copy = calloc(length, sizeof(char));
-        memcpy(copy, n, length);
-        NSUInteger index = printers.count;
-        [printers addObject:printer];
-        NWLAddPrinter(copy, NWLMultiLoggerPrinter, CFBridgingRetain(name));
-    });
+    if (printer) {
+        dispatch_sync(serial, ^{
+            [self unsafeRemovePrinter:printer];
+            NWLPrinterEntry *entry = [[NWLPrinterEntry alloc] initWithPrinter:printer];
+            NSString *key = entry.key;
+            [printerEntries setObject:entry forKey:key];
+            NWLAddPrinter(entry.copy, NWLMultiLoggerPrinter, (__bridge void *)key);
+        });
+    }
 }
 
 - (void)unsafeRemovePrinter:(id<NWLPrinter>)printer
 {
-    if ([printers objectForKey:printer.name]) {
-        NWLRemovePrinter(NWLMultiLoggerPrinter, (void *)(index + 1));
-        
-        
-        [printers removeObjectForKey:printer.name];
-    }
-    NSUInteger index = [printers indexOfObject:printer];
-    if (index != NSNotFound) {
-        [printers removeObjectAtIndex:index];
+    NSString *key = [NWLPrinterEntry keyWithPrinter:printer];
+    NWLPrinterEntry *entry = [printerEntries objectForKey:key];
+    if (entry) {
+        NWLRemovePrinter(entry.copy);
+        [printerEntries removeObjectForKey:key];
     }
 }
 
 
 - (void)removePrinter:(id<NWLPrinter>)printer
 {
-    dispatch_sync(serial, ^{
-        NSUInteger index = [printers indexOfObject:printer];
-        if (index != NSNotFound) {
-            [printers removeObjectAtIndex:index];
-            NWLRemovePrinter(NWLMultiLoggerPrinter, (void *)(index + 1));
-        }
-    });
+    if (printer) {
+        dispatch_sync(serial, ^{
+            [self unsafeRemovePrinter:printer];
+        });
+    }
 }
 
 - (void)removeAllPrinters
 {
     dispatch_sync(serial, ^{
+        NSArray *printers = [printerEntries.allValues valueForKey:@"printer"];
         for (id<NWLPrinter> printer in printers) {
             [self unsafeRemovePrinter:printer];
         }
-        for (NSValue *value in printerNames) {
-            void *name = value.pointerValue;
-            free(name);
-            [self unsafeRemovePrinter:printer];
-        }
-        [printers removeAllObjects];
     });
 }
 
@@ -115,7 +110,7 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 {
     __block NSUInteger result = 0;
     dispatch_sync(serial, ^{
-        result = printers.count;
+        result = printerEntries.count;
     });
     return result;
 }
@@ -127,11 +122,17 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 {
     dispatch_async(serial, ^{
         if (name) {
-            id<NWLPrinter> printer = [printers objectForKey:name];
+            id<NWLPrinter> printer = [[printerEntries objectForKey:name] printer];
             [printer printWithTag:tag lib:lib file:file line:line function:function message:message];
         }
     });
 }
+
+- (NSString *)name
+{
+    return @"multi-logger";
+}
+
 
 static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void *info) {
     NSString *tagString = context.tag ? [NSString stringWithCString:context.tag encoding:NSUTF8StringEncoding] : nil;
@@ -146,3 +147,48 @@ static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void 
 
 @end
 
+
+
+@implementation NWLPrinterEntry
+
+@synthesize printer, copy, key;
+
+- (id)initWithPrinter:(id<NWLPrinter>)_printer
+{
+    self = [super init];
+    if (self) {
+        NSString *_key = [self.class keyWithPrinter:_printer];
+        const char *utf8 = _key.UTF8String;
+        int length = strlen(utf8) + 1;
+        char *_copy = calloc(length, sizeof(char));
+        memcpy(_copy, utf8, length);
+        printer = _printer;
+        key = _key;
+        copy = _copy;
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    if (copy) {
+        free(copy); copy = NULL;
+    }
+}
+
++ (NSString *)keyWithPrinter:(id<NWLPrinter>)printer
+{
+    if (printer) {
+        NSString *name = nil;
+        if ([printer respondsToSelector:@selector(name)]) {
+            name = printer.name;
+        } else {
+            name = NSStringFromClass(printer.class);
+        }
+        NSString *result = [NSString stringWithFormat:@"multi-logger>%@", name];
+        return result;
+    }
+    return nil;
+}
+
+@end
