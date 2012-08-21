@@ -12,6 +12,7 @@
 
 @interface NWLLogViewController : UIViewController <NWLPrinter>
 
+@property (nonatomic, assign) NSUInteger maxLogSize;
 @property (nonatomic, assign) BOOL compressAttachment;
 
 - (void)addText:(NSString *)text;

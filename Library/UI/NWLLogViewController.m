@@ -37,9 +37,12 @@
     void(^clearBlock)(void);
     NWLMultiLogger *logger;
     NSMutableArray *filters;
+    NSTimeInterval lastAppendTime;
+    dispatch_queue_t appendQueue;
+    NSMutableString *appendString;
 }
 
-@synthesize compressAttachment;
+@synthesize compressAttachment, maxLogSize;
 
 
 #pragma mark - View life cycle
@@ -48,9 +51,17 @@
 {
     self = [super init];
     if (self) {
+        maxLogSize = 1000 * 1000; // 1 MB
         calendar = NSCalendar.currentCalendar;
+        appendQueue = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
+        appendString = [[NSMutableString alloc] init];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    if (appendQueue) dispatch_release(appendQueue); appendQueue = NULL;
 }
 
 - (void)viewDidLoad
@@ -95,10 +106,23 @@
 
 - (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *s = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
-        textView.text = [textView.text stringByAppendingString:s];
-        [self performSelector:@selector(follow) withObject:nil afterDelay:0];
+    NSString *s = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
+    dispatch_async(appendQueue, ^{
+        [appendString appendString:s];
+        NSTimeInterval now = CFAbsoluteTimeGetCurrent();
+        if (now > lastAppendTime + .2 && appendString.length) {
+            NSString *s = appendString;
+            appendString = [[NSMutableString alloc] init];
+            lastAppendTime = now;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString *text = [textView.text stringByAppendingString:s];
+                if (text.length > maxLogSize) {
+                    text = [text substringFromIndex:text.length - maxLogSize];
+                }
+                textView.text = text;
+                [self performSelector:@selector(follow) withObject:nil afterDelay:0];
+            });
+        }
     });
 }
 
@@ -112,7 +136,7 @@
     if (text.length) {
         dispatch_async(dispatch_get_main_queue(), ^{
             textView.text = [textView.text stringByAppendingString:text];
-            [self performSelector:@selector(scrollDown) withObject:nil afterDelay:1];
+            [self performSelector:@selector(scrollDown) withObject:nil afterDelay:.5];
         });
     }
 }
