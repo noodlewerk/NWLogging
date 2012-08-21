@@ -76,7 +76,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
 - (void)run
 {
     NWLClearAll();
-    NWLAddPrinter(NWLLoggingDemoPrinter, 0);
+    NWLAddPrinter(NWLLoggingDemoPrinter, 0, "DemoPrinter");
     
     NWLog(@"       A| Welcome to the logging overview demo.");
     NWLog(@"       B| Let's log some text and see what happens where..");

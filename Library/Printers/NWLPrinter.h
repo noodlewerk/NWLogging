@@ -9,5 +9,6 @@
 @protocol NWLPrinter <NSObject>
 
 - (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message;
+- (NSString *)name;
 
 @end

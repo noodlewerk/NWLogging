@@ -64,7 +64,7 @@ const char *NWLLineLoggerAscii = NULL;
 + (void)start:(NSUInteger)info
 {
     NWLRemovePrinter(NWLLineLoggerPrinter, 0);
-    NWLAddPrinter(NWLLineLoggerPrinter, (void *)info);
+    NWLAddPrinter(NWLLineLoggerPrinter, (void *)info, "LineLogger");
 }
 
 + (void)stop

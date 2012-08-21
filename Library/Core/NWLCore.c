@@ -30,6 +30,7 @@ typedef struct {
 typedef struct {
     void(*func)(NWLContext, CFStringRef, void *);
     void *info;
+    const char *name;
 } NWLPrinter;
 
 typedef struct {
@@ -38,7 +39,7 @@ typedef struct {
 } NWLPrinterList;
 
 static NWLFilterList NWLFilters = {1, {NULL, "warn", NULL, NULL, NULL, kNWLAction_print}};
-static NWLPrinterList NWLPrinters = {1, {NULL, NULL}};
+static NWLPrinterList NWLPrinters = {1, {NWLDefaultPrinter, 0, "default"}};
 static CFTimeInterval NWLTimeOffset = 0;
 
 
@@ -48,43 +49,36 @@ void NWLForwardToPrinters(NWLContext context, CFStringRef message) {
     for (int i = 0; i < NWLPrinters.count; i++) {
         NWLPrinter *printer = &NWLPrinters.elements[i];
         void(*func)(NWLContext, CFStringRef, void *) = printer->func;
-        void *info = printer->info;
-        char buffer[100];
-        memset(buffer, 0, sizeof(buffer));
-        if (func) {
-            func(context, message, info);
-        } else {
-            NWLDefaultPrinter(context, message, info);
-        }
+        func(context, message, printer->info);
     }
 }
 
-int NWLAddPrinter(void(*func)(NWLContext, CFStringRef, void *), void *info) {
+int NWLAddPrinter(const char *name, void(*func)(NWLContext, CFStringRef, void *), void *info) {
     int count = NWLPrinters.count ;
     if (count < kNWLPrinterListSize) {
         NWLPrinters.elements[count].func = func;
         NWLPrinters.elements[count].info = info;
+        NWLPrinters.elements[count].name = name;
         NWLPrinters.count = count + 1;
         return true;
     }
     return false;
 }
 
-int NWLRemovePrinter(void(*func)(NWLContext, CFStringRef, void *), void *info) {
+int NWLRemovePrinter(const char *name) {
+    int result = 0;
     for (int i = 0; i < NWLPrinters.count; i++) {
-        NWLPrinter *printer = &NWLPrinters.elements[i];
-        int funcMatch = !func || printer->func == func;
-        int infoMatch = !info || printer->info == info;
-        if (funcMatch && infoMatch) {
+        const char *n = NWLPrinters.elements[i].name;
+        if (n == name || (n && name && !strcasecmp(n, name))) {
             int count = NWLPrinters.count;
             if (count > 0) {
                 NWLPrinters.count = count - 1;
-                NWLPrinters.elements[i] = NWLPrinters.elements[count - 1];
-                return true;
+                NWLPrinters.elements[i--] = NWLPrinters.elements[count - 1];
+                result++;
             }
         }
     }
-    return false;
+    return result;
 }
 
 void NWLRemoveAllPrinters(void) {
@@ -98,7 +92,7 @@ void NWLRestoreDefaultPrinters(void) {
 }
 
 void NWLAddDefaultPrinter(void) {
-    NWLAddPrinter(NULL, NULL);
+    NWLAddPrinter(NULL, NULL, NULL);
 }
 
 void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *info) {
@@ -280,15 +274,18 @@ void NWLRestorePrintClock(void) {
 
 #define _NWL_PRINT_(_buffer, _size, _fmt, ...) do {\
         if (_size > 0) {\
-            int p = snprintf(_buffer, _size, _fmt, ##__VA_ARGS__);\
-            if (p > _size) p = _size;\
-            if (p > 0) {_buffer += p; _size -= p;}\
+            int __p = snprintf(_buffer, _size, _fmt, ##__VA_ARGS__);\
+            if (__p > _size) __p = _size;\
+            if (__p > 0) {_buffer += __p; _size -= __p;}\
             }\
     } while (0)
 
 void NWLAboutString(char *buffer, int size) {
     _NWL_PRINT_(buffer, size, "About NWLogging");
-    _NWL_PRINT_(buffer, size, "\n   #printers:%u", NWLPrinters.count);
+    for (int i = 0; i < NWLPrinters.count; i++) {
+        NWLPrinter *p = &NWLPrinters.elements[i];
+        _NWL_PRINT_(buffer, size, "\n   printer:%s", p->func ? (p->name ? p->name : "?") : "default");
+    }
     for (int i = 0; i < NWLFilters.count; i++) {
         NWLFilter *filter = &NWLFilters.elements[i];
 #define _NWL_ABOUT_ACTION_(_action) do {if (filter->action == kNWLAction_##_action) {_NWL_PRINT_(buffer, size, "\n   action:"#_action);}} while (0)
