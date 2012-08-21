@@ -167,7 +167,55 @@ NWLAction NWLMatchingActionForContext(NWLContext context) {
     return result;
 }
 
-static int NWLRemoveActionsWithProperties(NWLFilter *filter) {
+static int NWLAddFilter1(NWLFilter *filter) {
+    if (filter->action != kNWLAction_none) {
+        int count = NWLFilters.count;
+        if (count < kNWLFilterListSize) {
+            NWLFilters.elements[count] = *filter;
+            NWLFilters.count = count + 1;
+            return true;
+        }
+    }
+    return false;
+}
+
+static NWLAction NWLHasFilter1(NWLFilter *filter) {
+    for (int i = 0; i < NWLFilters.count; i++) {
+        NWLFilter *m = &NWLFilters.elements[i];
+        int j = 1;
+        for (; j < kNWLProperty_count; j++) {
+            const char *a = filter->properties[j];
+            const char *b = m->properties[j];
+            if (a != b && (!a || !b || strcasecmp(a, b))) break;
+        }
+        if (j == kNWLProperty_count) {
+            return m->action;
+        }
+    }
+    return kNWLAction_none;
+}
+
+static int NWLRemoveFilter1(NWLFilter *filter) {
+    int result = 0;
+    for (int i = 0; i < NWLFilters.count; i++) {
+        NWLFilter *m = &NWLFilters.elements[i];
+        int j = 1;
+        for (; j < kNWLProperty_count; j++) {
+            const char *a = filter->properties[j];
+            const char *b = m->properties[j];
+            if (a != b && (!a || !b || strcasecmp(a, b))) break;
+        }
+        int count = NWLFilters.count;
+        if (j == kNWLProperty_count && count > 0) {
+            NWLFilters.count = count - 1;
+            NWLFilters.elements[i--] = NWLFilters.elements[count - 1];
+            result++;
+        }
+    }
+    return result;
+}
+
+static int NWLRemoveMatchingFilters1(NWLFilter *filter) {
     int result = 0;
     for (int i = 0; i < NWLFilters.count; i++) {
         NWLFilter *m = &NWLFilters.elements[i];
@@ -187,40 +235,23 @@ static int NWLRemoveActionsWithProperties(NWLFilter *filter) {
     return result;
 }
 
-static int NWLAddActionAndProperties(NWLFilter *filter) {
-    if (filter->action != kNWLAction_none) {
-        int count = NWLFilters.count;
-        if (count < kNWLFilterListSize) {
-            NWLFilters.elements[count] = *filter;
-            NWLFilters.count = count + 1;
-            return true;
-        }
-    }
-    return false;
-}
-
 int NWLAddFilter(const char *tag, const char *lib, const char *file, const char *function, NWLAction action) {
     NWLFilter filter = {NULL, tag, lib, file, function, action};
-    NWLRemoveActionsWithProperties(&filter);
-    int result = NWLAddActionAndProperties(&filter);
+    NWLRemoveFilter1(&filter);
+    int result = NWLAddFilter1(&filter);
     return result;
 }
 
 NWLAction NWLHasFilter(const char *tag, const char *lib, const char *file, const char *function) {
     NWLFilter filter = {NULL, tag, lib, file, function, kNWLAction_none};
-    for (int i = 0; i < NWLFilters.count; i++) {
-        NWLFilter *m = &NWLFilters.elements[i];
-        int j = 1;
-        for (; j < kNWLProperty_count; j++) {
-            const char *a = filter.properties[j];
-            const char *b = m->properties[j];
-            if (a != b && (!a || !b || strcasecmp(a, b))) break;
-        }
-        if (j == kNWLProperty_count) {
-            return true;
-        }
-    }
-    return false;
+    NWLAction result = NWLHasFilter1(&filter);
+    return result;
+}
+
+int NWLRemoveMatchingFilters(const char *tag, const char *lib, const char *file, const char *function) {
+    NWLFilter filter = {NULL, tag, lib, file, function, kNWLAction_none};
+    int result = NWLRemoveMatchingFilters1(&filter);
+    return result;
 }
 
 void NWLRemoveAllFilters(void) {
@@ -232,7 +263,6 @@ void NWLRestoreDefaultFilters(void) {
     NWLFilters.elements[0].properties[0] = "warn";
     NWLFilters.count = 1;
 }
-
 
 
 #pragma mark - Clock
@@ -352,23 +382,23 @@ void NWLBreakTagInLib(const char *tag, const char *lib) {
 
 
 void NWLClearInfo() {
-    NWLAddFilter("info", NULL, NULL, NULL, kNWLAction_none);
+    NWLRemoveMatchingFilters("info", NULL, NULL, NULL);
 }
 
 void NWLClearWarn() {
-    NWLAddFilter("warn", NULL, NULL, NULL, kNWLAction_none);
+    NWLRemoveMatchingFilters("warn", NULL, NULL, NULL);
 }
 
 void NWLClearDbug() {
-    NWLAddFilter("dbug", NULL, NULL, NULL, kNWLAction_none);
+    NWLRemoveMatchingFilters("dbug", NULL, NULL, NULL);
 }
 
 void NWLClearTag(const char *tag) {
-    NWLAddFilter(tag, NULL, NULL, NULL, kNWLAction_none);
+    NWLRemoveMatchingFilters(tag, NULL, NULL, NULL);
 }
 
 void NWLClearAllInLib(const char *lib) {
-    NWLAddFilter(NULL, lib, NULL, NULL, kNWLAction_none);
+    NWLRemoveMatchingFilters(NULL, lib, NULL, NULL);
 }
 
 void NWLClearAll(void) {

@@ -197,6 +197,9 @@ extern int NWLAddFilter(const char *tag, const char *lib, const char *file, cons
 /** Finds filter that machtes these filter properties and returns its action. */
 extern NWLAction NWLHasFilter(const char *tag, const char *lib, const char *file, const char *function);
 
+/** Remove all filters that are included by these filter properties. */
+extern int NWLRemoveMatchingFilters(const char *tag, const char *lib, const char *file, const char *function);
+
 /** Remove all actions for all properties. */
 extern void NWLRemoveAllFilters(void);
 
