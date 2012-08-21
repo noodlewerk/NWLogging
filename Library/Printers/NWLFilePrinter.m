@@ -129,6 +129,11 @@
     [self logLine:s];
 }
 
+- (NSString *)name
+{
+    return @"file-printer";
+}
+
 - (void)logLine:(NSString *)line
 {
     dispatch_async(serial, ^{

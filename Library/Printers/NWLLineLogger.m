@@ -63,13 +63,12 @@ const char *NWLLineLoggerAscii = NULL;
 
 + (void)start:(NSUInteger)info
 {
-    NWLRemovePrinter(NWLLineLoggerPrinter, 0);
-    NWLAddPrinter(NWLLineLoggerPrinter, (void *)info, "LineLogger");
+    NWLAddPrinter("line-logger", NWLLineLoggerPrinter, (void *)info);
 }
 
 + (void)stop
 {
-    NWLRemovePrinter(NWLLineLoggerPrinter, 0);
+    NWLRemovePrinter("line-logger");
 }
 
 + (NSString *)tag

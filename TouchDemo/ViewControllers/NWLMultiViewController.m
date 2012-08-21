@@ -68,6 +68,11 @@
     });
 }
 
+- (NSString *)name
+{
+    return @"multi-view";
+}
+
 - (void)updateUI
 {
     countLabel.text = [NSString stringWithFormat:@"#printers: %u", NWLMultiLogger.shared.count];

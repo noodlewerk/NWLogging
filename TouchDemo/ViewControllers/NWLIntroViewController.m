@@ -23,7 +23,9 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     } else {
         s = [NSString stringWithFormat:@"[%02i:%02i:%02i] %@\n", hour, minute, second, message];
     }
-    NWLLoggingDemoLogView.text = [NWLLoggingDemoLogView.text stringByAppendingString:s];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NWLLoggingDemoLogView.text = [NWLLoggingDemoLogView.text stringByAppendingString:s];
+    });
 }
 
 
@@ -76,7 +78,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
 - (void)run
 {
     NWLClearAll();
-    NWLAddPrinter(NWLLoggingDemoPrinter, 0, "DemoPrinter");
+    NWLAddPrinter("demo-printer", NWLLoggingDemoPrinter, 0);
     
     NWLog(@"       A| Welcome to the logging overview demo.");
     NWLog(@"       B| Let's log some text and see what happens where..");
@@ -129,7 +131,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
         NWLogWarn(@"Q| That's it for this demo, thanks for watching.");
         
         // restore printers
-        NWLRemovePrinter(NWLLoggingDemoPrinter, 0);
+        NWLRemovePrinter("demo-printer");
     });
 }
 

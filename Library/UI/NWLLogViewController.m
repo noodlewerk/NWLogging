@@ -102,6 +102,11 @@
     });
 }
 
+- (NSString *)name
+{
+    return @"log-view";
+}
+
 - (void)addText:(NSString *)text
 {
     if (text.length) {
