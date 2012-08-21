@@ -54,6 +54,7 @@ void NWLForwardToPrinters(NWLContext context, CFStringRef message) {
 }
 
 int NWLAddPrinter(const char *name, void(*func)(NWLContext, CFStringRef, void *), void *info) {
+    NWLRemovePrinter(name);
     int count = NWLPrinters.count ;
     if (count < kNWLPrinterListSize) {
         NWLPrinters.elements[count].func = func;
@@ -282,10 +283,6 @@ void NWLRestorePrintClock(void) {
 
 void NWLAboutString(char *buffer, int size) {
     _NWL_PRINT_(buffer, size, "About NWLogging");
-    for (int i = 0; i < NWLPrinters.count; i++) {
-        NWLPrinter *p = &NWLPrinters.elements[i];
-        _NWL_PRINT_(buffer, size, "\n   printer:%s", p->func ? (p->name ? p->name : "?") : "default");
-    }
     for (int i = 0; i < NWLFilters.count; i++) {
         NWLFilter *filter = &NWLFilters.elements[i];
 #define _NWL_ABOUT_ACTION_(_action) do {if (filter->action == kNWLAction_##_action) {_NWL_PRINT_(buffer, size, "\n   action:"#_action);}} while (0)
@@ -299,6 +296,10 @@ void NWLAboutString(char *buffer, int size) {
         _NWL_ABOUT_PROP_(lib);
         _NWL_ABOUT_PROP_(file);
         _NWL_ABOUT_PROP_(function);
+    }
+    for (int i = 0; i < NWLPrinters.count; i++) {
+        NWLPrinter *p = &NWLPrinters.elements[i];
+        _NWL_PRINT_(buffer, size, "\n   printer:%s", p->name);
     }
     _NWL_PRINT_(buffer, size, "\n   time-offset:%f", NWLTimeOffset);
 }
