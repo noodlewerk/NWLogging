@@ -28,9 +28,9 @@ typedef struct {
 } NWLFilterList;
 
 typedef struct {
+    const char *name;
     void(*func)(NWLContext, CFStringRef, void *);
     void *info;
-    const char *name;
 } NWLPrinter;
 
 typedef struct {
@@ -38,8 +38,9 @@ typedef struct {
     NWLPrinter elements[kNWLPrinterListSize];
 } NWLPrinterList;
 
+#define NWLDefaultPrinterName "default"
 static NWLFilterList NWLFilters = {1, {NULL, "warn", NULL, NULL, NULL, kNWLAction_print}};
-static NWLPrinterList NWLPrinters = {1, {NWLDefaultPrinter, 0, "default"}};
+static NWLPrinterList NWLPrinters = {1, {NWLDefaultPrinterName, NWLDefaultPrinter, NULL}};
 static CFTimeInterval NWLTimeOffset = 0;
 
 
@@ -57,9 +58,9 @@ int NWLAddPrinter(const char *name, void(*func)(NWLContext, CFStringRef, void *)
     NWLRemovePrinter(name);
     int count = NWLPrinters.count ;
     if (count < kNWLPrinterListSize) {
+        NWLPrinters.elements[count].name = name;
         NWLPrinters.elements[count].func = func;
         NWLPrinters.elements[count].info = info;
-        NWLPrinters.elements[count].name = name;
         NWLPrinters.count = count + 1;
         return true;
     }
@@ -87,13 +88,14 @@ void NWLRemoveAllPrinters(void) {
 }
 
 void NWLRestoreDefaultPrinters(void) {
-    NWLPrinters.elements[0].func = NULL;
+    NWLPrinters.elements[0].name = NWLDefaultPrinterName;
+    NWLPrinters.elements[0].func = NWLDefaultPrinter;
     NWLPrinters.elements[0].info = NULL;
     NWLPrinters.count = 1;
 }
 
 void NWLAddDefaultPrinter(void) {
-    NWLAddPrinter(NULL, NULL, NULL);
+    NWLAddPrinter(NWLDefaultPrinterName, NWLDefaultPrinter, NULL);
 }
 
 void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *info) {
