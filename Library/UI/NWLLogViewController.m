@@ -358,8 +358,10 @@
 
 - (void)setActive:(BOOL)active
 {
-    NWLAction action = active ? kNWLAction_print : kNWLAction_none;
-    NWLAddFilter(tag, lib, file, function, action);
+    if (self.active ^ active) {
+        NWLAction action = active ? kNWLAction_print : kNWLAction_none;
+        NWLAddFilter(tag, lib, file, function, action);
+    }
 }
 
 @end
@@ -367,6 +369,23 @@
 
 @implementation NWLFilterViewController {
     NSArray *filters;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    NSMutableArray *buttons = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(uncheckAll)];
+    [buttons addObject:item];
+    self.navigationItem.rightBarButtonItems = buttons;
+}
+
+- (void)uncheckAll
+{
+    for (NWLFilter *filter in filters) {
+        filter.active = NO;
+    }
+    [self.tableView reloadData];
 }
 
 - (void)loadFilters:(NSArray *)_filters
@@ -413,7 +432,6 @@
     cell.accessoryType = checked ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
     NWLFilter *filter = [filters objectAtIndex:indexPath.row];
     filter.active = !checked;
-    NWLDump();
 }
 
 @end
