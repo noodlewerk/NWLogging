@@ -51,7 +51,7 @@
 {
     self = [super init];
     if (self) {
-        maxLogSize = 1000 * 1000; // 1 MB
+        maxLogSize = 100 * 1000; // 100 KB
         calendar = NSCalendar.currentCalendar;
         appendQueue = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
         appendString = [[NSMutableString alloc] init];
