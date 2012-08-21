@@ -33,7 +33,6 @@
 		B384682E15D6B6C100780B6C /* NWLMultiLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682115D6B6C100780B6C /* NWLMultiLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384682F15D6B6C100780B6C /* NWLMultiLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682215D6B6C100780B6C /* NWLMultiLogger.m */; };
 		B384683015D6B6C100780B6C /* NWLPrinter.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682315D6B6C100780B6C /* NWLPrinter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B384683115D6B6C100780B6C /* NWLPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682415D6B6C100780B6C /* NWLPrinter.m */; };
 		B384683215D6B6C100780B6C /* NWLTools.h in Headers */ = {isa = PBXBuildFile; fileRef = B384682515D6B6C100780B6C /* NWLTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B384683315D6B6C100780B6C /* NWLTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682615D6B6C100780B6C /* NWLTools.m */; };
 		B384685715D6BBC500780B6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684315D6BB8F00780B6C /* Foundation.framework */; };
@@ -59,7 +58,6 @@
 		B39DC11215D7C51B00374BE5 /* NWLFilePrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384681E15D6B6C100780B6C /* NWLFilePrinter.m */; };
 		B39DC11315D7C51B00374BE5 /* NWLLineLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682015D6B6C100780B6C /* NWLLineLogger.m */; };
 		B39DC11415D7C51B00374BE5 /* NWLMultiLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682215D6B6C100780B6C /* NWLMultiLogger.m */; };
-		B39DC11515D7C51B00374BE5 /* NWLPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682415D6B6C100780B6C /* NWLPrinter.m */; };
 		B39DC11615D7C51B00374BE5 /* NWLTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682615D6B6C100780B6C /* NWLTools.m */; };
 		B39DC11715D7C52000374BE5 /* NWLLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682915D6B6C100780B6C /* NWLLogViewController.m */; };
 		B3AC2E1715D7C582003F4F88 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC11815D7C54500374BE5 /* MessageUI.framework */; };
@@ -161,7 +159,6 @@
 		B384682115D6B6C100780B6C /* NWLMultiLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLMultiLogger.h; sourceTree = "<group>"; };
 		B384682215D6B6C100780B6C /* NWLMultiLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLMultiLogger.m; sourceTree = "<group>"; };
 		B384682315D6B6C100780B6C /* NWLPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLPrinter.h; sourceTree = "<group>"; };
-		B384682415D6B6C100780B6C /* NWLPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLPrinter.m; sourceTree = "<group>"; };
 		B384682515D6B6C100780B6C /* NWLTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLTools.h; sourceTree = "<group>"; };
 		B384682615D6B6C100780B6C /* NWLTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLTools.m; sourceTree = "<group>"; };
 		B384682815D6B6C100780B6C /* NWLLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLogViewController.h; sourceTree = "<group>"; };
@@ -365,7 +362,6 @@
 				B384682115D6B6C100780B6C /* NWLMultiLogger.h */,
 				B384682215D6B6C100780B6C /* NWLMultiLogger.m */,
 				B384682315D6B6C100780B6C /* NWLPrinter.h */,
-				B384682415D6B6C100780B6C /* NWLPrinter.m */,
 				B384682515D6B6C100780B6C /* NWLTools.h */,
 				B384682615D6B6C100780B6C /* NWLTools.m */,
 			);
@@ -706,7 +702,6 @@
 				B384682B15D6B6C100780B6C /* NWLFilePrinter.m in Sources */,
 				B384682D15D6B6C100780B6C /* NWLLineLogger.m in Sources */,
 				B384682F15D6B6C100780B6C /* NWLMultiLogger.m in Sources */,
-				B384683115D6B6C100780B6C /* NWLPrinter.m in Sources */,
 				B384683315D6B6C100780B6C /* NWLTools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -727,7 +722,6 @@
 				B39DC11215D7C51B00374BE5 /* NWLFilePrinter.m in Sources */,
 				B39DC11315D7C51B00374BE5 /* NWLLineLogger.m in Sources */,
 				B39DC11415D7C51B00374BE5 /* NWLMultiLogger.m in Sources */,
-				B39DC11515D7C51B00374BE5 /* NWLPrinter.m in Sources */,
 				B39DC11615D7C51B00374BE5 /* NWLTools.m in Sources */,
 				B39DC11715D7C52000374BE5 /* NWLLogViewController.m in Sources */,
 			);
