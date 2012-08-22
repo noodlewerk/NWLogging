@@ -11,6 +11,7 @@
 #import "NWLTools.h"
 #import "NWLFilePrinter.h"
 #import "NWLMultiLogger.h"
+#import "NWLLogView.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #include <zlib.h>
@@ -30,19 +31,13 @@
 
 
 @implementation NWLLogViewController {
-    UITextView *textView;
-    dispatch_queue_t serial;
-    NSCalendar *calendar;
+    NWLLogView *textView;
     NSMutableArray *emailAddresses;
+    BOOL compressAttachment;
     void(^clearBlock)(void);
     NWLMultiLogger *logger;
     NSMutableArray *filters;
-    NSTimeInterval lastAppendTime;
-    dispatch_queue_t appendQueue;
-    NSMutableString *appendString;
 }
-
-@synthesize compressAttachment, maxLogSize;
 
 
 #pragma mark - View life cycle
@@ -51,29 +46,15 @@
 {
     self = [super init];
     if (self) {
-        maxLogSize = 100 * 1000; // 100 KB
-        calendar = NSCalendar.currentCalendar;
-        appendQueue = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
-        appendString = [[NSMutableString alloc] init];
+        textView = [[NWLLogView alloc] init];
     }
     return self;
-}
-
-- (void)dealloc
-{
-    if (appendQueue) dispatch_release(appendQueue); appendQueue = NULL;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    textView = [[UITextView alloc] initWithFrame:CGRectZero];
     textView.frame = self.view.bounds;
-    textView.backgroundColor = UIColor.blackColor;
-    textView.textColor = UIColor.whiteColor;
-    textView.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10]; // Courier-Bold or CourierNewPS-BoldMT
-    textView.editable = NO;
     textView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:textView];
 }
@@ -81,7 +62,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
     textView = nil;
 }
 
@@ -106,56 +86,17 @@
 
 - (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
 {
-    NSString *s = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
-    dispatch_async(appendQueue, ^{
-        [appendString appendString:s];
-        NSTimeInterval now = CFAbsoluteTimeGetCurrent();
-        if (now > lastAppendTime + .2 && appendString.length) {
-            NSString *s = appendString;
-            appendString = [[NSMutableString alloc] init];
-            lastAppendTime = now;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSString *text = [textView.text stringByAppendingString:s];
-                if (text.length > maxLogSize) {
-                    text = [text substringFromIndex:text.length - maxLogSize];
-                }
-                [self follow];
-                textView.text = text;
-            });
-        }
-    });
+    [textView printWithTag:tag lib:lib file:file line:line function:function message:message];
 }
 
 - (NSString *)name
 {
-    return @"log-view";
+    return textView.name;
 }
 
-- (void)addText:(NSString *)text
+- (void)appendText:(NSString *)text
 {
-    if (text.length) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            textView.text = [textView.text stringByAppendingString:text];
-            [self performSelector:@selector(scrollDown) withObject:nil afterDelay:.5];
-        });
-    }
-}
-
-- (void)scrollDown
-{
-    if (textView.contentSize.height) {
-        CGRect rect = CGRectMake(0, textView.contentSize.height - 1, 1, 1);
-        [textView scrollRectToVisible:rect animated:YES];
-    }
-}
-
-- (void)follow
-{
-    NSUInteger offset = textView.contentOffset.y + textView.bounds.size.height;
-    NSUInteger size = textView.contentSize.height;
-    if (offset >= size - 50) {
-        [self performSelector:@selector(scrollDown) withObject:nil afterDelay:0];
-    }
+    [textView appendAndScrollText:text];
 }
 
 
@@ -187,7 +128,7 @@
 
 #pragma mark - Email button
 
-- (void)addEmailButton:(NSString *)address
+- (void)addEmailButton:(NSString *)address compressAttachment:(BOOL)_compressAttachment
 {
     if (!emailAddresses.count) {
         NSMutableArray *buttons = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
@@ -195,6 +136,7 @@
         [buttons addObject:item];
         self.navigationItem.rightBarButtonItems = buttons;
         emailAddresses = [NSMutableArray array];
+        compressAttachment = _compressAttachment;
     }
     [emailAddresses addObject:[address copy]];
 }
@@ -281,7 +223,10 @@
 
 - (void)printAbout
 {
-    NWLAbout();
+    char buffer[1024];
+    NWLAboutString(buffer, sizeof(buffer));
+    NSString *about = [NSString stringWithFormat:@"%s\n", buffer];
+    [textView appendAndScrollText:about];
 }
 
 #pragma mark - Convenient configuration
@@ -293,7 +238,7 @@
             [printer clear];
         }];
         NSString *text = [NSString stringWithContentsOfFile:printer.path encoding:NSUTF8StringEncoding error:nil];
-        [self addText:text];
+        [textView appendAndScrollText:text];
     }
 }
 

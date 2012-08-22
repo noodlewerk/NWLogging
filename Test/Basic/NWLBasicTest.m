@@ -128,4 +128,43 @@
     STAssertEqualObjects(NWLLineLogger.message, s, @"");
 }
 
+- (void)testAbout
+{
+    NWLRestoreDefaultFilters();
+    NWLRestoreDefaultPrinters();
+    NWLRestorePrintClock();
+    
+    NSUInteger aboutLength = 83;
+    
+    char buffer[256];
+    
+    // test about length is correct
+    NWLAboutString(buffer, sizeof(buffer));
+    NSString *s = [NSString stringWithCString:buffer encoding:NSUTF8StringEncoding];
+    STAssertEquals(s.length, aboutLength, @"");
+    
+    // test response correct with about-right length
+    STAssertEquals(NWLAboutString(buffer, aboutLength - 2), (int)aboutLength, @"");
+    STAssertEquals(NWLAboutString(buffer, aboutLength - 1), (int)aboutLength, @"");
+    STAssertEquals(NWLAboutString(buffer, aboutLength    ), (int)aboutLength, @""); 
+    STAssertEquals(NWLAboutString(buffer, aboutLength + 1), (int)aboutLength, @"");
+    STAssertEquals(NWLAboutString(buffer, aboutLength + 2), (int)aboutLength, @"");
+    
+    // test all possible lengths exactly
+    for (NSUInteger size = 0; size < 2 * aboutLength; size++) {
+        memset(buffer, 254, sizeof(buffer));
+        NSUInteger length = NWLAboutString(buffer, size);
+        
+        STAssertEquals(length, aboutLength, @"");
+        
+        for (NSUInteger i = 0; i < sizeof(buffer); i++) {
+            if (i < MIN(size, aboutLength + 1)) {
+                STAssertFalse(buffer[i] == 254, @"");
+            } else {
+                STAssertEquals(buffer[i], (char)254, @"");
+            }
+        }
+    }
+}
+
 @end

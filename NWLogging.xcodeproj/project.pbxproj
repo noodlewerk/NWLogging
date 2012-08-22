@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B332839315E4FAFF00B76F2B /* NWLLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = B332839115E4FAFF00B76F2B /* NWLLogView.h */; };
+		B332839415E4FAFF00B76F2B /* NWLLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = B332839215E4FAFF00B76F2B /* NWLLogView.m */; };
 		B34EA70815D5007C007B041F /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
 		B34EA70B15D500BA007B041F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA70A15D500B6007B041F /* main.c */; };
 		B34EA70C15D500D1007B041F /* libNWLoggingCocoaStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6E815D4FFBA007B041F /* libNWLoggingCocoaStatic.a */; };
@@ -138,6 +140,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B332839115E4FAFF00B76F2B /* NWLLogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLogView.h; sourceTree = "<group>"; };
+		B332839215E4FAFF00B76F2B /* NWLLogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLLogView.m; sourceTree = "<group>"; };
 		B34EA6DA15D4FE4E007B041F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		B34EA6DE15D4FEC7007B041F /* NWLCore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NWLCore.c; sourceTree = "<group>"; };
 		B34EA6DF15D4FEC7007B041F /* NWLCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NWLCore.h; sourceTree = "<group>"; };
@@ -373,6 +377,8 @@
 			children = (
 				B384682815D6B6C100780B6C /* NWLLogViewController.h */,
 				B384682915D6B6C100780B6C /* NWLLogViewController.m */,
+				B332839115E4FAFF00B76F2B /* NWLLogView.h */,
+				B332839215E4FAFF00B76F2B /* NWLLogView.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -480,6 +486,7 @@
 				B3B9C2AD15D7D767001483BA /* NWLTools.h in Headers */,
 				B3B9C2AE15D7D767001483BA /* NWLLogViewController.h in Headers */,
 				B3B9C2AF15D7D767001483BA /* NWLogging.h in Headers */,
+				B332839315E4FAFF00B76F2B /* NWLLogView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,6 +731,7 @@
 				B39DC11415D7C51B00374BE5 /* NWLMultiLogger.m in Sources */,
 				B39DC11615D7C51B00374BE5 /* NWLTools.m in Sources */,
 				B39DC11715D7C52000374BE5 /* NWLLogViewController.m in Sources */,
+				B332839415E4FAFF00B76F2B /* NWLLogView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -67,11 +67,10 @@
             if (NWLPersistentViewController.printer) {
                 [c configureWithFilePrinter:NWLPersistentViewController.printer];
             } else {
-                [c addText:@"To view previous logs, turn on file logging.\n"];
+                [c appendText:@"To view previous logs, turn on file logging.\n"];
             }
             [c configureWithMultiLogger:NWLMultiLogger.shared];
-            [c addEmailButton:@"leonard@noodlewerk.com"];
-            c.compressAttachment = YES;
+            [c addEmailButton:@"leonard@noodlewerk.com" compressAttachment:YES];
             [c addDefaultFilters];
             [c addAboutButton];
             controller = c;

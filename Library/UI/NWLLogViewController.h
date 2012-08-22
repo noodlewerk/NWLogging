@@ -12,11 +12,9 @@
 
 @interface NWLLogViewController : UIViewController <NWLPrinter>
 
-@property (nonatomic, assign) NSUInteger maxLogSize;
-@property (nonatomic, assign) BOOL compressAttachment;
+- (void)appendText:(NSString *)text;
 
-- (void)addText:(NSString *)text;
-- (void)addEmailButton:(NSString *)address;
+- (void)addEmailButton:(NSString *)address compressAttachment:(BOOL)compressAttachment;
 - (void)addClearButton:(void(^)(void))block;
 - (void)addDoneButton;
 - (void)addAboutButton;
