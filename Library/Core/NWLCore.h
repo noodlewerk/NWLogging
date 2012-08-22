@@ -213,8 +213,8 @@ extern void NWLResetPrintClock(void);
 /** Restore the clock on log prints to UTC time. */
 extern void NWLRestorePrintClock(void);
 
-/** Returns a human-readable summary of this logger. */
-extern void NWLAboutString(char *buffer, int size);
+/** Returns a human-readable summary of this logger, returns the length of the about text excluding the null byte or 'size' if more characters are needed. */
+extern int NWLAboutString(char *buffer, int size);
 
 
 #pragma mark - Convenient logging configuration

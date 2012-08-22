@@ -276,24 +276,24 @@ void NWLRestorePrintClock(void) {
 #pragma mark - About
 
 #define _NWL_PRINT_(_buffer, _size, _fmt, ...) do {\
-        if (_size > 0) {\
-            int __p = snprintf(_buffer, _size, _fmt, ##__VA_ARGS__);\
-            if (__p > _size) __p = _size;\
-            if (__p > 0) {_buffer += __p; _size -= __p;}\
-            }\
+        int _s = _size > 0 ? _size : 0;\
+        int __p = snprintf(_buffer, _s, _fmt, ##__VA_ARGS__);\
+        if (__p <= _size) _buffer += __p; else buffer += _s;\
+        _size -= __p;\
     } while (0)
 
-void NWLAboutString(char *buffer, int size) {
-    _NWL_PRINT_(buffer, size, "About NWLogging");
+int NWLAboutString(char *buffer, int size) {
+    int s = size;
+    _NWL_PRINT_(buffer, s, "About NWLogging");
     for (int i = 0; i < NWLFilters.count; i++) {
         NWLFilter *filter = &NWLFilters.elements[i];
-#define _NWL_ABOUT_ACTION_(_action) do {if (filter->action == kNWLAction_##_action) {_NWL_PRINT_(buffer, size, "\n   action:"#_action);}} while (0)
+#define _NWL_ABOUT_ACTION_(_action) do {if (filter->action == kNWLAction_##_action) {_NWL_PRINT_(buffer, s, "\n   action:"#_action);}} while (0)
         _NWL_ABOUT_ACTION_(print);
         _NWL_ABOUT_ACTION_(break);
         _NWL_ABOUT_ACTION_(raise);
         _NWL_ABOUT_ACTION_(assert);
         const char *value = NULL;
-#define _NWL_ABOUT_PROP_(_prop) do {if ((value = filter->properties[kNWLProperty_##_prop])) {_NWL_PRINT_(buffer, size, " "#_prop":%s", value);}} while (0)
+#define _NWL_ABOUT_PROP_(_prop) do {if ((value = filter->properties[kNWLProperty_##_prop])) {_NWL_PRINT_(buffer, s, " "#_prop":%s", value);}} while (0)
         _NWL_ABOUT_PROP_(tag);
         _NWL_ABOUT_PROP_(lib);
         _NWL_ABOUT_PROP_(file);
@@ -301,9 +301,10 @@ void NWLAboutString(char *buffer, int size) {
     }
     for (int i = 0; i < NWLPrinters.count; i++) {
         NWLPrinter *p = &NWLPrinters.elements[i];
-        _NWL_PRINT_(buffer, size, "\n   printer:%s", p->name);
+        _NWL_PRINT_(buffer, s, "\n   printer:%s", p->name);
     }
-    _NWL_PRINT_(buffer, size, "\n   time-offset:%f", NWLTimeOffset);
+    _NWL_PRINT_(buffer, s, "\n   time-offset:%f", NWLTimeOffset);
+    return size - s;
 }
 
 
