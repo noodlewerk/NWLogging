@@ -14,6 +14,8 @@
 
 - (void)appendAndFollowText:(NSString *)text;
 - (void)appendAndScrollText:(NSString *)text;
+- (void)safeAppendAndFollowText:(NSString *)text;
+
 - (void)scrollDown;
 
 @end

@@ -53,24 +53,13 @@
     if (serial) dispatch_release(serial); serial = NULL;
 }
 
+
 #pragma mark - Printing
 
 - (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
 {
-    NSString *s = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
-    dispatch_async(serial, ^{
-        if (waitingToPrint) {
-            [buffer appendString:s];
-        } else {
-            [self safeAppendAndFollowText:s];
-            waitingToPrint = YES;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .2 * NSEC_PER_SEC), serial, ^(void){
-                [self safeAppendAndFollowText:buffer];
-                buffer = [[NSMutableString alloc] init];
-                waitingToPrint = NO;
-            });
-        }
-    });
+    NSString *text = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
+    [self safeAppendAndFollowText:text];
 }
 
 - (NSString *)name
@@ -83,8 +72,23 @@
 
 - (void)safeAppendAndFollowText:(NSString *)text
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self appendAndFollowText:text];
+    dispatch_async(serial, ^{
+        if (waitingToPrint) {
+            [buffer appendString:text];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self appendAndFollowText:text];
+            });
+            waitingToPrint = YES;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .2 * NSEC_PER_SEC), serial, ^(void){
+                NSString *b = buffer;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self appendAndFollowText:b];
+                });
+                buffer = [[NSMutableString alloc] init];
+                waitingToPrint = NO;
+            });
+        }
     });
 }
 
