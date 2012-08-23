@@ -8,29 +8,19 @@
 
 #import "NWLIntroViewController.h"
 
-
-static UITextView *NWLLoggingDemoLogView = nil;
 static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void *info) {
-    NSDate *date = NSDate.date;
-    NSCalendar *calendar = NSCalendar.currentCalendar;
-    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
-    NSInteger hour = [components hour];
-    NSInteger minute = [components minute];
-    NSInteger second = [components second];
-    NSString *s = nil;
-    if (context.tag && *context.tag) {
-        s = [NSString stringWithFormat:@"[%02i:%02i:%02i] [%s] %@\n", hour, minute, second, context.tag, message];
-    } else {
-        s = [NSString stringWithFormat:@"[%02i:%02i:%02i] %@\n", hour, minute, second, message];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NWLLoggingDemoLogView.text = [NWLLoggingDemoLogView.text stringByAppendingString:s];
-    });
+    NSString *tagString = context.tag ? [NSString stringWithCString:context.tag encoding:NSUTF8StringEncoding] : nil;
+    NSString *libString = context.lib ? [NSString stringWithCString:context.lib encoding:NSUTF8StringEncoding] : nil;
+    NSString *fileString = context.file ? [NSString stringWithCString:context.file encoding:NSUTF8StringEncoding] : nil;
+    NSString *functionString = context.function ? [NSString stringWithCString:context.function encoding:NSUTF8StringEncoding] : nil;
+    NSString *messageString = (__bridge NSString *)message;
+    NWLLogView *logView = (__bridge NWLLogView *)(info);
+    [logView printWithTag:tagString lib:libString file:fileString line:context.line function:functionString message:messageString];
 }
 
 
 @implementation NWLIntroViewController {
-    UITextView *logView;
+    NWLLogView *logView;
 }
 
 - (void)viewDidLoad
@@ -54,31 +44,25 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     [button addTarget:self action:@selector(run) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     
-    logView = [[UITextView alloc] init];
+    logView = [[NWLLogView alloc] init];
     logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
-    logView.backgroundColor = UIColor.blackColor;
-    logView.textColor = UIColor.whiteColor;
-    logView.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10]; // Courier-Bold or CourierNewPS-BoldMT
-    logView.editable = NO;
     [self.view addSubview:logView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NWLLoggingDemoLogView = logView;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    NWLLoggingDemoLogView = nil;
 }
 
 - (void)run
 {
     NWLClearAll();
-    NWLAddPrinter("demo-printer", NWLLoggingDemoPrinter, 0);
+    NWLAddPrinter("demo-printer", NWLLoggingDemoPrinter, (void *)CFBridgingRetain(logView));
     
     NWLog(@"       A| Welcome to the logging overview demo.");
     NWLog(@"       B| Let's log some text and see what happens where..");
@@ -131,7 +115,8 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
         NWLogWarn(@"Q| That's it for this demo, thanks for watching.");
         
         // restore printers
-        NWLRemovePrinter("demo-printer");
+        void *view = NWLRemovePrinter("demo-printer");
+        CFBridgingRelease(view);
     });
 }
 

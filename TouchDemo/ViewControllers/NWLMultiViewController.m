@@ -12,7 +12,7 @@
 
 
 @implementation NWLMultiViewController {
-    UITextView *logView;
+    NWLLogView *logView;
     UILabel *countLabel;
 }
 
@@ -32,12 +32,8 @@
     countLabel.frame = CGRectMake(self.view.bounds.size.width - 170, 10, 160, 40);
     [self.view addSubview:countLabel];
 
-    logView = [[UITextView alloc] init];
+    logView = [[NWLLogView alloc] init];
     logView.frame = CGRectMake(10, 60, self.view.bounds.size.width - 20, self.view.bounds.size.height - 70 - 40);
-    logView.backgroundColor = UIColor.blackColor;
-    logView.textColor = UIColor.whiteColor;
-    logView.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10]; // Courier-Bold or CourierNewPS-BoldMT
-    logView.editable = NO;
     [self.view addSubview:logView];
     
     [self updateUI];
@@ -46,7 +42,7 @@
 - (void)run
 {
     NWLog(@"This line should *not* be visible in the view");
-    [NWLMultiLogger.shared addPrinter:self];
+    [NWLMultiLogger.shared addPrinter:logView];
     NWLog(@"This line should be visible in the view ...");
     [self performSelector:@selector(run2) withObject:nil afterDelay:1];
     [self updateUI];
@@ -55,22 +51,9 @@
 - (void)run2
 {
     NWLog(@".. an this one too.");
-    [NWLMultiLogger.shared removePrinter:self];
+    [NWLMultiLogger.shared removePrinter:logView];
     NWLog(@"And this line should *not* be visible in the view");
     [self updateUI];
-}
-
-- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *s = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
-        logView.text = [logView.text stringByAppendingString:s];
-    });
-}
-
-- (NSString *)name
-{
-    return @"multi-view";
 }
 
 - (void)updateUI

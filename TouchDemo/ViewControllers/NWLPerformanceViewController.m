@@ -10,7 +10,7 @@
 
 
 @implementation NWLPerformanceViewController {
-    UITextView *logView;
+    NWLLogView *logView;
 }
 
 - (void)viewDidLoad
@@ -40,18 +40,14 @@
     [randButton addTarget:self action:@selector(runRandomAsync) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:randButton];    
     
-    logView = [[UITextView alloc] init];
+    logView = [[NWLLogView alloc] init];
     logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
-    logView.backgroundColor = UIColor.blackColor;
-    logView.textColor = UIColor.whiteColor;
-    logView.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10]; // Courier-Bold or CourierNewPS-BoldMT
-    logView.editable = NO;
     [self.view addSubview:logView];
 }
 
 - (void)runTimingAsync
 {
-    logView.text = [logView.text stringByAppendingFormat:@"\n == Logging Time Demo == \n\n"];\
+    [logView safeAppendAndFollowText:@"\n == Logging Time Demo == \n\n"];
     
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
         [self runTiming:1];
@@ -60,9 +56,7 @@
 
 - (void)appendLine:(NSString *)line
 {
-    [NSOperationQueue.mainQueue addOperationWithBlock:^{
-        logView.text = [logView.text stringByAppendingFormat:@"%@\n", line];
-    }];
+    [logView safeAppendAndFollowText:[line stringByAppendingString:@"\n"]];
 }
 
 #define LOG_Empty @""
@@ -132,7 +126,7 @@
 
 - (void)runRandomAsync
 {
-    logView.text = [logView.text stringByAppendingFormat:@"\n == Logging Concurrency Demo == \n\n"];\
+    [logView safeAppendAndFollowText:@"\n == Logging Concurrency Demo == \n\n"];
     
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
         [self runRandom:1];

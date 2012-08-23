@@ -9,6 +9,6 @@
 #import "NWLMultiLogger.h"
 #import "NWLPrinter.h"
 
-@interface NWLMultiViewController : UIViewController <NWLPrinter>
+@interface NWLMultiViewController : UIViewController
 
 @end
