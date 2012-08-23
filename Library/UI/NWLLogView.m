@@ -11,8 +11,8 @@
 
 
 @implementation NWLLogView {
-    NSTimeInterval lastAppendTime;
     NSMutableString *buffer;
+    BOOL waitingToPrint;
     dispatch_queue_t serial;
 }
 
@@ -59,15 +59,16 @@
 {
     NSString *s = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
     dispatch_async(serial, ^{
-        [buffer appendString:s];
-        NSTimeInterval now = CFAbsoluteTimeGetCurrent();
-        if (now > lastAppendTime + .2 && buffer.length) {
-            NSString *text = buffer;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self appendAndFollowText:text];
+        if (waitingToPrint) {
+            [buffer appendString:s];
+        } else {
+            [self safeAppendAndFollowText:s];
+            waitingToPrint = YES;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .2 * NSEC_PER_SEC), serial, ^(void){
+                [self safeAppendAndFollowText:buffer];
+                buffer = [[NSMutableString alloc] init];
+                waitingToPrint = NO;
             });
-            buffer = [[NSMutableString alloc] init];
-            lastAppendTime = now;
         }
     });
 }
@@ -77,16 +78,15 @@
     return @"log-view";
 }
 
-- (void)append:(NSString *)string
-{
-    NSString *text = [self.text stringByAppendingString:string];
-    if (text.length > maxLogSize) {
-        text = [text substringFromIndex:text.length - maxLogSize];
-    }
-    self.text = text;
-}
 
-#pragma mark - Scrolling
+#pragma mark - Appending
+
+- (void)safeAppendAndFollowText:(NSString *)text
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self appendAndFollowText:text];
+    });
+}
 
 - (void)appendAndFollowText:(NSString *)text
 {
@@ -102,6 +102,18 @@
         [self scrollDown];
     }
 }
+
+- (void)append:(NSString *)string
+{
+    NSString *text = [self.text stringByAppendingString:string];
+    if (text.length > maxLogSize) {
+        text = [text substringFromIndex:text.length - maxLogSize];
+    }
+    self.text = text;
+}
+
+
+#pragma mark - Scrolling
 
 - (void)scrollDown
 {
