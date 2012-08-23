@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		B332839315E4FAFF00B76F2B /* NWLLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = B332839115E4FAFF00B76F2B /* NWLLogView.h */; };
+		B332839315E4FAFF00B76F2B /* NWLLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = B332839115E4FAFF00B76F2B /* NWLLogView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B332839415E4FAFF00B76F2B /* NWLLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = B332839215E4FAFF00B76F2B /* NWLLogView.m */; };
 		B34EA70815D5007C007B041F /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
 		B34EA70B15D500BA007B041F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA70A15D500B6007B041F /* main.c */; };
