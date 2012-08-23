@@ -55,8 +55,7 @@ void NWLForwardToPrinters(NWLContext context, CFStringRef message) {
 }
 
 int NWLAddPrinter(const char *name, void(*func)(NWLContext, CFStringRef, void *), void *info) {
-    NWLRemovePrinter(name);
-    int count = NWLPrinters.count ;
+    int count = NWLPrinters.count;
     if (count < kNWLPrinterListSize) {
         NWLPrinters.elements[count].name = name;
         NWLPrinters.elements[count].func = func;
@@ -67,20 +66,21 @@ int NWLAddPrinter(const char *name, void(*func)(NWLContext, CFStringRef, void *)
     return false;
 }
 
-int NWLRemovePrinter(const char *name) {
-    int result = 0;
-    for (int i = 0; i < NWLPrinters.count; i++) {
-        const char *n = NWLPrinters.elements[i].name;
+void * NWLRemovePrinter(const char *name) {
+    for (int i = NWLPrinters.count - 1; i >= 0; i--) {
+        NWLPrinter *p = &NWLPrinters.elements[i];
+        const char *n = p->name;
         if (n == name || (n && name && !strcasecmp(n, name))) {
             int count = NWLPrinters.count;
             if (count > 0) {
+                void *info = p->info;
                 NWLPrinters.count = count - 1;
-                NWLPrinters.elements[i--] = NWLPrinters.elements[count - 1];
-                result++;
+                NWLPrinters.elements[i] = NWLPrinters.elements[count - 1];
+                return info;
             }
         }
     }
-    return result;
+    return NULL;
 }
 
 void NWLRemoveAllPrinters(void) {

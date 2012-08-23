@@ -172,8 +172,8 @@ extern void NWLForwardToPrinters(NWLContext context, CFStringRef message);
 /** Forward printing of line to printers, return true if added. */
 extern int NWLAddPrinter(const char *name, void(*)(NWLContext, CFStringRef, void *), void *info);
 
-/** Remove a printer, return true if one was removed. */
-extern int NWLRemovePrinter(const char *name);
+/** Remove a printer, returns info of the printer. */
+extern void * NWLRemovePrinter(const char *name);
 
 /** Clear the printer list. */
 extern void NWLRemoveAllPrinters(void);
