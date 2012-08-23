@@ -10,7 +10,7 @@
 
 @class NWLFilePrinter, NWLMultiLogger;
 
-@interface NWLLogViewController : UIViewController <NWLPrinter>
+@interface NWLLogViewController : UIViewController
 
 - (void)appendText:(NSString *)text;
 

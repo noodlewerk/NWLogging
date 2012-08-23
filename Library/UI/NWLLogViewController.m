@@ -68,30 +68,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [logger addPrinter:self];
+    [logger addPrinter:textView];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [logger removePrinter:self];
+    [logger removePrinter:textView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return YES;
-}
-
-#pragma mark - Printing
-
-- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
-{
-    [textView printWithTag:tag lib:lib file:file line:line function:function message:message];
-}
-
-- (NSString *)name
-{
-    return textView.name;
 }
 
 - (void)appendText:(NSString *)text
