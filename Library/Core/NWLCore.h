@@ -213,6 +213,9 @@ extern void NWLResetPrintClock(void);
 /** Restore the clock on log prints to UTC time. */
 extern void NWLRestorePrintClock(void);
 
+/** Provides clock values, returns time since epoch or since reset. */
+extern double NWLClock(int *hour, int *minute, int *second, int *micro);
+
 /** Returns a human-readable summary of this logger, returns the length of the about text excluding the null byte or 'size' if more characters are needed. */
 extern int NWLAboutString(char *buffer, int size);
 

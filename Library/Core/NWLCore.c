@@ -100,11 +100,8 @@ void NWLAddDefaultPrinter(void) {
 
 void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *info) {
     // compose time
-    CFAbsoluteTime time = CFAbsoluteTimeGetCurrent() + NWLTimeOffset;
-    int hour = (int)(time / 3600) % 24;
-    int minute = (int)(time / 60) % 60;
-    int second = (int)time % 60;
-    int micro = (int)((time - floor(time)) * 1000000) % 1000000;
+    int hour = 0, minute = 0, second = 0, micro = 0;
+    NWLClock(&hour, &minute, &second, &micro);
     // prepare tags
     int hasLib = context.lib && *context.lib;
     int hasFile = context.file && context.line;
@@ -264,12 +261,25 @@ void NWLRestoreDefaultFilters(void) {
 
 #pragma mark - Clock
 
+static double NWLTime() {
+    return CFAbsoluteTimeGetCurrent() + 978307200;
+}
+
 void NWLResetPrintClock(void) {
-    NWLTimeOffset = -CFAbsoluteTimeGetCurrent();
+    NWLTimeOffset = NWLTime();
 }
 
 void NWLRestorePrintClock(void) {
     NWLTimeOffset = 0;
+}
+
+double NWLClock(int *hour, int *minute, int *second, int *micro) {
+    CFAbsoluteTime time = NWLTime() - NWLTimeOffset;
+    *hour = (int)(time / 3600) % 24;
+    *minute = (int)(time / 60) % 60;
+    *second = (int)time % 60;
+    *micro = (int)((time - floor(time)) * 1000000) % 1000000;
+    return time;
 }
 
 
