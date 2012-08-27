@@ -92,17 +92,17 @@
     });
 }
 
-- (void)appendAndFollowText:(NSString *)text
+- (void)appendAndScrollText:(NSString *)text
 {
     [self append:text];
     [self scrollDown];
 }
 
-- (void)appendAndScrollText:(NSString *)text
+- (void)appendAndFollowText:(NSString *)text
 {
-    BOOL scroll = [self isScrollAtEnd];
+    BOOL follow = [self isScrollAtEnd];
     [self append:text];
-    if (scroll) {
+    if (follow) {
         [self scrollDown];
     }
 }
