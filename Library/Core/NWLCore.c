@@ -9,6 +9,7 @@
 #import "NWLCore.h"
 #include <stdio.h>
 #include <string.h>
+#include <sys/uio.h>
 #include <math.h>
 #import <CoreFoundation/CFDate.h>
 
@@ -99,40 +100,76 @@ void NWLAddDefaultPrinter(void) {
 }
 
 void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *info) {
-    // compose time
+    // init io vector
+    struct iovec iov[16];
+    int i = 0;
+    iov[i].iov_base = "[";
+    iov[i++].iov_len = 1;
+
+    // add time
     int hour = 0, minute = 0, second = 0, micro = 0;
     NWLClock(&hour, &minute, &second, &micro);
-    // prepare tags
-    int hasLib = context.lib && *context.lib;
-    int hasFile = context.file && context.line;
-    int hasTag = context.tag && *context.tag;
-    char lineBuffer[6];
-    if (context.line < 1000) {
-        snprintf(lineBuffer, 6, "%03u", context.line);
-    } else {
-        snprintf(lineBuffer, 6, "%06u", context.line);
+    char timeBuffer[16];
+    int timeLength = snprintf(timeBuffer, sizeof(timeBuffer), "%02i:%02i:%02i.%06i", hour, minute, second, micro);
+    iov[i].iov_base = timeBuffer;
+    iov[i++].iov_len = sizeof(timeBuffer) - 1 < timeLength ? sizeof(timeBuffer) - 1 : timeLength;
+    
+    // add context
+    if (context.lib && *context.lib) {
+        iov[i].iov_base = " ";
+        iov[i++].iov_len = 1;
+        iov[i].iov_base = (void *)context.lib;
+        iov[i++].iov_len = strnlen(context.lib, 32);
     }
-    // convert to cstring
-    unsigned char buffer[256];
-    CFIndex used = 0;
+    if (context.file && *context.file) {
+        iov[i].iov_base = " ";
+        iov[i++].iov_len = 1;
+        iov[i].iov_base = (void *)context.file;
+        iov[i++].iov_len = strnlen(context.file, 32);
+        iov[i].iov_base = ":";
+        iov[i++].iov_len = 1;
+        char lineBuffer[10];
+        int lineLength = snprintf(lineBuffer, sizeof(lineBuffer), context.line < 1000 ? "%03u" : "%06u", context.line);
+        iov[i].iov_base = lineBuffer;
+        iov[i++].iov_len = sizeof(lineBuffer) - 1 < lineLength ? sizeof(lineBuffer) - 1 : lineLength;
+    }
+    if (context.tag && *context.tag) {
+        iov[i].iov_base = "] [";
+        iov[i++].iov_len = 3;
+        iov[i].iov_base = (void *)context.tag;
+        iov[i++].iov_len = strnlen(context.tag, 32);
+    }
+    
+    iov[i].iov_base = "] ";
+    iov[i++].iov_len = 2;
+
     CFRange range = CFRangeMake(0, CFStringGetLength(message));
-    CFIndex done = CFStringGetBytes(message, range, kCFStringEncodingUTF8, '?', false, buffer, sizeof(buffer), &used);
-    // print log line
-    fprintf(stderr, "[%02i:%02i:%02i.%06i%s%s%s%s%s%s%s%s] %.*s%s", 
-            //                           %s%s = " lib"
-            //                               %s%s%s%s = " file:line"
-            //                                       %s%s = "] [tag"
-            hour, minute, second, micro, 
-            (hasLib ? " " : ""), (hasLib ? context.lib : ""), 
-            (hasFile ? " " : ""), (hasFile ? context.file : ""), (hasFile ? ":" : ""), (hasFile ? lineBuffer : ""), 
-            (hasTag ? "] [" : ""), (hasTag ? context.tag : ""), 
-            (int)used, buffer, done >= range.length ? "\n" : (done ? "" : "~\n"));
-    // while string exceeded buffer, print remaining chunks
-    while (done && done < range.length) {
-        range.location += done;
-        range.length -= done;
-        done = CFStringGetBytes(message, range, kCFStringEncodingUTF8, '?', false, buffer, sizeof(buffer), &used);
-        fprintf(stderr, "%.*s%s", (int)used, buffer, done >= range.length ? "\n" : (done ? "" : "~\n"));
+    if (range.length) {
+        // add message
+        unsigned char messageBuffer[256];
+        CFIndex messageLength = 0;
+        CFIndex length = 1;
+        
+        while (length && range.length) {
+            length = CFStringGetBytes(message, range, kCFStringEncodingUTF8, '?', false, messageBuffer, sizeof(messageBuffer), &messageLength);
+            iov[i].iov_base = messageBuffer;
+            iov[i++].iov_len = messageLength;
+            if (length >= range.length) {
+                iov[i].iov_base = "\n";
+                iov[i++].iov_len = 1;
+            } else if (!length) {
+                iov[i].iov_base = "~\n";
+                iov[i++].iov_len = 2;
+            }
+            writev(STDERR_FILENO, iov, i);
+            i = 0;
+            range.location += length;
+            range.length -= length;
+        }
+    } else {
+        iov[i].iov_base = "\n";
+        iov[i++].iov_len = 1;
+        writev(STDERR_FILENO, iov, i);
     }
 }
 
