@@ -143,7 +143,7 @@ void NWLDefaultPrinter(NWLContext context, CFStringRef message, void *info) {
     iov[i].iov_base = "] ";
     iov[i++].iov_len = 2;
 
-    CFRange range = CFRangeMake(0, CFStringGetLength(message));
+    CFRange range = CFRangeMake(0, message ? CFStringGetLength(message) : 0);
     if (range.length) {
         // add message
         unsigned char messageBuffer[256];
