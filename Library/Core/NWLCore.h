@@ -210,6 +210,9 @@ extern void NWLRestoreDefaultFilters(void);
 /** Reset the clock on log prints to 00:00:00. */
 extern void NWLResetPrintClock(void);
 
+/** Offset the clock on log prints with seconds. */
+extern void NWLOffsetPrintClock(double seconds);
+
 /** Restore the clock on log prints to UTC time. */
 extern void NWLRestorePrintClock(void);
 

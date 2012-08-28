@@ -306,6 +306,10 @@ void NWLResetPrintClock(void) {
     NWLTimeOffset = NWLTime();
 }
 
+void NWLOffsetPrintClock(double seconds) {
+    NWLTimeOffset = -seconds;
+}
+
 void NWLRestorePrintClock(void) {
     NWLTimeOffset = 0;
 }
