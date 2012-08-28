@@ -216,7 +216,7 @@ extern void NWLRestorePrintClock(void);
 /** Provides clock values, returns time since epoch or since reset. */
 extern double NWLClock(int *hour, int *minute, int *second, int *micro);
 
-/** Returns a human-readable summary of this logger, returns the length of the about text excluding the null byte or 'size' if more characters are needed. */
+/** Returns a human-readable summary of this logger, returns the length of the about text excluding the null byte independent of 'size'. */
 extern int NWLAboutString(char *buffer, int size);
 
 

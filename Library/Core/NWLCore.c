@@ -457,13 +457,18 @@ void NWLClearAll(void) {
 
 void NWLAbout(void) {
     char buffer[256];
-    NWLAboutString(buffer, sizeof(buffer));
-    NWLLogWithoutFilter(, NWLogging, "%s", buffer);
+    int length = NWLAboutString(buffer, sizeof(buffer));
+    NWLLogWithoutFilter(, NWLogging, "%s%s", buffer, length <= sizeof(buffer) - 1 ? "" : "\n   ...");
 }
 
 void NWLDump(void) {
     char buffer[256];
-    NWLAboutString(buffer, sizeof(buffer));
-    fprintf(stderr, "%s\n", buffer);
+    int length = NWLAboutString(buffer, sizeof(buffer));
+    struct iovec iov[2];
+    iov[0].iov_base = buffer;
+    iov[0].iov_len = length <= sizeof(buffer) - 1 ? length : sizeof(buffer) - 1;
+    iov[1].iov_base = "\n   ...\n";
+    iov[1].iov_len = length <= sizeof(buffer) - 1 ? 1 : 8;
+    writev(STDERR_FILENO, iov, 2);
 }
 
