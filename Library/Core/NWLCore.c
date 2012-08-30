@@ -335,16 +335,15 @@ double NWLClock(int *hour, int *minute, int *second, int *micro) {
 
 int NWLAboutString(char *buffer, int size) {
     int s = size;
-    _NWL_PRINT_(buffer, s, "About NWLogging");
     for (int i = 0; i < NWLFilters.count; i++) {
         NWLFilter *filter = &NWLFilters.elements[i];
-#define _NWL_ABOUT_ACTION_(_action) do {if (filter->action == kNWLAction_##_action) {_NWL_PRINT_(buffer, s, "\n   action:"#_action);}} while (0)
+#define _NWL_ABOUT_ACTION_(_action) do {if (filter->action == kNWLAction_##_action) {_NWL_PRINT_(buffer, s, "   action       : "#_action);}} while (0)
         _NWL_ABOUT_ACTION_(print);
         _NWL_ABOUT_ACTION_(break);
         _NWL_ABOUT_ACTION_(raise);
         _NWL_ABOUT_ACTION_(assert);
         const char *value = NULL;
-#define _NWL_ABOUT_PROP_(_prop) do {if ((value = filter->properties[kNWLProperty_##_prop])) {_NWL_PRINT_(buffer, s, " "#_prop":%s", value);}} while (0)
+#define _NWL_ABOUT_PROP_(_prop) do {if ((value = filter->properties[kNWLProperty_##_prop])) {_NWL_PRINT_(buffer, s, " "#_prop"=%s\n", value);}} while (0)
         _NWL_ABOUT_PROP_(tag);
         _NWL_ABOUT_PROP_(lib);
         _NWL_ABOUT_PROP_(file);
@@ -352,10 +351,16 @@ int NWLAboutString(char *buffer, int size) {
     }
     for (int i = 0; i < NWLPrinters.count; i++) {
         NWLPrinter *p = &NWLPrinters.elements[i];
-        _NWL_PRINT_(buffer, s, "\n   printer:%s", p->name);
+        _NWL_PRINT_(buffer, s, "   printer      : %s\n", p->name);
     }
-    _NWL_PRINT_(buffer, s, "\n   time-offset:%f", NWLTimeOffset);
+    _NWL_PRINT_(buffer, s, "   time-offset  : %f\n", NWLTimeOffset);
     return size - s;
+}
+
+void NWLogAbout(void) {
+    char buffer[256];
+    int length = NWLAboutString(buffer, sizeof(buffer));
+    NWLLogWithoutFilter(, NWLogging, "About NWLogging\n%s%s", buffer, length <= sizeof(buffer) - 1 ? "" : "\n   ...");
 }
 
 
@@ -458,12 +463,7 @@ void NWLClearAll(void) {
 }
 
 
-
-void NWLAbout(void) {
-    char buffer[256];
-    int length = NWLAboutString(buffer, sizeof(buffer));
-    NWLLogWithoutFilter(, NWLogging, "%s%s", buffer, length <= sizeof(buffer) - 1 ? "" : "\n   ...");
-}
+#pragma mark - Dumping
 
 void NWLDump(void) {
     char buffer[256];
@@ -471,8 +471,17 @@ void NWLDump(void) {
     struct iovec iov[2];
     iov[0].iov_base = buffer;
     iov[0].iov_len = length <= sizeof(buffer) - 1 ? length : sizeof(buffer) - 1;
-    iov[1].iov_base = "\n   ...\n";
-    iov[1].iov_len = length <= sizeof(buffer) - 1 ? 1 : 8;
+    iov[1].iov_base = "   ...\n";
+    iov[1].iov_len = length <= sizeof(buffer) - 1 ? 0 : 7;
     writev(STDERR_FILENO, iov, 2);
 }
 
+#define PRINT(_format, ...) fprintf(stderr, _format"\n", ##__VA_ARGS__)
+void NWLDumpHelp(int active, const char *lib, int debug, const char *file, int line, const char *function) {
+    PRINT("   file         : %s:%i", file, line);
+    PRINT("   function     : %s", function);
+    PRINT("   NWLog macros : %s", active ? "ON" : "OFF");
+    PRINT("   NWL_LIB      : %s", lib && *lib ? lib : (lib ? "<empty>" : "<not set>"));
+    PRINT("   DEBUG        : %s", debug ? "ON" : "OFF");
+    NWLDump();
+}

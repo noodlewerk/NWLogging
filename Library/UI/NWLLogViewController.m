@@ -213,7 +213,7 @@
 {
     char buffer[1024];
     NWLAboutString(buffer, sizeof(buffer));
-    NSString *about = [NSString stringWithFormat:@"%s\n", buffer];
+    NSString *about = [NSString stringWithFormat:@"%s", buffer];
     [textView appendAndScrollText:about];
 }
 

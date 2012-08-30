@@ -180,7 +180,7 @@
                 case 19: NWLogWarn(@"%@", @"NWLLogWarn"); break;
                 case 20: NWLResetPrintClock(); break;
                 case 21: NWLRestorePrintClock(); break;
-                case 22: NWLAbout(); break;
+                case 22: NWLogAbout(); break;
                 default: abort(); // see also declaration of indicesSize
             }
         }

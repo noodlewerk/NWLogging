@@ -134,7 +134,7 @@
     NWLRestoreDefaultPrinters();
     NWLRestorePrintClock();
     
-    NSUInteger aboutLength = 83;
+    NSUInteger aboutLength = 86;
     
     char buffer[256];
     

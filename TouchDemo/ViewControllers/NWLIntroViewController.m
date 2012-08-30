@@ -92,7 +92,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     NWLPrintTag("tst4");
     NWLogTag(tst4, @"J| This is logged under tst4");
     NWLog(@"       K| Let's take a look inside the logging facility to see:");
-    NWLAbout();
+    NWLogAbout();
 
     NWLClearTag("tst1");
     NWLClearTag("tst2");

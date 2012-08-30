@@ -27,45 +27,56 @@ extern "C" {
 #define _NWLOGGING_H_
 
 /** Logging active in debug by default. */
-#ifndef NWL_LIB
-#ifdef DEBUG
-#define NWL_LIB
+#ifdef NWL_LIB
+    #define NWL_ACTIVE 1
+    #define NWL_LIB_ NWL_LIB
+    #define NWL_LIB_STR NWL_STR(NWL_LIB)
+#else
+    #if DEBUG
+        #define NWL_ACTIVE 1
+    #else
+        #define NWL_ACTIVE 0
+    #endif
+    #define NWL_LIB_
+    #define NWL_LIB_STR NULL
 #endif
+
+#if DEBUG
+    #define NWL_DEBUG 1
+#else
+    #define NWL_DEBUG 0
 #endif
 
     
 #pragma mark - Convenient logging operations
     
-#ifdef NWL_LIB
+#if NWL_ACTIVE
     
-#define NWL_LIB_STR NWL_STR(NWL_LIB)
-
 /** Log directly. */
-#define NWLog(_format, ...)                      NWLLogWithoutFilter(, NWL_LIB, _format, ##__VA_ARGS__)
+#define NWLog(_format, ...)                      NWLLogWithoutFilter(, NWL_LIB_, _format, ##__VA_ARGS__)
 
 /** Log on the 'dbug' tag. */
-#define NWLogDbug(_format, ...)                  NWLLogWithFilter(dbug, NWL_LIB, _format, ##__VA_ARGS__)
+#define NWLogDbug(_format, ...)                  NWLLogWithFilter(dbug, NWL_LIB_, _format, ##__VA_ARGS__)
     
 /** Log on the 'info' tag. */
-#define NWLogInfo(_format, ...)                  NWLLogWithFilter(info, NWL_LIB, _format, ##__VA_ARGS__)
+#define NWLogInfo(_format, ...)                  NWLLogWithFilter(info, NWL_LIB_, _format, ##__VA_ARGS__)
     
 /** Log on the 'warn' tag. */
-#define NWLogWarn(_format, ...)                  NWLLogWithFilter(warn, NWL_LIB, _format, ##__VA_ARGS__)
+#define NWLogWarn(_format, ...)                  NWLLogWithFilter(warn, NWL_LIB_, _format, ##__VA_ARGS__)
 
 /** Log on an 'warn' tag if the condition is false. */
-#define NWLogWarnIfNot(_condition, _format, ...) do {if (!(_condition)) NWLLogWithFilter(warn, NWL_LIB, _format, ##__VA_ARGS__);} while (0)
+#define NWLogWarnIfNot(_condition, _format, ...) do {if (!(_condition)) NWLLogWithFilter(warn, NWL_LIB_, _format, ##__VA_ARGS__);} while (0)
 #define NWAssert(_condition, _format, ...)       NWLogWarnIfNot(_condition, _format, ##__VA_ARGS__)
 
 /** Log on an error object on the 'warn' tag. */
-#define NWLogWarnIfError(_error)                 do {if(_error) NWLLogWithFilter(warn, NWL_LIB, @"Caught: %@", _error);} while (0)
+#define NWLogWarnIfError(_error)                 do {if(_error) NWLLogWithFilter(warn, NWL_LIB_, @"Caught: %@", _error);} while (0)
 #define NWError(_error)                          NWLogWarnIfError(_error)
 
 /** Log on a custom tag. */
-#define NWLogTag(_tag, _format, ...)             NWLLogWithFilter(_tag, NWL_LIB, _format, ##__VA_ARGS__)
-    
+#define NWLogTag(_tag, _format, ...)             NWLLogWithFilter(_tag, NWL_LIB_, _format, ##__VA_ARGS__)
+
 #else
     
-#define NWL_LIB_STR NWL_STR()
 #define NWLog(_format, ...)                      
 #define NWLogDbug(_format, ...)
 #define NWLogInfo(_format, ...)                  
@@ -130,6 +141,8 @@ extern "C" {
             CFRelease(__message);\
         }\
     } while (0)
+
+#define NWLHelp() NWLDumpHelp(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__)
 
 
 #pragma mark - Type definitions
@@ -222,6 +235,9 @@ extern double NWLClock(int *hour, int *minute, int *second, int *micro);
 /** Returns a human-readable summary of this logger, returns the length of the about text excluding the null byte independent of 'size'. */
 extern int NWLAboutString(char *buffer, int size);
 
+/** Log the internal state. */
+extern void NWLogAbout(void);
+
 
 #pragma mark - Convenient logging configuration
 
@@ -296,11 +312,11 @@ extern void NWLClearAllInLib(const char *lib);
 extern void NWLClearAll(void);
 
     
-/** Log the internal state. */
-extern void NWLAbout(void);
-
-/** Log the internal state to stderr. */
+/** Print internal state info to stderr. */
 extern void NWLDump(void);
+
+/** Print help info for developers to stderr. */
+extern void NWLDumpHelp(int active, const char *lib, int debug, const char *file, int line, const char *function);
 
     
 #endif // _NWLOGGING_H_
