@@ -501,7 +501,9 @@ void NWLDumpHelp(int active, const char *lib, int debug, const char *file, int l
     PRINT();
     PRINT("NWLogging is configured as follows:");
     NWLDumpFlags(active, lib, debug, file, line, function);
-    NWLDumpConfig();
+    if (active) {
+        NWLDumpConfig();
+    }
     PRINT();
     PRINT("If NWLog macros are ON then all macro functions of the form");
     PRINT("NWLog..() are compiled and executed at runtime. Using");
