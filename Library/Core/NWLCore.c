@@ -465,11 +465,6 @@ void NWLClearAll(void) {
 
 #pragma mark - Dumping
 
-#undef NWLDump
-void NWLDump(void) {
-    NWLDumpConfig();
-}
-
 void NWLDumpConfig(void) {
     char buffer[256];
     int length = NWLAboutString(buffer, sizeof(buffer));
@@ -519,4 +514,9 @@ void NWLDumpHelp(int active, const char *lib, int debug, const char *file, int l
     PRINT("By default, NWLog macros are active in DEBUG mode and if the");
     PRINT("NWL_LIB macro is set in the preprocessor. See the readme file");
     PRINT("for details on how to do this in Xcode.");
+}
+
+#undef NWLDump
+void NWLDump(void) {
+    NWLDumpConfig();
 }
