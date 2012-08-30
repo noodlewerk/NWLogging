@@ -142,8 +142,6 @@ extern "C" {
         }\
     } while (0)
 
-#define NWLHelp() NWLDumpHelp(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__)
-
 
 #pragma mark - Type definitions
 
@@ -314,9 +312,13 @@ extern void NWLClearAll(void);
     
 /** Print internal state info to stderr. */
 extern void NWLDump(void);
+extern void NWLDumpFlags(int active, const char *lib, int debug, const char *file, int line, const char *function);
+extern void NWLDumpConfig();
+#define NWLDump() do {NWLDumpFlags(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__);NWLDumpConfig();} while (0)
 
 /** Print help info for developers to stderr. */
 extern void NWLDumpHelp(int active, const char *lib, int debug, const char *file, int line, const char *function);
+#define NWLHelp() NWLDumpHelp(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__)
 
     
 #endif // _NWLOGGING_H_
