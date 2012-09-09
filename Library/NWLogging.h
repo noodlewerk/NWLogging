@@ -14,7 +14,8 @@
 #import "NWLTools.h"
 #import "NWLLineLogger.h"
 
+#import "NWLLogView.h"
+
 #if TARGET_OS_IPHONE
 #import "NWLLogViewController.h"
-#import "NWLLogView.h"
 #endif

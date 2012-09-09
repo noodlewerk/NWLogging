@@ -8,7 +8,11 @@
 
 #import "NWLPrinter.h"
 
+#if TARGET_OS_IPHONE
 @interface NWLLogView : UITextView <NWLPrinter>
+#else 
+@interface NWLLogView : NSTextView <NWLPrinter>
+#endif
 
 @property (nonatomic, assign) NSUInteger maxLogSize;
 

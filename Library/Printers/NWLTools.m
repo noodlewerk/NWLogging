@@ -7,7 +7,6 @@
 //
 
 #import "NWLTools.h"
-#import "NWLogging.h"
 
 
 @implementation NWLTools

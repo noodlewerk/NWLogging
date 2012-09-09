@@ -9,7 +9,6 @@
 #import "NWLLogView.h"
 #import "NWLTools.h"
 
-
 @implementation NWLLogView {
     NSMutableString *buffer;
     BOOL waitingToPrint;
@@ -36,15 +35,30 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)setup
 {
     maxLogSize = 100 * 1000; // 100 KB
     serial = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
     buffer = [[NSMutableString alloc] init];
 
+#if TARGET_OS_IPHONE
     self.backgroundColor = UIColor.blackColor;
     self.textColor = UIColor.whiteColor;
-    self.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10]; // Courier-Bold or CourierNewPS-BoldMT
+    self.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10];
+#else
+    self.backgroundColor = NSColor.blackColor;
+    self.textColor = NSColor.whiteColor;
+    self.font = [NSFont fontWithName:@"Courier" size:10];
+#endif
     self.editable = NO;
 }
 
@@ -109,11 +123,20 @@
 
 - (void)append:(NSString *)string
 {
-    NSString *text = [self.text stringByAppendingString:string];
+#if TARGET_OS_IPHONE
+    NSString *text = self.text;
+#else
+    NSString *text = self.string;
+#endif
+    text = [text stringByAppendingString:string];
     if (text.length > maxLogSize) {
         text = [text substringFromIndex:text.length - maxLogSize];
     }
+#if TARGET_OS_IPHONE
     self.text = text;
+#else
+    self.string = text;
+#endif
 }
 
 
@@ -121,23 +144,28 @@
 
 - (void)scrollDown
 {
-    [self performSelector:@selector(scrollDownNow) withObject:nil afterDelay:.1];    
+    [self performSelector:@selector(scrollDownNow) withObject:nil afterDelay:.1];
 }
 
 - (void)scrollDownNow
 {
+#if TARGET_OS_IPHONE
     if (self.contentSize.height) {
         CGRect rect = CGRectMake(0, self.contentSize.height - 1, 1, 1);
         [self scrollRectToVisible:rect animated:YES];
     }
+#endif
 }
 
 - (BOOL)isScrollAtEnd
 {
+#if TARGET_OS_IPHONE
     NSUInteger offset = self.contentOffset.y + self.bounds.size.height;
     NSUInteger size = self.contentSize.height;
     BOOL result = offset >= size - 50;
     return result;
+#endif
+    return NO;
 }
 
 @end
