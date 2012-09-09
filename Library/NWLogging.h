@@ -8,6 +8,8 @@
 
 #include "NWLCore.h"
 
+#ifdef __OBJC__
+
 #import "NWLFilePrinter.h"
 #import "NWLMultiLogger.h"
 #import "NWLPrinter.h"
@@ -18,4 +20,6 @@
 
 #if TARGET_OS_IPHONE
 #import "NWLLogViewController.h"
+#endif
+
 #endif
