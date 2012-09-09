@@ -71,6 +71,7 @@
 		B38669A915FD06E700EF217C /* NWLLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = B332839215E4FAFF00B76F2B /* NWLLogView.m */; };
 		B38669AA15FD09D500EF217C /* NWLFilePrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = B384681E15D6B6C100780B6C /* NWLFilePrinter.m */; };
 		B38669AB15FD09DC00EF217C /* NWLLineLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B384682015D6B6C100780B6C /* NWLLineLogger.m */; };
+		B38669C215FD109C00EF217C /* NWLLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = B332839115E4FAFF00B76F2B /* NWLLogView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B39DC10915D7C3F900374BE5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC10415D7C3A400374BE5 /* UIKit.framework */; };
 		B39DC10A15D7C3FF00374BE5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC10215D7C39D00374BE5 /* CoreGraphics.framework */; };
 		B39DC10C15D7C4FB00374BE5 /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
@@ -534,6 +535,7 @@
 				B384683215D6B6C100780B6C /* NWLTools.h in Headers */,
 				B3B9C2A515D7D72B001483BA /* NWLogging.h in Headers */,
 				B3B9C2A615D7D735001483BA /* NWLCore.h in Headers */,
+				B38669C215FD109C00EF217C /* NWLLogView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,13 +707,13 @@
 			targets = (
 				B34EA6E715D4FFBA007B041F /* NWLoggingCocoaStatic */,
 				B384684115D6BB8F00780B6C /* NWLoggingTouchStatic */,
-				B34EA6FD15D4FFEF007B041F /* NWLoggingMacDemo */,
+				B386697715FD04B000EF217C /* NWLoggingCocoaDemo */,
 				B384685215D6BBC500780B6C /* NWLoggingTouchDemo */,
+				B34EA6FD15D4FFEF007B041F /* NWLoggingMacDemo */,
 				B384688815D6BC5700780B6C /* NWLoggingCocoaTest */,
 				B3AC2E2215D7CD71003F4F88 /* NWLoggingTouchTest */,
-				B3B9C2A015D7D59B001483BA /* NWLoggingTouchUniversal */,
 				B3E679CA15FA1084003C12CB /* NWLoggingCocoaUniversal */,
-				B386697715FD04B000EF217C /* NWLoggingCocoaDemo */,
+				B3B9C2A015D7D59B001483BA /* NWLoggingTouchUniversal */,
 			);
 		};
 /* End PBXProject section */
@@ -800,7 +802,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Removing existing producs\"\nrm -rf \"${SRCROOT}/build\"\n\necho \"Building mac os\"\nxcodebuild -project \"${SRCROOT}/NWLogging.xcodeproj\" -target NWLoggingCocoaStatic -configuration Release -arch \"i386 x86_64\" -sdk macosx\n\necho \"Lipoing thing together\"\nlipo -create -output \"${SRCROOT}/build/libNWLoggingCocoa.a\" \"${SRCROOT}/build/Release/libNWLoggingCocoaStatic.a\"\necho \"Copy headers\"\nfind \"${SRCROOT}/build\" -name \"*.h\" -exec mv {} \"${SRCROOT}/build\" \\;\n\necho \"Cleaning up\"\nrm -rf \"${SRCROOT}/build/Release/\"\nrm -rf \"${SRCROOT}/build/NWLogging.build/\"\n\necho \"Done\"";
+			shellScript = "echo \"Removing existing producs\"\nrm -rf \"${SRCROOT}/build\"\n\necho \"Building mac os\"\nxcodebuild -project \"${SRCROOT}/NWLogging.xcodeproj\" -target NWLoggingCocoaStatic -configuration Release -arch x86_64 -sdk macosx\n\necho \"Lipoing thing together\"\nlipo -create -output \"${SRCROOT}/build/libNWLoggingCocoa.a\" \"${SRCROOT}/build/Release/libNWLoggingCocoaStatic.a\"\necho \"Copy headers\"\nfind \"${SRCROOT}/build\" -name \"*.h\" -exec mv {} \"${SRCROOT}/build\" \\;\n\necho \"Cleaning up\"\nrm -rf \"${SRCROOT}/build/Release/\"\nrm -rf \"${SRCROOT}/build/NWLogging.build/\"\n\necho \"Done\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -969,7 +971,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
