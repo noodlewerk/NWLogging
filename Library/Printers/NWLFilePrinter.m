@@ -34,13 +34,6 @@
     return self;
 }
 
-- (id)initWithFileName:(NSString *)name
-{
-    id result = [self init];
-    [result openPath:[self.class pathForName:name]];
-    return result;
-}
-
 - (void)dealloc
 {
     if (serial) {
@@ -66,7 +59,7 @@
 {
     NSFileHandle *result = [NSFileHandle fileHandleForWritingAtPath:path];
     if (!result) {
-        [NSFileManager.defaultManager createFileAtPath:path contents:[NSData data] attributes:nil];
+        [[NSData data] writeToFile:path atomically:NO];
         result = [NSFileHandle fileHandleForWritingAtPath:path];
     }
     return result;
@@ -104,9 +97,9 @@
 - (void)clear
 {
     dispatch_sync(serial, ^{
-        [NSFileManager.defaultManager createFileAtPath:path contents:[NSData data] attributes:nil];
+        [[NSData data] writeToFile:path atomically:NO];
         handle = [NSFileHandle fileHandleForWritingAtPath:path];
-        size = 0;
+        size = [handle seekToEndOfFile];
     });
 }
 
@@ -120,13 +113,27 @@
     return result;
 }
 
+- (void)trimForAppendingLength:(NSUInteger)length
+{
+    if (size + length > maxLogSize) {
+        [handle synchronizeFile];
+        NSData *fileContent = [NSData dataWithContentsOfFile:path options:0 error:nil]; // no logging on purpose
+        if (fileContent.length > maxLogSize / 2) {
+            NSRange range = NSMakeRange(fileContent.length - maxLogSize / 2, maxLogSize / 2);
+            fileContent = [fileContent subdataWithRange:range];
+        }
+        [fileContent writeToFile:path atomically:NO];
+        handle = [NSFileHandle fileHandleForWritingAtPath:path];
+        size = [handle seekToEndOfFile];
+    }
+}
 
 #pragma mark - Logging callbacks
 
 - (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
 {
     NSString *s = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
-    [self logLine:s];
+    [self append:s];
 }
 
 - (NSString *)name
@@ -134,26 +141,13 @@
     return @"file-printer";
 }
 
-- (void)logLine:(NSString *)line
+- (void)append:(NSString *)string
 {
     dispatch_async(serial, ^{
-        // foward to delegates
-        
-        // file logging
-        NSData *data = [line dataUsingEncoding:NSUTF8StringEncoding];
-        size += data.length;
-        if (size > maxLogSize) {
-            [handle synchronizeFile];
-            NSString *fileContent = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil]; // no logging on purpose
-            if (fileContent.length > maxLogSize / 2) {
-                fileContent = [fileContent substringFromIndex:fileContent.length - maxLogSize / 2];
-            }
-            [NSFileManager.defaultManager createFileAtPath:path contents:[NSData data] attributes:nil];
-            handle = [NSFileHandle fileHandleForWritingAtPath:path];
-            data = [fileContent dataUsingEncoding:NSUTF8StringEncoding];
-            size = data.length;
-        }
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        [self trimForAppendingLength:data.length];
         [handle writeData:data];
+        size += data.length;
     });
 }
 
