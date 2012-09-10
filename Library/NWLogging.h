@@ -16,10 +16,12 @@
 #import "NWLTools.h"
 #import "NWLLineLogger.h"
 
-#import "NWLLogView.h"
-
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import "NWLLogViewController.h"
+#endif
+
+#if TARGET_OS_MAC || TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#import "NWLLogView.h"
 #endif
 
 #endif
