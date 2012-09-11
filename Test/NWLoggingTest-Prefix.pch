@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
 #include "TargetConditionals.h"
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
@@ -12,4 +12,4 @@
 #import <SenTestingKit/SenTestingKit.h>
 #endif
 
-#include "NWLCore.h"
+#include "NWLogging.h"

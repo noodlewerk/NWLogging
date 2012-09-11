@@ -134,14 +134,14 @@
     NWLRestoreDefaultPrinters();
     NWLRestorePrintClock();
     
-    NSUInteger aboutLength = 86;
+    int aboutLength = 86;
     
     char buffer[256];
     
     // test about length is correct
     NWLAboutString(buffer, sizeof(buffer));
     NSString *s = [NSString stringWithCString:buffer encoding:NSUTF8StringEncoding];
-    STAssertEquals(s.length, aboutLength, @"");
+    STAssertEquals((int)s.length, aboutLength, @"");
     
     // test response correct with about-right length
     STAssertEquals(NWLAboutString(buffer, aboutLength - 2), (int)aboutLength, @"");
@@ -151,9 +151,9 @@
     STAssertEquals(NWLAboutString(buffer, aboutLength + 2), (int)aboutLength, @"");
     
     // test all possible lengths exactly
-    for (NSUInteger size = 0; size < 2 * aboutLength; size++) {
+    for (int size = 0; size < 2 * aboutLength; size++) {
         memset(buffer, 254, sizeof(buffer));
-        NSUInteger length = NWLAboutString(buffer, size);
+        int length = NWLAboutString(buffer, size);
         
         STAssertEquals(length, aboutLength, @"");
         

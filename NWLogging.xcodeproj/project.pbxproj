@@ -86,6 +86,8 @@
 		B3AC2E2415D7CD71003F4F88 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384688A15D6BC5700780B6C /* SenTestingKit.framework */; };
 		B3AC2E2515D7CD71003F4F88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B39DC10415D7C3A400374BE5 /* UIKit.framework */; };
 		B3AC2E2615D7CD71003F4F88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384684315D6BB8F00780B6C /* Foundation.framework */; };
+		B3B5316515FE8AF500A0BB0A /* NWLFilePrinterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B5316415FE8AF500A0BB0A /* NWLFilePrinterTest.m */; };
+		B3B5316615FE8AF500A0BB0A /* NWLFilePrinterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B5316415FE8AF500A0BB0A /* NWLFilePrinterTest.m */; };
 		B3B9C29115D7CE05001483BA /* NWLBasicTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B384689C15D6BC7900780B6C /* NWLBasicTest.m */; };
 		B3B9C29315D7CE12001483BA /* NWLCompatibilityTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B384689E15D6BC7900780B6C /* NWLCompatibilityTest.m */; };
 		B3B9C29415D7CE12001483BA /* NWLCppTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B384689F15D6BC7900780B6C /* NWLCppTest.cpp */; };
@@ -236,6 +238,7 @@
 		B39DC11815D7C54500374BE5 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		B3AC2E1A15D7CBA0003F4F88 /* NWLoggingTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NWLoggingTest-Prefix.pch"; sourceTree = "<group>"; };
 		B3AC2E2315D7CD71003F4F88 /* NWLoggingTouchTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NWLoggingTouchTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B5316415FE8AF500A0BB0A /* NWLFilePrinterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLFilePrinterTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				B384689C15D6BC7900780B6C /* NWLBasicTest.m */,
+				B3B5316415FE8AF500A0BB0A /* NWLFilePrinterTest.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -866,6 +870,7 @@
 				B38468AC15D6BC7900780B6C /* NWLCTest.c in Sources */,
 				B38468AD15D6BC7900780B6C /* NWLObjectiveCppTest.mm in Sources */,
 				B38468AE15D6BC7900780B6C /* NWLObjectiveCTest.m in Sources */,
+				B3B5316515FE8AF500A0BB0A /* NWLFilePrinterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,6 +893,7 @@
 				B3B9C29515D7CE12001483BA /* NWLCTest.c in Sources */,
 				B3B9C29615D7CE12001483BA /* NWLObjectiveCppTest.mm in Sources */,
 				B3B9C29715D7CE12001483BA /* NWLObjectiveCTest.m in Sources */,
+				B3B5316615FE8AF500A0BB0A /* NWLFilePrinterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,6 +1490,7 @@
 				B386698E15FD04B100EF217C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3AC2E3115D7CD71003F4F88 /* Build configuration list for PBXNativeTarget "NWLoggingTouchTest" */ = {
 			isa = XCConfigurationList;

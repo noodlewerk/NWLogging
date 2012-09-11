@@ -128,7 +128,7 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
     });
 }
 
-- (NSString *)name
+- (NSString *)printerName
 {
     return @"multi-logger";
 }
@@ -181,7 +181,7 @@ static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void 
     if (printer) {
         NSString *name = nil;
         if ([printer respondsToSelector:@selector(name)]) {
-            name = printer.name;
+            name = printer.printerName;
         } else {
             name = NSStringFromClass(printer.class);
         }

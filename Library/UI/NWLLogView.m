@@ -76,7 +76,7 @@
     [self safeAppendAndFollowText:text];
 }
 
-- (NSString *)name
+- (NSString *)printerName
 {
     return @"log-view";
 }
