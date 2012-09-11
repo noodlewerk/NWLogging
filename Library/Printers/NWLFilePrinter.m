@@ -76,7 +76,8 @@
 {
     unsigned char *bytes = (unsigned char *)data.bytes;
     for (NSUInteger i = index; i < data.length; i++) {
-        if (bytes[i] < 128) {
+        BOOL isBeginUTF8Char = (bytes[i] & 0xC0) != 0x80;
+        if (isBeginUTF8Char) {
             NSRange range = NSMakeRange(i, data.length - i);
             NSData *result = [data subdataWithRange:range];
             return result;

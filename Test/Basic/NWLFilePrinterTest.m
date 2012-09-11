@@ -105,8 +105,8 @@
     printer.maxLogSize = 9;
     [printer clear];
     [printer append:utf8];
-    STAssertEquals((int)[printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 6, @"");
-    STAssertEqualObjects(printer.content, [utf8 substringFromIndex:46], @"");
+    STAssertEquals((int)[printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 9, @"");
+    STAssertEqualObjects(printer.content, [utf8 substringFromIndex:45], @"");
 
     printer.maxLogSize = 6;
     [printer clear];
