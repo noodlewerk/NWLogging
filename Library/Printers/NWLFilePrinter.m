@@ -28,7 +28,7 @@
     self = [super init];
     if (self) {
         maxLogSize = 100 * 1000; // 100 KB
-        serial = dispatch_queue_create("NWLFileLogger", DISPATCH_QUEUE_SERIAL);
+        serial = dispatch_queue_create("NWLFilePrinter", DISPATCH_QUEUE_SERIAL);
         calendar = NSCalendar.currentCalendar;
     }
     return self;
@@ -38,6 +38,21 @@
 {
     self = [self init];
     serial = nil;
+    return self;
+}
+
+- (id)initAndOpenName:(NSString *)name
+{
+    self = [self init];
+    NSString *_path = [self.class pathForName:name];
+    [self unsafeOpenPath:_path];
+    return self;
+}
+
+- (id)initAndOpenPath:(NSString *)_path
+{
+    self = [self init];
+    [self unsafeOpenPath:_path];
     return self;
 }
 
@@ -109,12 +124,18 @@
 {
     __block BOOL result = NO;
     void(^b)(void) = ^{
-        path = _path;
-        handle = [self.class handleForPath:path];
-        size = [handle seekToEndOfFile];
-        result = !!handle;
+        result = [self unsafeOpenPath:_path];
     };
     if (serial) dispatch_sync(serial, b); else b();
+    return result;
+}
+
+- (BOOL)unsafeOpenPath:(NSString *)_path
+{
+    path = _path;
+    handle = [self.class handleForPath:path];
+    size = [handle seekToEndOfFile];
+    BOOL result = !!handle;
     return result;
 }
 

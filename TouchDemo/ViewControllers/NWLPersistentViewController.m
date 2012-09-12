@@ -79,8 +79,7 @@ NSTimer *NWLPersistentTimer;
     if (printer) {
         [NWLMultiLogger.shared removePrinter:printer]; printer = nil;
     } else {
-        printer = [[NWLFilePrinter alloc] init];
-        [printer openPath:[NWLFilePrinter pathForName:@"demo"]];
+        printer = [[NWLFilePrinter alloc] initAndOpenName:@"demo"];
         [NWLMultiLogger.shared addPrinter:printer];
     }
     [self updateUI];
