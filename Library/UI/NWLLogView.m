@@ -130,7 +130,12 @@
 #endif
     text = [text stringByAppendingString:string];
     if (text.length > maxLogSize) {
-        text = [text substringFromIndex:text.length - maxLogSize];
+        NSUInteger index = text.length - maxLogSize;
+        NSRange r = [text rangeOfCharacterFromSet:NSCharacterSet.newlineCharacterSet options:0 range:NSMakeRange(index, maxLogSize)];
+        if (r.length) {
+            index = r.location;
+        }
+        text = [@"..." stringByAppendingString:[text substringFromIndex:index]];
     }
 #if TARGET_OS_IPHONE
     self.text = text;
