@@ -179,6 +179,17 @@
     return result;
 }
 
+- (NSData *)contentData
+{
+    __block NSData *result = nil;
+    void(^b)(void) = ^{
+        [handle synchronizeFile];
+        result = [NSData dataWithContentsOfFile:path];
+    };
+    if (serial) dispatch_sync(serial, b); else b();
+    return result;
+}
+
 #pragma mark - Logging callbacks
 
 - (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
@@ -195,7 +206,8 @@
 - (void)append:(NSString *)string
 {
     void(^b)(void) = ^{
-        [self unsafeAppend:string];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        [self unsafeAppend:data];
     };
     if (serial) dispatch_sync(serial, b); else b();
 }
@@ -203,14 +215,30 @@
 - (void)appendAsync:(NSString *)string
 {
     void(^b)(void) = ^{
-        [self unsafeAppend:string];
+        NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+        [self unsafeAppend:data];
     };
     if (serial) dispatch_async(serial, b); else b();
 }
 
-- (void)unsafeAppend:(NSString *)string
+- (void)appendData:(NSData *)data
 {
-    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    void(^b)(void) = ^{
+        [self unsafeAppend:data];
+    };
+    if (serial) dispatch_sync(serial, b); else b();
+}
+
+- (void)appendDataAsync:(NSData *)data
+{
+    void(^b)(void) = ^{
+        [self unsafeAppend:data];
+    };
+    if (serial) dispatch_async(serial, b); else b();
+}
+
+- (void)unsafeAppend:(NSData *)data
+{
     [self trimForAppendingLength:data.length];
     NSUInteger remaining = maxLogSize > size ? maxLogSize - size : 0;
     if (data.length > remaining) {

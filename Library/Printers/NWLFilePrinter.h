@@ -28,6 +28,10 @@
 - (void)append:(NSString *)string;
 - (void)appendAsync:(NSString *)string;
 
+- (NSData *)contentData;
+- (void)appendData:(NSData *)data;
+- (void)appendDataAsync:(NSData *)data;
+
 + (NSString *)pathForName:(NSString *)name;
 
 @end
