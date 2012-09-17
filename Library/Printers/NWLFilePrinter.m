@@ -89,14 +89,20 @@
 
 + (NSData *)utf8SubdataFromIndex:(NSUInteger)index data:(NSData *)data
 {
-    unsigned char *bytes = (unsigned char *)data.bytes;
-    for (NSUInteger i = index; i < data.length; i++) {
-        BOOL isBeginUTF8Char = (bytes[i] & 0xC0) != 0x80;
-        if (isBeginUTF8Char) {
-            NSRange range = NSMakeRange(i, data.length - i);
-            NSData *result = [data subdataWithRange:range];
-            return result;
+    if (index < data.length) {
+        NSUInteger length = data.length < index + 6 ? data.length - index : 6;
+        unsigned char buffer[6] = {0, 0, 0, 0, 0, 0};
+        [data getBytes:buffer range:NSMakeRange(index, length)];
+        for (NSUInteger i = 0; i < length; i++) {
+            BOOL isBeginUTF8Char = (buffer[i] & 0xC0) != 0x80;
+            if (isBeginUTF8Char) {
+                NSRange range = NSMakeRange(index + i, data.length - index - i);
+                NSData *result = [data subdataWithRange:range];
+                return result;
+            }
         }
+        NSData *result = [data subdataWithRange:NSMakeRange(index, data.length - index)];
+        return result;
     }
     return [NSData data];
 }
