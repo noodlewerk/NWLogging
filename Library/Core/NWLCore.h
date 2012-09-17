@@ -23,8 +23,8 @@
 extern "C" {
 #endif
 
-#ifndef _NWLOGGING_H_
-#define _NWLOGGING_H_
+#ifndef _NWLCORE_H_
+#define _NWLCORE_H_
 
 /** Logging active in debug by default. */
 #ifdef NWL_LIB
@@ -321,7 +321,7 @@ extern void NWLDumpHelp(int active, const char *lib, int debug, const char *file
 #define NWLHelp() NWLDumpHelp(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__)
 
     
-#endif // _NWLOGGING_H_
+#endif // _NWLCORE_H_
     
 #ifdef __cplusplus
 } // extern "C"

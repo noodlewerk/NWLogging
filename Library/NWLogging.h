@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
+#ifndef _NWLOGGING_H_
+#define _NWLOGGING_H_
+
 #include "NWLCore.h"
 
 #ifdef __OBJC__
@@ -24,4 +27,6 @@
 #import "NWLLogView.h"
 #endif
 
-#endif
+#endif // __OBJC__
+
+#endif // _NWLOGGING_H_
