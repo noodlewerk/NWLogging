@@ -129,7 +129,7 @@
     NSString *text = self.string;
 #endif
     text = [text stringByAppendingString:string];
-    if (text.length > maxLogSize) {
+    if (maxLogSize && text.length > maxLogSize) {
         NSUInteger index = text.length - maxLogSize;
         NSRange r = [text rangeOfCharacterFromSet:NSCharacterSet.newlineCharacterSet options:0 range:NSMakeRange(index, maxLogSize)];
         if (r.length) {

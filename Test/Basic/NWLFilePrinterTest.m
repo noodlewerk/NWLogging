@@ -86,9 +86,9 @@
     [printer append:@""];
     STAssertEqualObjects(printer.content, @"", @"");
     [printer append:@"a"];
-    STAssertEqualObjects(printer.content, @"", @"");
+    STAssertEqualObjects(printer.content, @"a", @"");
     [printer append:@"bc"];
-    STAssertEqualObjects(printer.content, @"", @"");
+    STAssertEqualObjects(printer.content, @"abc", @"");
 }
 
 - (void)testPrinterUnicode

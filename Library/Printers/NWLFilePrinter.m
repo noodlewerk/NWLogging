@@ -109,7 +109,7 @@
 
 - (void)trimForAppendingLength:(NSUInteger)length
 {
-    if (size + length > maxLogSize) {
+    if (maxLogSize && size + length > maxLogSize) {
         [handle synchronizeFile];
         NSData *data = [NSData dataWithContentsOfFile:path options:0 error:nil]; // no logging on purpose
         NSUInteger keep = maxLogSize / 2 > length ? maxLogSize / 2 : (maxLogSize > length ? maxLogSize - length : 0);
@@ -247,7 +247,7 @@
 {
     [self trimForAppendingLength:data.length];
     NSUInteger remaining = maxLogSize > size ? maxLogSize - size : 0;
-    if (data.length > remaining) {
+    if (maxLogSize && data.length > remaining) {
         data = [self.class utf8SubdataFromIndex:data.length - remaining data:data];
     }
     [handle writeData:data];
