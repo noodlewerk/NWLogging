@@ -7,6 +7,7 @@
 //
 
 #import "NWLTools.h"
+#import "NWLPrinter.h"
 
 
 @implementation NWLTools
@@ -47,6 +48,14 @@
         result = [NSString stringWithFormat:@"[%02i:%02i:%02i] %@\n", hour, minute, second, message];
     }
     return result;
+}
+
++ (NSString *)nameForPrinter:(id<NWLPrinter>)printer
+{
+    if ([printer respondsToSelector:@selector(printerName)]) {
+        return [printer printerName];
+    }
+    return NSStringFromClass(printer.class);
 }
 
 @end

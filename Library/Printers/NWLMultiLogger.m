@@ -9,6 +9,7 @@
 #import "NWLMultiLogger.h"
 #import "NWLCore.h"
 #import "NWLPrinter.h"
+#import "NWLTools.h"
 
 
 @interface NWLPrinterEntry : NSObject
@@ -181,7 +182,7 @@ static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void 
     if (printer) {
         NSString *name = nil;
         if ([printer respondsToSelector:@selector(name)]) {
-            name = printer.printerName;
+            name = [NWLTools nameForPrinter:printer];
         } else {
             name = NSStringFromClass(printer.class);
         }
