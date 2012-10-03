@@ -32,6 +32,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B3116F02161C2FC4006562E3 /* NWLNonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3116F01161C2FC4006562E3 /* NWLNonTest.m */; };
+		B3116F03161C2FC4006562E3 /* NWLNonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3116F01161C2FC4006562E3 /* NWLNonTest.m */; };
 		B332839315E4FAFF00B76F2B /* NWLLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = B332839115E4FAFF00B76F2B /* NWLLogView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B332839415E4FAFF00B76F2B /* NWLLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = B332839215E4FAFF00B76F2B /* NWLLogView.m */; };
 		B34EA70815D5007C007B041F /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
@@ -181,6 +183,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B3116F01161C2FC4006562E3 /* NWLNonTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLNonTest.m; sourceTree = "<group>"; };
 		B332839115E4FAFF00B76F2B /* NWLLogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLogView.h; sourceTree = "<group>"; };
 		B332839215E4FAFF00B76F2B /* NWLLogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLLogView.m; sourceTree = "<group>"; };
 		B34EA6DA15D4FE4E007B041F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -358,8 +361,8 @@
 		B34EA6DD15D4FEC7007B041F /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				B34EA6DE15D4FEC7007B041F /* NWLCore.c */,
 				B34EA6DF15D4FEC7007B041F /* NWLCore.h */,
+				B34EA6DE15D4FEC7007B041F /* NWLCore.c */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 			children = (
 				B384689C15D6BC7900780B6C /* NWLBasicTest.m */,
 				B3B5316415FE8AF500A0BB0A /* NWLFilePrinterTest.m */,
+				B3116F01161C2FC4006562E3 /* NWLNonTest.m */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -925,6 +929,7 @@
 				B38468AD15D6BC7900780B6C /* NWLObjectiveCppTest.mm in Sources */,
 				B38468AE15D6BC7900780B6C /* NWLObjectiveCTest.m in Sources */,
 				B3B5316515FE8AF500A0BB0A /* NWLFilePrinterTest.m in Sources */,
+				B3116F02161C2FC4006562E3 /* NWLNonTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -948,6 +953,7 @@
 				B3B9C29615D7CE12001483BA /* NWLObjectiveCppTest.mm in Sources */,
 				B3B9C29715D7CE12001483BA /* NWLObjectiveCTest.m in Sources */,
 				B3B5316615FE8AF500A0BB0A /* NWLFilePrinterTest.m in Sources */,
+				B3116F03161C2FC4006562E3 /* NWLNonTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
