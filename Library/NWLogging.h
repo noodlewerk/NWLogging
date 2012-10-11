@@ -18,6 +18,8 @@
 #import "NWLTools.h"
 #import "NWLLineLogger.h"
 
+#include "TargetConditionals.h"
+
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #import "NWLLogViewController.h"
 #endif

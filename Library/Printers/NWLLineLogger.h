@@ -10,6 +10,7 @@ extern const char *NWLLineLoggerMessage;
 extern const char *NWLLineLoggerAscii;
 
 #ifdef __OBJC__
+#import <Foundation/Foundation.h>
 
 @interface NWLLineLogger : NSObject
 

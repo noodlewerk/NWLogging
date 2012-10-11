@@ -6,6 +6,7 @@
 //
 
 #import "NWLPrinter.h"
+#import <UIKit/UIKit.h>
 
 @class NWLFilePrinter, NWLMultiLogger;
 
