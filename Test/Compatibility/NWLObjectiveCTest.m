@@ -1,8 +1,7 @@
-
-//  NWLObjectiveCTest.m
-//  NWLogging
 //
-//  Created by leonard on 6/10/12.
+//  NWLObjectiveCTest.m
+//  NWLoggingTest
+//
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 

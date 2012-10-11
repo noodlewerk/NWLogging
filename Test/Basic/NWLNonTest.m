@@ -1,8 +1,7 @@
 //
 //  NWLNonTest.m
-//  NWLogging
+//  NWLoggingTest
 //
-//  Created by Leo on 10/3/12.
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 

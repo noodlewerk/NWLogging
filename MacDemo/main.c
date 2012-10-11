@@ -2,7 +2,6 @@
 //  main.c
 //  NWLoggingMacDemo
 //
-//  Created by leonard on 7/2/12.
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 

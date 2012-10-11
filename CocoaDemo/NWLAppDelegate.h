@@ -2,8 +2,7 @@
 //  NWLAppDelegate.h
 //  NWLoggingCocoaDemo
 //
-//  Created by Leo on 9/9/12.
-//
+//  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
 @interface NWLAppDelegate : NSObject <NSApplicationDelegate>

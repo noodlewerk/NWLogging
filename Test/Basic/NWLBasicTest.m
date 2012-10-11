@@ -1,8 +1,7 @@
 //
 //  NWLBasicTest.m
-//  NWLogging
+//  NWLoggingTest
 //
-//  Created by leonard on 6/10/12.
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
@@ -31,7 +30,7 @@
     STAssertEqualObjects(NWLLineLogger.tag, @"", @"");
     STAssertEqualObjects(NWLLineLogger.lib, @"NWLoggingTest", @"");
     STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
-    STAssertEquals(NWLLineLogger.line, (NSUInteger)30, @"");
+    STAssertEquals(NWLLineLogger.line, (NSUInteger)29, @"");
     STAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLog]", @"");
     STAssertEqualObjects(NWLLineLogger.message, @"testNWLLog", @"");
     STAssertEquals(NWLLineLogger.info, (NSUInteger)13, @"");
@@ -49,7 +48,7 @@
     STAssertEqualObjects(NWLLineLogger.tag, @"tag", @"");
     STAssertEqualObjects(NWLLineLogger.lib, @"NWLDemo", @"");
     STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
-    STAssertEquals(NWLLineLogger.line, (NSUInteger)48, @"");
+    STAssertEquals(NWLLineLogger.line, (NSUInteger)47, @"");
     STAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLogTag]", @"");
     STAssertEqualObjects(NWLLineLogger.message, @"testNWLLogTag", @"");
     STAssertEquals(NWLLineLogger.info, (NSUInteger)14, @"");

@@ -2,8 +2,7 @@
 //  NWLLogView.h
 //  NWLogging
 //
-//  Created by Leo on 8/22/12.
-//
+//  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
 #import "NWLPrinter.h"
