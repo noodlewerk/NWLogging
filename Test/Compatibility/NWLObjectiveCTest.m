@@ -6,6 +6,7 @@
 //
 
 #include "NWLObjectiveCTest.h"
+#include "NWLCore.h"
 #import "NWLLineLogger.h"
 
 void NWLObjectiveCTest(id object) {

@@ -5,6 +5,11 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
+#import <SenTestingKit/SenTestingKit.h>
+#include "NWLCore.h"
+#import "NWLFilePrinter.h"
+
+
 @interface NWLFilePrinter ()
 - (id)initForTesting;
 @end

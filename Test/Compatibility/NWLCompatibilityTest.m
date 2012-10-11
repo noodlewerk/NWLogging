@@ -5,12 +5,15 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
+#import <SenTestingKit/SenTestingKit.h>
+#include "NWLCore.h"
+#import "NWLLineLogger.h"
+
 #include "NWLCTest.h"
 #include "NWLCppTest.h"
 #include "NWLObjectiveCTest.h"
 #include "NWLObjectiveCppTest.h"
 
-#import "NWLLineLogger.h"
 
 
 @interface NWLCompatibilityTest : SenTestCase @end

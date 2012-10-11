@@ -6,6 +6,7 @@
 //
 
 #include "NWLCTest.h"
+#include "NWLCore.h"
 #include "NWLLineLogger.h"
 
 void NWLCTest(void *object) {

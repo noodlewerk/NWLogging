@@ -6,6 +6,7 @@
 //
 
 #include "NWLObjectiveCppTest.h"
+#include "NWLCore.h"
 #import "NWLLineLogger.h"
 
 

@@ -6,6 +6,7 @@
 //
 
 #include "NWLCppTest.h"
+#include "NWLCore.h"
 #include "NWLLineLogger.h"
 
 

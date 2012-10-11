@@ -5,6 +5,9 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
+#import <SenTestingKit/SenTestingKit.h>
+#include "NWLCore.h"
+
 //#define RUN_NON_TESTS 1
 
 

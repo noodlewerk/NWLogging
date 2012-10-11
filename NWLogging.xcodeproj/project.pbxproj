@@ -190,7 +190,6 @@
 		B34EA6DE15D4FEC7007B041F /* NWLCore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NWLCore.c; sourceTree = "<group>"; };
 		B34EA6DF15D4FEC7007B041F /* NWLCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NWLCore.h; sourceTree = "<group>"; };
 		B34EA6E015D4FEC7007B041F /* NWLogging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NWLogging.h; sourceTree = "<group>"; };
-		B34EA6E215D4FEC7007B041F /* NWLogging-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NWLogging-Prefix.pch"; sourceTree = "<group>"; };
 		B34EA6E815D4FFBA007B041F /* libNWLoggingCocoa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNWLoggingCocoa.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34EA6EB15D4FFBA007B041F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B34EA6FE15D4FFEF007B041F /* NWLoggingMacDemo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NWLoggingMacDemo; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,7 +245,6 @@
 		B386699A15FD04E200EF217C /* NWLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLAppDelegate.m; sourceTree = "<group>"; };
 		B386699B15FD04E200EF217C /* NWLoggingCocoaDemo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NWLoggingCocoaDemo-Info.plist"; sourceTree = "<group>"; };
 		B386699C15FD04E200EF217C /* NWLoggingCocoaDemo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NWLoggingCocoaDemo-Prefix.pch"; sourceTree = "<group>"; };
-		B3AC2E1A15D7CBA0003F4F88 /* NWLoggingTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NWLoggingTest-Prefix.pch"; sourceTree = "<group>"; };
 		B3AC2E2315D7CD71003F4F88 /* NWLoggingTouchTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NWLoggingTouchTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B5316415FE8AF500A0BB0A /* NWLFilePrinterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLFilePrinterTest.m; sourceTree = "<group>"; };
 		B3E0BD0C160DC3C8009185F0 /* NWLoggingCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NWLoggingCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -353,7 +351,8 @@
 				B34EA6DD15D4FEC7007B041F /* Core */,
 				B384681C15D6B6C100780B6C /* Printers */,
 				B384682715D6B6C100780B6C /* UI */,
-				B34EA6E315D4FED1007B041F /* Supporting Files */,
+				B3E0BD2A160DC4B8009185F0 /* NWLoggingCocoa-Info.plist */,
+				B34EA6E015D4FEC7007B041F /* NWLogging.h */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -365,16 +364,6 @@
 				B34EA6DE15D4FEC7007B041F /* NWLCore.c */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		B34EA6E315D4FED1007B041F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B3E0BD2A160DC4B8009185F0 /* NWLoggingCocoa-Info.plist */,
-				B34EA6E015D4FEC7007B041F /* NWLogging.h */,
-				B34EA6E215D4FEC7007B041F /* NWLogging-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		B34EA6E915D4FFBA007B041F /* Products */ = {
@@ -473,7 +462,6 @@
 				B384689B15D6BC7900780B6C /* Basic */,
 				B384689D15D6BC7900780B6C /* Compatibility */,
 				B38468A715D6BC7900780B6C /* NWLoggingTest-Info.plist */,
-				B3AC2E1A15D7CBA0003F4F88 /* NWLoggingTest-Prefix.pch */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -1043,7 +1031,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"NWL_LIB=NWLStatic",
@@ -1076,7 +1063,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1163,7 +1149,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"NWL_LIB=NWLStatic",
@@ -1200,7 +1185,6 @@
 				DSTROOT = /tmp/NWLoggingTouchStatic.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Library/NWLogging-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1303,7 +1287,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"NWL_LIB=NWLoggingTest",
@@ -1337,7 +1320,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1433,7 +1415,6 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"NWL_LIB=NWLoggingTest",
@@ -1467,7 +1448,6 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Test/NWLoggingTest-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
