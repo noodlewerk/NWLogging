@@ -82,8 +82,10 @@ extern "C" {
 #define NWLogInfo(_format, ...)                  
 #define NWLogWarn(_format, ...)                  
 #define NWLogWarnIfNot(_condition, _format, ...) do {break; if (_condition) {}} while (0)
-#define NWLogWarnIfError(_error)                       
-#define NWLogTag(_tag, _format, ...)             
+#define NWAssert(_condition, _format, ...)       do {break; if (_condition) {}} while (0)
+#define NWLogWarnIfError(_error)
+#define NWError(_error)
+#define NWLogTag(_tag, _format, ...)
     
 #endif
 
