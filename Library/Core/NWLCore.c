@@ -485,37 +485,6 @@ void NWLDumpFlags(int active, const char *lib, int debug, const char *file, int 
     PRINT("   NWLog macros : %s", active ? "ON" : "OFF");
 }
 
-void NWLDumpHelp(int active, const char *lib, int debug, const char *file, int line, const char *function) {
-    //PRINT("012345678910234567892023456789302345678940234567895023456789");
-    PRINT("This text privides info on the configuration of NWLogging at");
-    PRINT("a specific point in your code. The purpose of this text is");
-    PRINT("to assist you with configuring the framework. It is printed");
-    PRINT("to stderr, your console, using the NWLHelp() macro function.");
-    PRINT("Avoid checking NWLHelp() calls into version control or leaving");
-    PRINT("it in the final release of your app.");
-    PRINT();
-    PRINT("NWLogging is configured as follows:");
-    NWLDumpFlags(active, lib, debug, file, line, function);
-    if (active) {
-        NWLDumpConfig();
-    }
-    PRINT();
-    PRINT("If NWLog macros are ON then all macro functions of the form");
-    PRINT("NWLog..() are compiled and executed at runtime. Using");
-    PRINT("NWLog(\"\") should always show up in the console output.");
-    PRINT("Other logs, like NWLogInfo(\"\") might be filtered out, but");
-    PRINT("these can be activated at runtime using the NWLPrint..()");
-    PRINT("methods.");
-    PRINT();
-    PRINT("If NWLog macros are OFF then all macro functions of the form");
-    PRINT("NWLog..() are completely stripped from the binary have no");
-    PRINT("impact at runtime.");
-    PRINT();
-    PRINT("By default, NWLog macros are active in DEBUG mode and if the");
-    PRINT("NWL_LIB macro is set in the preprocessor. See the readme file");
-    PRINT("for details on how to do this in Xcode.");
-}
-
 #undef NWLDump
 void NWLDump(void) {
     NWLDumpConfig();
