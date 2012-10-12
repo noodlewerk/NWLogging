@@ -68,26 +68,21 @@ Features
 <a name="NWL_ProjectSetup"></a>
 Project setup
 -------------
-NWLogging can be added to your project either by linking with a static library or by including the sources needed. The core functionality is kept in a single file (`NWLCore.c`), which you can simply add (together with `NWLCore.h`) to your project and get started. To avoid collision with the uses in other projects, it is recommended to not include the source, but instead link with the NWLogging static library.
+There are various ways to add NWLogging to your project setup. Which approach fits best depends on the target configurations, which components you want to use, and how closely your code interacts with the framework. This section covers two common configurations: the minimal core and static integration.
 
-There are many ways to link with NWLogging in Xcode. You can for example run the NWLoggingUniversal target, which outputs a `libNWLogging.a` in the project root. By simply dragging this file into your application sources, Xcode will do all the configuration for you. Alternatively you can add the NWLogging project to your workspace and link with `libNWLogging.a` directly.
+The minimal setup has already been introduced in the [Getting Started](#NWL_GettingStarted) section. In short: add the NWLCore files to your project and include the NWLCore header where needed. To avoid collision with uses in other projects, it is recommended to *not* compile `NWLCore.m` into any shared library, but only in the final application binary.
 
-Next, you should add the library header files to your project. Again, there are several ways to to this. For example by adding all header files to your application's sources. A convenient way to include the main `NWLogging.h` header in your project, is by referencing it in your Prefix Header file (`.pch`). For example:
+NWLogging can also included as static or dynamic framework into your Cocoa Touch or Cocoa application. While this approach doesn't include the NWLogging source, it does provide a single package that can be conveniently included in Xcode. To build `NWLogging.framework`, run the `NWLoggingUniversal` target, which outputs to the `build` folder in the project root.
 
-    #ifdef __OBJC__
-        #import <UIKit/UIKit.h>
-        #import <Foundation/Foundation.h>
-    #endif
+To make NWLogging functions available throughout your project, include the main `NWLogging.h` header in your project by referencing it in your Prefix Header file (`.pch`). For example:
 
-    #import "NWLogging.h"
+    #import <NWLogging/NWLogging.h>
 
-NWLogging is now ready for use in the Debug configuration. It is however highly recommended to set the name of the target. This allows NWLogging to add this to the log output, and provide the `lib` filter property. This is particularly useful when multiple targets use NWLogging, and you want to configure them separately.
-
-You can set the `lib` property by defining the NWL_LIB preprocessor variable, for example by adding `NWL_LIB=$(TARGET_NAME)` to the 'Preprocessor Macros' parameter in your target's build settings:
+To filter logs based on the library they occur in, you should set the library name by defining the `NWL_LIB` preprocessor variable, for example by adding `NWL_LIB=$(TARGET_NAME)` to the 'Preprocessor Macros' parameter in your target's build settings:
 
      Debug    DEBUG=1 NWL_LIB=$(TARGET_NAME)
 
-By default NWLogging is disabled in non-DEBUG configurations, like Release. To ensure logging in other configurations you must explicitly set NWL_LIB in the preprocessor:
+By default NWLogging is *only* enabled in DEBUG configurations. To ensure logging in other configurations you must explicitly set NWL_LIB in the preprocessor:
 
      Release  NWL_LIB=$(TARGET_NAME)
 
