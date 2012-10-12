@@ -78,4 +78,17 @@
 #endif
 }
 
+- (void)testDump
+{
+#if !RUN_NON_TESTS
+    return;
+#endif
+    NWLRemoveAllFilters();
+    NWLRemoveAllPrinters();
+    NWLPrintInfo();
+    NWLBreakWarn();
+    NWLAddDefaultPrinter();
+    NWLDump();
+}
+
 @end

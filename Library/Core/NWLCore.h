@@ -314,8 +314,8 @@ extern void NWLClearAll(void);
 /** Print internal state info to stderr. */
 extern void NWLDump(void);
 extern void NWLDumpFlags(int active, const char *lib, int debug, const char *file, int line, const char *function);
-extern void NWLDumpConfig(void);
-#define NWLDump() do {NWLDumpFlags(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__);if(NWL_ACTIVE){NWLDumpConfig();}} while (0)
+extern void NWLDumpConfig();
+#define NWLDump() do {NWLDumpFlags(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__);NWLDumpConfig();} while (0)
 
     
 #endif // _NWLCORE_H_

@@ -479,9 +479,9 @@ void NWLDumpConfig(void) {
 void NWLDumpFlags(int active, const char *lib, int debug, const char *file, int line, const char *function) {
     PRINT("   file         : %s:%i", file, line);
     PRINT("   function     : %s", function);
-    PRINT("   DEBUG        : %s", debug ? "ON" : "OFF");
+    PRINT("   DEBUG        : %s", debug ? "YES" : "NO");
     PRINT("   NWL_LIB      : %s", lib && *lib ? lib : (lib ? "<empty>" : "<not set>"));
-    PRINT("   NWLog macros : %s", active ? "ON" : "OFF");
+    PRINT("   NWLog macros : %s", active ? "YES" : "NO");
 }
 
 #undef NWLDump
