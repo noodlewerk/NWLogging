@@ -29,7 +29,7 @@
     STAssertEqualObjects(NWLLineLogger.message, @"", @"");
 
     NWLog(@"testNWLLog");
-    STAssertEqualObjects(NWLLineLogger.tag, @"", @"");
+    STAssertEqualObjects(NWLLineLogger.tag, NULL, @"");
     STAssertEqualObjects(NWLLineLogger.lib, @"NWLoggingTest", @"");
     STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
     STAssertEquals(NWLLineLogger.line, (NSUInteger)31, @"");
@@ -43,10 +43,10 @@
     [NWLLineLogger start:14];
 
     NWLPrintTagInLib("tag", "NWLDemo");
-    NWLLogWithFilter(tag, NWLDemo, @"");
+    NWLLogWithFilter("tag", "NWLDemo", @"");
     STAssertEqualObjects(NWLLineLogger.message, @"", @"");
     
-    NWLLogWithFilter(tag, NWLDemo, @"testNWLLogTag");
+    NWLLogWithFilter("tag", "NWLDemo", @"testNWLLogTag");
     STAssertEqualObjects(NWLLineLogger.tag, @"tag", @"");
     STAssertEqualObjects(NWLLineLogger.lib, @"NWLDemo", @"");
     STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
@@ -105,12 +105,12 @@
     
     NWLPrintTag("1");
     
-    NWLLogWithFilter(1, NWLDemo, @"a");
+    NWLLogWithFilter("1", "NWLDemo", @"a");
     STAssertEqualObjects(NWLLineLogger.message, @"a", @"");
     
     NWLClearTag("1");
     
-    NWLLogWithFilter(1, NWLDemo, @"b");
+    NWLLogWithFilter("1", "NWLDemo", @"b");
     STAssertEqualObjects(NWLLineLogger.message, @"a", @"");
     
     // TODO: to be continued...
