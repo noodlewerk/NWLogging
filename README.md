@@ -7,7 +7,7 @@ NWLogging
 <a name="NWL_About"></a>
 About
 -----
-NWLogging is a Cocoa logging framework that provides logging functions similar to NSLog. It consists of a light-weight core written in C that needs little configuration and a collection of tools for convenient configuration and log access.
+NWLogging is a Cocoa logging framework that provides logging functions similar to NSLog. It consists of a light-weight core written in C that needs little configuration, and a collection of tools for convenient configuration and log access.
 
 What makes it particularly useful is the flexibility with which logs can be filtered and directed to different outputs, both in source and at runtime. This makes NWLogging a tool for both debugging and error reporting, without the log spam of a growing project.
 
@@ -152,7 +152,7 @@ Design
 ------
 
 ### Conceptual
-Two primary concepts in NWLogging are *filters*, *actions*, and *printers*. When a log statement is executed, it is first passed though a series of filters. The filter that matches the properties of that log statement best decides which action should be performed. A printer is function that formats and outputs the log text and its properties.
+The three primary concepts in NWLogging are *filters*, *actions*, and *printers*. When a log statement is executed, it is first passed though a series of filters. The filter that matches the properties of that log statement best decides which action should be performed. A printer is function that formats and outputs the log text and its properties.
 
 A filter is a set of constrains on the properties of the log statement. For example: "should be in file X.m" or "should be in library Y and have tag Z". Filters have a fixed format, which allows them to be efficiently matched. For every property of a log statement, it either specifies its value or doesn't care about that property. Available properties are:
 
@@ -200,10 +200,10 @@ First make sure your console *does show stderr* output, for example by printing 
     
     If you want to see which filters are active, use the `NWLDump()` method, which should give you something like:
     
-        #printers:1
-        action:print tag:warn
-        action:print tag:info
-        time-offset:0.000000
+        action       : print tag:warn
+        action       : print tag:info
+        printer      : default
+        time-offset  : 0.000000
 
     Optionally, you can replace your `NWLogInfo(..)` call with `NWLog(..)`, without the 'info'. `NWLog` always logs, ignoring all filters, just like `NSLog` does.
     
@@ -231,6 +231,40 @@ You can activate the trace logs with:
     NWLPrintTag("trace");
     
 Note that tags don't have any natural ordering. Activating the 'dbug' tag does *not* automatically activate the 'info' tag.
+
+
+#### What's the meaning of the stuff `NWLDump()` prints?
+
+The `NWLDump()` function prints the internals of the NWLogging configuration at a specific point in code and execution. It can be invoked both from de debugger and from source. A call to NWLDump from source typically provides the following information:
+
+    file         : MyClass.m:88
+    function     : -[MyClass myMethod]
+    
+The location in source where this particular `NWLDump();` statement is run.
+    
+    DEBUG        : YES
+
+Indicates whether this NWLDump call was compiled in debug configuration. By default, NWLogging is enabled in debug, but disabled in release.
+
+    NWL_LIB      : MyLibName
+
+The name of the library that compiled this NWLDump call. This value can be configured by setting `NWL_LIB=$(TARGET_NAME)` in the preprocessor.
+    
+    NWLog macros : YES
+    
+If `YES`, NWLogging calls like NWLog(..) and NWLogInfo(..) are compiled into the binary. If `NO`, all logging calls are stripped out. This value is derived from the `NWL_LIB` macro.
+
+    action       : print tag=warn
+    
+A list of active filters, formatted: `<action> <property>=<value>`. Filters can be added using `NWLAddFilter(..)`.
+
+    printer      : default
+    
+A list of printers, where `default` refers to the stderr printer. Printers can be added using `NWLAddPrinter(..)`.
+
+    time-offset  : 0.000000
+
+The offset that is applied to all timestamps. Can be configured with `NWLOffsetPrintClock(..)`.
 
 
 <a name="NWL_License"></a>
