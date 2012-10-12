@@ -9,6 +9,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/uio.h>
+#include <sys/sysctl.h>
+#include <signal.h>
+#include <unistd.h>
 #include <math.h>
 #import <CoreFoundation/CFDate.h>
 
@@ -466,7 +469,19 @@ void NWLClearAll(void) {
 }
 
 
-#pragma mark - Dumping
+#pragma mark - Debugging
+
+void NWLBreakInDebugger(void) {
+    struct kinfo_proc info;
+    info.kp_proc.p_flag = 0;
+    pid_t pid = getpid();
+    int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PID, pid};
+    size_t size = sizeof(info);
+    sysctl(mib, 4, &info, &size, NULL, 0);
+    if (info.kp_proc.p_flag & P_TRACED) {
+        kill(pid, SIGINT);
+    }
+}
 
 void NWLDumpConfig(void) {
     char buffer[256];

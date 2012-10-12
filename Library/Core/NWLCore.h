@@ -6,9 +6,6 @@
 //
 
 #include <string.h>
-#include <stdio.h>
-#include <signal.h>
-#include <unistd.h>
 #import <CoreFoundation/CFString.h>
 
 #ifdef __OBJC__
@@ -130,7 +127,7 @@ extern "C" {
             CFStringRef __message = CFStringCreateWithFormat(NULL, 0, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
             switch (__type) {\
                 case kNWLAction_print: NWLForwardToPrinters(__context, __message); break;\
-                case kNWLAction_break: NWLForwardToPrinters(__context, __message); kill(getpid(), SIGINT); break;\
+                case kNWLAction_break: NWLForwardToPrinters(__context, __message); NWLBreakInDebugger(); break;\
                 case kNWLAction_raise: _NWL_EXCEPTION_(__message); break;\
                 case kNWLAction_assert: _NWL_ASSERT_(__message); break;\
                 default: _NWL_LOG_(__message, _fmt, ##__VA_ARGS__); break;\
@@ -311,6 +308,8 @@ extern void NWLClearAll(void);
 
 
 #pragma mark - Debugging
+
+void NWLBreakInDebugger(void);
 
 /** Print internal state info to stderr. */
 extern void NWLDump(void);
