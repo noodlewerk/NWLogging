@@ -314,7 +314,7 @@ void NWLBreakInDebugger(void);
 /** Print internal state info to stderr. */
 extern void NWLDump(void);
 extern void NWLDumpFlags(int active, const char *lib, int debug, const char *file, int line, const char *function);
-extern void NWLDumpConfig();
+extern void NWLDumpConfig(void);
 #if DEBUG
 #define NWL_DEBUG 1
 #else
