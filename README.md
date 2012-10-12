@@ -17,22 +17,20 @@ Getting Started
 ---------------
 You can get started with NWLogging in your Cocoa or Cocoa Touch application in just a few steps. Say you want to log when your app starts in the AppDelegate.m file:
 
-1. Add NWLCore.h and NWLCore.m to your app target.
-2. Include NWLCore.h at the top of your source file (AppDelegate.m in this case):
+1. Add `NWLCore.h` and `NWLCore.m` to your app target.
+2. Include `NWLCore.h` at the top of your source file (`AppDelegate.m` in this case):
 
         #include "NWLCore.h"
     
-3. Add the log statement to your code (didFinishLaunching: in this case):
+3. Add the log statement to your code (`applicationDidFinishLaunching:` in this case):
 
-        NWLog(@"Application did finish launching: %@", self);
+        NWLog(@"Application did finish launching");
         
 4. Start your app (in debug mode) and keep an eye on the console output:
 
-        [12:34:56.789000 AppDelegate.m:123] Application did finish launching: <AppDelegate: 0xd80da1>
+        [12:34:56.789000 AppDelegate.m:123] Application did finish launching
 
-This is just a minimal setup to demonstrate the necessary steps to get NWLogging to run. In general it is recommended to link with `libNWLogging.a` en use precompiled headers to include `NWLogging.h`.
-
-See the [Project Setup](#NWL_ProjectSetup) section for detailed instructions. For more example code, check out the source and take a look a the TouchDemo and MacDemo applications.
+This is just a minimal setup to demonstrate the necessary steps to get NWLogging to run. See the [Project Setup](#NWL_ProjectSetup) section for detailed instructions. For more example code, check out the source and take a look a the TouchDemo and MacDemo applications.
 
 
 <a name="NWL_Features"></a>
