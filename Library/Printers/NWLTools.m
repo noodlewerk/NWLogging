@@ -41,7 +41,7 @@
     short minute = [components minute];
     short second = [components second];
     NSString *result = nil;
-    if (tag.length) {
+    if (tag.length && ![tag isEqualToString:@"info"]) {
         result = [NSString stringWithFormat:@"[%02i:%02i:%02i] [%@] %@\n", hour, minute, second, tag, message];
     } else {
         result = [NSString stringWithFormat:@"[%02i:%02i:%02i] %@\n", hour, minute, second, message];
