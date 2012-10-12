@@ -22,7 +22,7 @@ You can get started with NWLogging in your Cocoa or Cocoa Touch application in j
 
         #include "NWLCore.h"
     
-3. Add the log line to your code (didFinishLaunching: in this case):
+3. Add the log statement to your code (didFinishLaunching: in this case):
 
         NWLog(@"Application did finish launching: %@", self);
         
@@ -111,24 +111,43 @@ How to
 
     NWLog(@"some text");
     
+*How to format my log statements?*
+
+    NWLogInfo(@"Works just like %@.", @"NSLog(..)");
+
 *How to log debug text that can be filtered out later on?*
 
-    NWLogDbug(@"debug text that is not shown");
     NWLPrintDbug();  // turn on printing of 'dbug' tag
     NWLogDbug(@"debug text that is printed");
+    NWLClearDbug();  // turn off printing of 'dbug' tag
+    NWLogDbug(@"debug text that is not shown");
     
 *How to log a warning text?*
 
     NWLogWarn(@"warning text!");
     
 *How to log some warning text when a condition fails?*
-    
-    NWLogWarnIfNot(index < length, @"Expected index (%i) to be less than length (%i)", index, length);
+
+    NWAssert(1 != 1, @"this warning text is printed");
+    NWLBreakWarn();  // turn on breaking of 'warn' tag
+    NWAssert(1 != 1, @"this warning text is printed and the debugger is paused");
+
+*How to log an `NSError`?*
+
+    NSError *error = nil;
+    [moc executeFetchRequest:request error:&error];
+    NWError(error);  // if error then print description
 
 *How to print text of the 'info' level?*
 
     NWLPrintInfo();  // turn on 'info' tag
     NWLogInfo(@"some info");
+
+*How to log stuff related to file I/O?*
+
+    NWLPrintTag("fileio");
+    NWLogTag(fileio, @"Reading from file: %@", filename);
+    NWLogTag(fileio, @"Writing to file: %@", filename);
 
 *How to see which filters and printers are active?*
 
@@ -179,7 +198,7 @@ FAQ
 ---
 #### Why does my log message not appear in the output?
 
-Assuming your console is properly set up and *does show stderr* output, there are several reasons a line is not displayed:
+First make sure your console *does show stderr* output, for example by printing some text with `NSLog(@"some text")`. Now assuming your console is properly set up, there are several reasons a line is not displayed:
 
 1. You're logging on a tag that is not active. For example, to log on the 'info' tag, you need to activate it first:
 
@@ -188,15 +207,14 @@ Assuming your console is properly set up and *does show stderr* output, there ar
     
     If you want to see which filters are active, use the `NWLDump()` method, which should give you something like:
     
-        About NWLogging
-           #printers:1
-           action:print tag:warn
-           action:print tag:info
-           time-offset:0.000000
+        #printers:1
+        action:print tag:warn
+        action:print tag:info
+        time-offset:0.000000
 
     Optionally, you can replace your `NWLogInfo(..)` call with `NWLog(..)`, without the 'info'. `NWLog` always logs, ignoring all filters, just like `NSLog` does.
     
-2. Another cause might be that the console (stderr) printer is not active. Activate the default printer with:
+2. Another cause might be that the default (stderr) printer is not active. Activate the default printer with:
 
         NWLRestoreDefaultPrinters();
         
@@ -211,7 +229,7 @@ Assuming your console is properly set up and *does show stderr* output, there ar
 
 #### Which log levels are there?
 
-Technically, NWLogging does not have log levels. Instead, it offers *tags*, which offer the same functionality as levels, but are more flexible. There are three default tags (read levels): warn, info, dbug, but you can use any tag you want. For example, if you want to do very fine grained logging on the trace 'level', use:
+Technically, NWLogging does not have log levels. Instead, it offers *tags*, which offer the same functionality as levels, but are more flexible. There are three default tags (read levels): `warn`, `info`, `dbug`, but you can use any tag you want. For example, if you want to do very fine grained logging on the trace 'level', use:
 
     NWLogTag(trace, @"Lots of stuff happening here");
     
