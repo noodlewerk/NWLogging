@@ -138,10 +138,31 @@ How to
 <a name="NWL_Design"></a>
 Design
 ------
-NWLogging consists of a small core written in C and a collection of tools written in Objective-C.
+
+### Conceptual
+Two primary concepts in NWLogging are *filters*, *actions*, and *printers*. When a log statement is executed, it is first passed though a series of filters. The filter that matches the properties of that log statement best decides which action should be performed. A printer is function that formats and outputs the log text and its properties.
+
+A filter is a set of constrains on the properties of the log statement. For example: "should be in file X.m" or "should be in library Y and have tag Z". Filters have a fixed format, which allows them to be efficiently matched. For every property of a log statement, it either specifies its value or doesn't care about that property. Available properties are:
+
+* *tag* - A short string specified in the log statement, e.g. `info` or `warn`.
+* *lib* - The library in which this log call is made.
+* *file* - Name of the file where this log call is made.
+* *function* - Name of the function where this log call is made.
+
+Every filter has an associated action. When the best-matching filter has been found, the log text is passed to that action. Available actions are:
+
+* *print* - Forward this log statement to all printers.
+* *break* - Forward to all printers and send the SIGINT signal allowing the debugger to break.
+* *raise* - Raise an exception with the log text as reason.
+* *assert* - Assert false with the log text as description.
+
+In most cases, a filter is associated with the print action, which forwards the log text and its properties to the set of printer functions. The default printer formats the log properties conveniently, appends the log text, and outputs to STDERR. In contrast to filters, printers designed to be open-ended, allowing any formatting and outputting, for example to file, stream, UI views, etc.
+
+One important concept shortly mentioned earlier, is that of *tags*. Tags provide a flexible way to control the filtering of log statements. By associating a tag with every log statement, the printing of log text can also be controlled based on these tag, next to the function, file, or library they are in. By default NWLogging uses the tags *warn*, *info*, and *dbug*, which mimmic the log *levels* often used in logging frameworks. It is however possible to define new tags, tailored to the different modules or cross-sections of your code.
+
 
 ### Core
-The core has been designed with a simplicity and performance focus. It has three main parts:
+NWLogging consists of a small core written in C and a collection of tools written in Objective-C. The core has been designed with a simplicity and performance focus. It has three main parts:
 
 1. Generic logging methods for direct logging and filtered logging. `NWLLogWithoutFilter` simply forwards the log message to all printers. The NWLog method is based on this. `NWLLogWithFilter` first matches properties like tag, file and function with available filters to see if that message needs printing.
 
