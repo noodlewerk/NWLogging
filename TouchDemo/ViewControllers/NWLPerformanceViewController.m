@@ -21,8 +21,9 @@
     UITextView *about = [[UITextView alloc] init];
     about.textAlignment = UITextAlignmentLeft;
     about.font = [UIFont systemFontOfSize:10];
+    about.scrollEnabled = NO;
     about.editable = NO;
-    about.text = @"The performance demo puts NWLogging to the test of handling concurrent logging and configuration. After pressing 'Run', eight concurrent operations are started which all perform random operations on NWLogging. These operations include the adding and removing of filters and printers, and of course actual logging. This stress test does not attempt to mimic average use, but instead that it doesn't easily crash :).\n \nKeep an eye on the console output to see what is actually happening. Press 'Run' multiple times to run multiple tests concurrently.";
+    about.text = @"The performance demo consists of two parts. The 'Timing' demo runs batches of log statements under various configurations. Note that by default log statements are only compiled in debug configuration. This demo however is configured to also include these in release configuration.\n\nThe 'Concurrency' demo runs eight concurrent loops, which all perform random operations on NWLogging. These operations include the adding and removing of filters and printers, and of course actual logging.\n\nKeep an eye on the console output to see what is happening. Press buttons multiple times to run multiple tests concurrently.";
     CGFloat height = [about.text sizeWithFont:about.font constrainedToSize:CGSizeMake(self.view.bounds.size.width - 20, 1000) lineBreakMode:UILineBreakModeWordWrap].height + 10;
     about.frame = CGRectMake(10, 10, self.view.bounds.size.width - 20, height);
     [self.view addSubview:about];

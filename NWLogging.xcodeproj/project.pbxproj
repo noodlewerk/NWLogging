@@ -23,6 +23,10 @@
 /* Begin PBXBuildFile section */
 		B3116F02161C2FC4006562E3 /* NWLNonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3116F01161C2FC4006562E3 /* NWLNonTest.m */; };
 		B3116F03161C2FC4006562E3 /* NWLNonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3116F01161C2FC4006562E3 /* NWLNonTest.m */; };
+		B31F43FC1628B53B0013BB35 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = B31F43FA1628B53B0013BB35 /* Icon-72.png */; };
+		B31F43FD1628B53B0013BB35 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B31F43FB1628B53B0013BB35 /* Icon.png */; };
+		B31F44011628B5DD0013BB35 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B31F43FF1628B5DD0013BB35 /* Icon-72@2x.png */; };
+		B31F44021628B5DD0013BB35 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B31F44001628B5DD0013BB35 /* Icon@2x.png */; };
 		B332839315E4FAFF00B76F2B /* NWLLogView.h in Headers */ = {isa = PBXBuildFile; fileRef = B332839115E4FAFF00B76F2B /* NWLLogView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B332839415E4FAFF00B76F2B /* NWLLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = B332839215E4FAFF00B76F2B /* NWLLogView.m */; };
 		B34EA70815D5007C007B041F /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
@@ -42,7 +46,6 @@
 		B384687D15D6BBE100780B6C /* NWLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B384686D15D6BBE100780B6C /* NWLAppDelegate.m */; };
 		B384687F15D6BBE100780B6C /* NWLIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687215D6BBE100780B6C /* NWLIntroViewController.m */; };
 		B384688015D6BBE100780B6C /* NWLMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687415D6BBE100780B6C /* NWLMenuViewController.m */; };
-		B384688115D6BBE100780B6C /* NWLMultiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687615D6BBE100780B6C /* NWLMultiViewController.m */; };
 		B384688215D6BBE100780B6C /* NWLPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687815D6BBE100780B6C /* NWLPerformanceViewController.m */; };
 		B384688315D6BBE100780B6C /* NWLPersistentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B384687A15D6BBE100780B6C /* NWLPersistentViewController.m */; };
 		B384688B15D6BC5700780B6C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B384688A15D6BC5700780B6C /* SenTestingKit.framework */; };
@@ -175,6 +178,10 @@
 
 /* Begin PBXFileReference section */
 		B3116F01161C2FC4006562E3 /* NWLNonTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLNonTest.m; sourceTree = "<group>"; };
+		B31F43FA1628B53B0013BB35 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		B31F43FB1628B53B0013BB35 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		B31F43FF1628B5DD0013BB35 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		B31F44001628B5DD0013BB35 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		B332839115E4FAFF00B76F2B /* NWLLogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLogView.h; sourceTree = "<group>"; };
 		B332839215E4FAFF00B76F2B /* NWLLogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLLogView.m; sourceTree = "<group>"; };
 		B34EA6DA15D4FE4E007B041F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -210,8 +217,6 @@
 		B384687215D6BBE100780B6C /* NWLIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLIntroViewController.m; sourceTree = "<group>"; };
 		B384687315D6BBE100780B6C /* NWLMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLMenuViewController.h; sourceTree = "<group>"; };
 		B384687415D6BBE100780B6C /* NWLMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLMenuViewController.m; sourceTree = "<group>"; };
-		B384687515D6BBE100780B6C /* NWLMultiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLMultiViewController.h; sourceTree = "<group>"; };
-		B384687615D6BBE100780B6C /* NWLMultiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLMultiViewController.m; sourceTree = "<group>"; };
 		B384687715D6BBE100780B6C /* NWLPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLPerformanceViewController.h; sourceTree = "<group>"; };
 		B384687815D6BBE100780B6C /* NWLPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLPerformanceViewController.m; sourceTree = "<group>"; };
 		B384687915D6BBE100780B6C /* NWLPersistentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLPersistentViewController.h; sourceTree = "<group>"; };
@@ -437,8 +442,6 @@
 				B384687215D6BBE100780B6C /* NWLIntroViewController.m */,
 				B384687315D6BBE100780B6C /* NWLMenuViewController.h */,
 				B384687415D6BBE100780B6C /* NWLMenuViewController.m */,
-				B384687515D6BBE100780B6C /* NWLMultiViewController.h */,
-				B384687615D6BBE100780B6C /* NWLMultiViewController.m */,
 				B384687715D6BBE100780B6C /* NWLPerformanceViewController.h */,
 				B384687815D6BBE100780B6C /* NWLPerformanceViewController.m */,
 				B384687915D6BBE100780B6C /* NWLPersistentViewController.h */,
@@ -513,6 +516,10 @@
 				B384686E15D6BBE100780B6C /* NWLoggingTouchDemo-Info.plist */,
 				B384686F15D6BBE100780B6C /* NWLoggingTouchDemo-Prefix.pch */,
 				B384686A15D6BBE100780B6C /* Localizable.strings */,
+				B31F43FB1628B53B0013BB35 /* Icon.png */,
+				B31F44001628B5DD0013BB35 /* Icon@2x.png */,
+				B31F43FA1628B53B0013BB35 /* Icon-72.png */,
+				B31F43FF1628B5DD0013BB35 /* Icon-72@2x.png */,
 				B3E0BD40160DCEA2009185F0 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
@@ -757,6 +764,10 @@
 			files = (
 				B384687B15D6BBE100780B6C /* Localizable.strings in Resources */,
 				B3E0BD41160DCEA2009185F0 /* Default-568h@2x.png in Resources */,
+				B31F43FC1628B53B0013BB35 /* Icon-72.png in Resources */,
+				B31F43FD1628B53B0013BB35 /* Icon.png in Resources */,
+				B31F44011628B5DD0013BB35 /* Icon-72@2x.png in Resources */,
+				B31F44021628B5DD0013BB35 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,7 +889,6 @@
 				B384687D15D6BBE100780B6C /* NWLAppDelegate.m in Sources */,
 				B384687F15D6BBE100780B6C /* NWLIntroViewController.m in Sources */,
 				B384688015D6BBE100780B6C /* NWLMenuViewController.m in Sources */,
-				B384688115D6BBE100780B6C /* NWLMultiViewController.m in Sources */,
 				B384688215D6BBE100780B6C /* NWLPerformanceViewController.m in Sources */,
 				B384688315D6BBE100780B6C /* NWLPersistentViewController.m in Sources */,
 			);

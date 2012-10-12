@@ -8,15 +8,18 @@
 #import "NWLMenuViewController.h"
 #import "NWLIntroViewController.h"
 #import "NWLPerformanceViewController.h"
-#import "NWLMultiViewController.h"
 #import "NWLPersistentViewController.h"
 #import "NWLLogViewController.h"
 
 
 @implementation NWLMenuViewController
 
-
-#pragma mark - Table view data source
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.title = @"NWLogging Demo";
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -25,7 +28,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -40,18 +43,14 @@
     }
     
     switch (indexPath.row) {
-        case 0: cell.textLabel.text = @"Introduction to NWLogging"; break;
-        case 1: cell.textLabel.text = @"Performance test"; break;
-        case 2: cell.textLabel.text = @"About the Multi Logger"; break;
-        case 3: cell.textLabel.text = @"File Printer"; break;
-        case 4: cell.textLabel.text = @"Log view"; break;
+        case 0: cell.textLabel.text = @"Introduction"; break;
+        case 1: cell.textLabel.text = @"Performance"; break;
+        case 2: cell.textLabel.text = @"File Printer"; break;
+        case 3: cell.textLabel.text = @"Log View"; break;
     }
 
     return cell;
 }
-
-
-#pragma mark - Table view delegate
 
 - (void)selectController:(NSInteger)index animated:(BOOL)animated
 {
@@ -59,9 +58,8 @@
     switch (index) {
         case 0: controller = [[NWLIntroViewController alloc] init]; break;
         case 1: controller = [[NWLPerformanceViewController alloc] init]; break;
-        case 2: controller = [[NWLMultiViewController alloc] init]; break;
-        case 3: controller = [[NWLPersistentViewController alloc] init]; break;
-        case 4: {
+        case 2: controller = [[NWLPersistentViewController alloc] init]; break;
+        case 3: {
             NWLLogViewController *c = [[NWLLogViewController alloc] init];
             if (NWLPersistentViewController.printer) {
                 [c configureWithFilePrinter:NWLPersistentViewController.printer];

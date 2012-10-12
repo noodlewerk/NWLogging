@@ -33,26 +33,27 @@ NSTimer *NWLPersistentTimer;
 {
     [super viewDidLoad];
     
-    self.title = @"File View";
+    self.title = @"File Printer";
     
     UITextView *about = [[UITextView alloc] init];
     about.textAlignment = UITextAlignmentLeft;
     about.font = [UIFont systemFontOfSize:10];
+    about.scrollEnabled = NO;
     about.editable = NO;
-    about.text = @"NWLFilePrinter provides persisten logging. Turn on file logging and return to the previous demos. Then open the log view, which will be prepopulated with the log file content.";
+    about.text = @"NWLFilePrinter provides persistent logging. Turn on file logging and return to the previous demos. Then open the log view, which will be prepopulated with the log file content.\n\nTurn on 'Ticking' to schedule a log call every second. Again, the result of this can be viewed in the 'Log View' demo, accessible from the menu.";
     CGFloat height = [about.text sizeWithFont:about.font constrainedToSize:CGSizeMake(self.view.bounds.size.width - 20, 1000) lineBreakMode:UILineBreakModeWordWrap].height + 10;
     about.frame = CGRectMake(10, 10, self.view.bounds.size.width - 20, height);
     [self.view addSubview:about];
-
-    tickButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    tickButton.frame = CGRectMake(10, height + 20, self.view.bounds.size.width - 20, 40);
-    [tickButton addTarget:self action:@selector(toggleTick) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:tickButton];    
     
     fileButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    fileButton.frame = CGRectMake(10, height + 70, self.view.bounds.size.width - 20, 40);
+    fileButton.frame = CGRectMake(10, height + 20, self.view.bounds.size.width - 20, 40);
     [fileButton addTarget:self action:@selector(toggleFileLogger) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:fileButton];    
+    [self.view addSubview:fileButton];
+
+    tickButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    tickButton.frame = CGRectMake(10, height + 70, self.view.bounds.size.width - 20, 40);
+    [tickButton addTarget:self action:@selector(toggleTick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:tickButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
