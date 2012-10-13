@@ -53,6 +53,9 @@
     self.backgroundColor = UIColor.blackColor;
     self.textColor = UIColor.whiteColor;
     self.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10];
+    self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.spellCheckingType = UITextSpellCheckingTypeNo;
 #else
     self.backgroundColor = NSColor.blackColor;
     self.textColor = NSColor.whiteColor;
