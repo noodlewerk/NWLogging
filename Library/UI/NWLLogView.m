@@ -45,23 +45,25 @@
 
 - (void)setup
 {
-    maxLogSize = 100 * 1000; // 100 KB
-    serial = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
-    buffer = [[NSMutableString alloc] init];
-
+    if (!serial) {
+        serial = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
+        maxLogSize = 100 * 1000; // 100 KB
+        buffer = [[NSMutableString alloc] init];
+        
 #if TARGET_OS_IPHONE
-    self.backgroundColor = UIColor.blackColor;
-    self.textColor = UIColor.whiteColor;
-    self.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10];
-    self.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    self.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.spellCheckingType = UITextSpellCheckingTypeNo;
+        self.backgroundColor = UIColor.blackColor;
+        self.textColor = UIColor.whiteColor;
+        self.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10];
+        self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        self.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.spellCheckingType = UITextSpellCheckingTypeNo;
 #else
-    self.backgroundColor = NSColor.blackColor;
-    self.textColor = NSColor.whiteColor;
-    self.font = [NSFont fontWithName:@"Courier" size:10];
+        self.backgroundColor = NSColor.blackColor;
+        self.textColor = NSColor.whiteColor;
+        self.font = [NSFont fontWithName:@"Courier" size:10];
 #endif
-    self.editable = NO;
+        self.editable = NO;
+    }
 }
 
 - (void)dealloc
