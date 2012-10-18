@@ -165,6 +165,8 @@
         CGRect rect = CGRectMake(0, self.contentSize.height - 1, 1, 1);
         [self scrollRectToVisible:rect animated:YES];
     }
+#else
+    [self scrollToEndOfDocument:nil];
 #endif
 }
 
@@ -175,8 +177,9 @@
     NSUInteger size = self.contentSize.height;
     BOOL result = offset >= size - 50;
     return result;
+#else
+    return YES;
 #endif
-    return NO;
 }
 
 @end
