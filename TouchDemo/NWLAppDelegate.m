@@ -15,6 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NWParameterAssert(application);
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     NWLMenuViewController *controller = [[NWLMenuViewController alloc] init];
     UINavigationController * navigation = [[UINavigationController alloc] initWithRootViewController:controller];
