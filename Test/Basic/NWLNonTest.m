@@ -46,7 +46,7 @@
 {
 #if RUN_NON_TESTS
     return;
-    
+
     NWLLogWithoutFilter("tag", "lib", @"No warnings: %@ %i %f %lli", @"", 1, .1, 1LL);
     NWLLogWithoutFilter("tag", "lib", @"Too many arguments: %@", @"", @"");
     NWLLogWithoutFilter("tag", "lib", @"Too many arguments: %i", 1, 1);
@@ -60,7 +60,7 @@
     NWLLogWithoutFilter("tag", "lib", @"int is no double: %f", 1);
     NWLLogWithoutFilter("tag", "lib", @"long long is no int: %i", 1LL);
     NWLLogWithoutFilter("tag", "lib", @"int is no long long: %lli", 1);
-    
+
     NWLLogWithFilter("tag", "lib", @"No warnings: %@ %i %f %lli", @"", 1, .1, 1LL);
     NWLLogWithFilter("tag", "lib", @"Too many arguments: %@", @"", @"");
     NWLLogWithFilter("tag", "lib", @"Too many arguments: %i", 1, 1);
@@ -74,7 +74,7 @@
     NWLLogWithFilter("tag", "lib", @"int is no double: %f", 1);
     NWLLogWithFilter("tag", "lib", @"long long is no int: %i", 1LL);
     NWLLogWithFilter("tag", "lib", @"int is no long long: %lli", 1);
-    
+
 #endif
 }
 

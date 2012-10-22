@@ -15,9 +15,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.title = @"Performance";
-    
+
     UITextView *about = [[UITextView alloc] init];
     about.textAlignment = UITextAlignmentLeft;
     about.font = [UIFont systemFontOfSize:10];
@@ -32,14 +32,14 @@
     timeButton.frame = CGRectMake(10, 20 + height, self.view.bounds.size.width / 2 - 20, 40);
     [timeButton setTitle:@"Timing" forState:UIControlStateNormal];
     [timeButton addTarget:self action:@selector(runTimingAsync) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:timeButton];    
-    
+    [self.view addSubview:timeButton];
+
     UIButton *randButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     randButton.frame = CGRectMake(self.view.bounds.size.width / 2 + 10, 20 + height, self.view.bounds.size.width / 2 - 20, 40);
     [randButton setTitle:@"Concurrency" forState:UIControlStateNormal];
     [randButton addTarget:self action:@selector(runRandomAsync) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:randButton];    
-    
+    [self.view addSubview:randButton];
+
     logView = [[NWLLogView alloc] init];
     logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
     [self.view addSubview:logView];
@@ -48,7 +48,7 @@
 - (void)runTimingAsync
 {
     [logView safeAppendAndFollowText:@"\n == Logging Time Demo == \n\n"];
-    
+
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
         [self runTiming:1];
     }];
@@ -77,7 +77,7 @@
 
 - (void)runTiming:(NSTimeInterval)span
 {
-    
+
     NWLRemoveAllFilters();
     NWLRemoveAllPrinters();
 
@@ -86,48 +86,48 @@
     LOG_TEST(NWLog, Empty);
     LOG_TEST(NWLog, String);
     LOG_TEST(NWLog, Format);
-    
+
     [self appendLine:@""];
-    
+
     LOG_TEST(NWLogWarn, Empty);
     LOG_TEST(NWLogWarn, String);
     LOG_TEST(NWLogWarn, Format);
 
     NWLRestoreDefaultFilters();
     [self appendLine:[NSString stringWithFormat:@"\nActivated 'warn' filter, but no printers.\n"]];
-    
+
     LOG_TEST(NWLog, Empty);
     LOG_TEST(NWLog, String);
     LOG_TEST(NWLog, Format);
-    
+
     [self appendLine:@""];
-    
+
     LOG_TEST(NWLogWarn, Empty);
     LOG_TEST(NWLogWarn, String);
     LOG_TEST(NWLogWarn, Format);
-    
+
     NWLRestoreDefaultPrinters();
     [self appendLine:[NSString stringWithFormat:@"\nActivated 'warn' filter and console printer.\n"]];
-    
+
     LOG_TEST(NWLog, Empty);
     LOG_TEST(NWLog, String);
     LOG_TEST(NWLog, Format);
-    
+
     [self appendLine:@""];
-    
+
     span /= 10; // to reduce console flooding
-    
+
     LOG_TEST(NWLogWarn, Empty);
     LOG_TEST(NWLogWarn, String);
     LOG_TEST(NWLogWarn, Format);
-    
+
     [self appendLine:[NSString stringWithFormat:@"\nFin.\n"]];
 }
 
 - (void)runRandomAsync
 {
     [logView safeAppendAndFollowText:@"\n == Logging Concurrency Demo == \n\n"];
-    
+
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
         [self runRandom:1];
     }];
@@ -198,7 +198,7 @@
     [NSThread sleepForTimeInterval:span];
     stop = YES;
     [NSThread sleepForTimeInterval:.1];
-    
+
     [self appendLine:[NSString stringWithFormat:@"\n.. done, that's about %u concurrent operations per second.\n", ((NSUInteger)(total / span) / 1000) * 1000]];
 }
 

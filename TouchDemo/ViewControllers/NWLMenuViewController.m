@@ -35,14 +35,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
-    
+
     switch (indexPath.row) {
         case 0: cell.textLabel.text = @"Introduction"; break;
         case 1: cell.textLabel.text = @"Performance"; break;
@@ -74,7 +74,7 @@
             controller = c;
         } break;
     }
-    
+
     [self.navigationController pushViewController:controller animated:animated];
 }
 

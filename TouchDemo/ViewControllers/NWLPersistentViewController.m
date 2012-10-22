@@ -32,9 +32,9 @@ NSTimer *NWLPersistentTimer;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.title = @"File Printer";
-    
+
     UITextView *about = [[UITextView alloc] init];
     about.textAlignment = UITextAlignmentLeft;
     about.font = [UIFont systemFontOfSize:10];
@@ -44,7 +44,7 @@ NSTimer *NWLPersistentTimer;
     CGFloat height = [about.text sizeWithFont:about.font constrainedToSize:CGSizeMake(self.view.bounds.size.width - 20, 1000) lineBreakMode:UILineBreakModeWordWrap].height + 10;
     about.frame = CGRectMake(10, 10, self.view.bounds.size.width - 20, height);
     [self.view addSubview:about];
-    
+
     fileButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     fileButton.frame = CGRectMake(10, height + 20, self.view.bounds.size.width - 20, 40);
     [fileButton addTarget:self action:@selector(toggleFileLogger) forControlEvents:UIControlEventTouchUpInside];

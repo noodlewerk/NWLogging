@@ -115,7 +115,7 @@ void NWLStderrPrinter(NWLContext context, CFStringRef message, void *info) {
     int timeLength = snprintf(timeBuffer, sizeof(timeBuffer), "%02i:%02i:%02i.%06i", hour, minute, second, micro);
     iov[i].iov_base = timeBuffer;
     iov[i++].iov_len = sizeof(timeBuffer) - 1 < timeLength ? sizeof(timeBuffer) - 1 : timeLength;
-    
+
     // add context
     if (context.lib && *context.lib) {
         iov[i].iov_base = " ";
@@ -141,7 +141,7 @@ void NWLStderrPrinter(NWLContext context, CFStringRef message, void *info) {
         iov[i].iov_base = (void *)context.tag;
         iov[i++].iov_len = strnlen(context.tag, 32);
     }
-    
+
     iov[i].iov_base = "] ";
     iov[i++].iov_len = 2;
 
@@ -151,7 +151,7 @@ void NWLStderrPrinter(NWLContext context, CFStringRef message, void *info) {
         unsigned char messageBuffer[256];
         CFIndex messageLength = 0;
         CFIndex length = 1;
-        
+
         while (length && range.length) {
             length = CFStringGetBytes(message, range, kCFStringEncodingUTF8, '?', false, messageBuffer, sizeof(messageBuffer), &messageLength);
             iov[i].iov_base = messageBuffer;

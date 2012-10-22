@@ -44,15 +44,15 @@
 {
     printer.maxLogSize = 10;
     [printer clear];
-    
+
     STAssertEquals((int)printer.content.length, 0, @"");
-    
+
     [printer append:@"test"];
     STAssertEqualObjects(printer.content, @"test", @"");
-    
+
     [printer append:@"test"];
     STAssertEqualObjects(printer.content, @"testtest", @"");
-    
+
     [printer append:@"abc"];
     STAssertEqualObjects(printer.content, @"ttestabc", @"");
 }
@@ -99,7 +99,7 @@
 {
     NSString *encoded = @"[\\245,\\243,\\u20ac,$,\\242,\\u20a1,\\u20a2,\\u20a3,\\u20a4,\\u20a5,\\u20a6,\\u20a7,\\u20a8,\\u20a9,\\u20aa,\\u20ab,\\u20ad,\\u20ae,\\u20af,\\u20b9,\\u89d2,\\u7530,\\u5bb6,\\ud83c\\udf35]";
     NSString *utf8 = [[NSString alloc] initWithData:[encoded dataUsingEncoding:NSASCIIStringEncoding] encoding:NSNonLossyASCIIStringEncoding];
-    
+
     printer.maxLogSize = 10;
     [printer clear];
     [printer append:utf8];

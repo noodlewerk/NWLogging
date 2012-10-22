@@ -127,7 +127,7 @@ static void NWLLineLoggerPrinter(NWLContext context, CFStringRef message, void *
     data.line = context.line;
     data.function = context.function ? [NSString stringWithCString:context.function encoding:NSUTF8StringEncoding] : nil;
     data.info = (NSUInteger)info;
-    
+
     NSString *m = (__bridge NSString *)message;
     NSString *a = [NWLLineLogger ascii:m];
     NWLLineLoggerMessage = m.UTF8String;

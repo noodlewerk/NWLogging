@@ -137,7 +137,7 @@
         [mailController setToRecipients:emailAddresses];
     }
     [mailController setMessageBody:NSLocalizedString(@"NWLoggingEmail_Text", @"") isHTML:NO];
-    
+
     // attach file
     NSData *data = [textView.text dataUsingEncoding:NSUTF8StringEncoding];
     NSString *filename = NSLocalizedString(@"NWLoggingEmail_File", @"");
@@ -151,7 +151,7 @@
         }
     }
     [mailController addAttachmentData:data mimeType:mime fileName:filename];
-    
+
     [self presentViewController:mailController animated:YES completion:NULL];
 }
 
@@ -194,7 +194,7 @@
 
 - (void)dismissByDone
 {
-    [self dismissModalViewControllerAnimated:YES];  
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

@@ -49,7 +49,7 @@
         serial = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
         maxLogSize = 100 * 1000; // 100 KB
         buffer = [[NSMutableString alloc] init];
-        
+
 #if TARGET_OS_IPHONE
         self.backgroundColor = UIColor.blackColor;
         self.textColor = UIColor.whiteColor;

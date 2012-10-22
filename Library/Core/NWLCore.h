@@ -136,11 +136,11 @@ extern "C" {
 #else
 
 #define NWLLogWithoutFilter(_tag, _lib, _fmt, ...)
-#define NWLLogWithFilter(_tag, _lib, _fmt, ...) 
+#define NWLLogWithFilter(_tag, _lib, _fmt, ...)
 
 #endif
-    
-    
+
+
 #pragma mark - Type definitions
 
 /** Types of context properties to filter on */
@@ -241,7 +241,7 @@ extern void NWLogAbout(void);
 /** Restore all internal state, including default printers, default filters, and default clock. **/
 extern void NWLRestore(void);
 
-    
+
 #pragma mark - Common Configuration
 
 /** Activate the printing of all info statements. */

@@ -27,7 +27,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     [super viewDidLoad];
 
     self.title = @"Introduction";
-    
+
     UITextView *about = [[UITextView alloc] init];
     about.textAlignment = UITextAlignmentLeft;
     about.font = [UIFont systemFontOfSize:10];
@@ -37,13 +37,13 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     CGFloat height = [about.text sizeWithFont:about.font constrainedToSize:CGSizeMake(self.view.bounds.size.width - 20, 1000) lineBreakMode:UILineBreakModeWordWrap].height + 10;
     about.frame = CGRectMake(10, 10, self.view.bounds.size.width - 20, height);
     [self.view addSubview:about];
-    
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.frame = CGRectMake(10, 20 + height, self.view.bounds.size.width - 20, 40);
     [button setTitle:@"Run" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(run) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    
+
     logView = [[NWLLogView alloc] init];
     logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
     [self.view addSubview:logView];
@@ -63,24 +63,24 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
 {
     NWLClearAll();
     NWLAddPrinter("demo-printer", NWLLoggingDemoPrinter, (void *)CFBridgingRetain(logView));
-    
+
     NWLog(@"       A| Welcome to the logging overview demo.");
     NWLog(@"       B| Let's log some text and see what happens where..");
     NWLog(@"       C| The NWLLog function prints even when no matching rules are active.");
-    
+
     // printing on default tags info and warn
     NWLogInfo(@"-| This line should not be visible, because info is not yet on");
     NWLPrintInfoInLib(NWL_LIB_STR);
-    
+
     NWLogInfo(@"D| The 'info' tag is activated, allowing the display of this line.");
     NWLog(@"       E| Now let's activate the 'warn' tag.");
     NWLogWarn(@"-| Obviously this line should not be visible, warn is not yet active");
     NWLPrintWarnInLib(NWL_LIB_STR);
     NWLogWarn(@"F| There we go, let this be a warning!");
-    
+
     NWLClearInfo();
     NWLClearWarn();
-    
+
     // custom tags
     NWLogTag(test, @"-| This is logged under tag 'test', which is not active");
     NWLPrintTag("tst1");
@@ -101,7 +101,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
 
     // logging in C function
     runC();
-    
+
     NWLogWarn(@"-| And of course this should not print nor break.");
     NWLPrintInfoInLib(NWL_LIB_STR);
     NWLogInfo(@"O| As a final demonstration, let's try out 'break', in 5 seconds.");
@@ -113,7 +113,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
         NWLogWarn(@"P| Tada! Now continue the debugger..");
         NWLPrintWarnInLib(NWL_LIB_STR);
         NWLogWarn(@"Q| That's it for this demo, thanks for watching.");
-        
+
         // restore printers
         void *view = NWLRemovePrinter("demo-printer");
         CFBridgingRelease(view);

@@ -21,11 +21,11 @@ You can get started with NWLogging in your Cocoa or Cocoa Touch application in j
 2. Include `NWLCore.h` at the top of your source file (`AppDelegate.m` in this case):
 
         #include "NWLCore.h"
-    
+
 3. Add the log statement to your code (`applicationDidFinishLaunching:` in this case):
 
         NWLog(@"Application did finish launching");
-        
+
 4. Start your app (in debug mode) and keep an eye on the console output:
 
         [12:34:56.789000 AppDelegate.m:123] Application did finish launching
@@ -37,25 +37,25 @@ This is just a minimal setup to demonstrate the necessary steps to get NWLogging
 Features
 --------
 + *Logging functionality similar to NSLog.*
-   
+
    <p>Although NWLogging offers configurable filters and outputs, by default it just prints what you tell it to. Simply replace `NSLog` by `NWLog`.</p>
-  
+
 + *Log filtering based on target, file, function, and custom tags.*
 
    <p>No useless floods of log messages, but fine-grained filtering so you only get the logs you need.</p>
-   
+
 + *Log output to console, file, and custom printers.*
 
    <p>By default all logs are printed to stderr, but you also can redirect this to a file, stream, or a text view for in-app display.</p>
-   
+
 + *Alternative log actions like pause debugger or throw exception.*
 
    <p>Use logs to handle your asserts and exceptions. Configure which lines should trigger the debugger to break. Simply replace `NSAssert` with `NWAssert`.</p>
-   
+
 + *Configuration both statically from source code and from the debugger at runtime.*
 
    <p>Configuration methods are available both in source and debugger. This allows you to run a standard configuration and further configure while debugging.</p>
-   
+
 + *Supports pure C and C++ projects.*
 
    <p>The core of NWLogging is not tied to Objective-C or Cocoa. It only requires standard C and Core Foundation libraries.</p>
@@ -89,11 +89,11 @@ By default NWLogging is *only* enabled in DEBUG configurations. To ensure loggin
 To see if NWLogging has been set up properly, add the following in your application main or launch method:
 
     NWLog(@"Works like a charm");
-        
+
 When run, this should output something like:
 
     [12:34:56.789000 MyApp main.c:012] Works like a charm
-    
+
 Having completed the setup, it's time for some action in the [How to](#NWL_HowTo) section. If you'd like a more conceptual understanding, take a look in the [Design](#NWL_Design) section.
 
 
@@ -103,7 +103,7 @@ How to
 *How to log some text to the console output?*
 
     NWLog(@"some text");
-    
+
 *How to format my log statements?*
 
     NWLogInfo(@"Works just like %@.", @"NSLog(..)");
@@ -114,11 +114,11 @@ How to
     NWLogDbug(@"debug text that is printed");
     NWLClearDbug();  // turn off printing of 'dbug' tag
     NWLogDbug(@"debug text that is not shown");
-    
+
 *How to log a warning text?*
 
     NWLogWarn(@"warning text!");
-    
+
 *How to log some warning text when a condition fails?*
 
     NWAssert(1 != 1, @"this warning text is printed");
@@ -197,24 +197,24 @@ First make sure your console *does show stderr* output, for example by printing 
 
         NWLPrintInfo();  // activate all logging of info tag
         NWLogInfo(@"This line should be logged");
-    
+
     If you want to see which filters are active, use the `NWLDump()` method, which should give you something like:
-    
+
         action       : print tag:warn
         action       : print tag:info
         printer      : default
         time-offset  : 0.000000
 
     Optionally, you can replace your `NWLogInfo(..)` call with `NWLog(..)`, without the 'info'. `NWLog` always logs, ignoring all filters, just like `NSLog` does.
-    
+
 2. Another cause might be that the default (stderr) printer is not active. Activate the default printer with:
 
         NWLRestoreDefaultPrinters();
-        
+
 3. You might run a complex configuration of filters and have no clue which filter does what. Reset all filter actions using:
 
         NWLRestoreDefaultFilters();
-                
+
 4. Possibly you didn't do all necessary setup. If you run in Release configuration, you need to explicitly define NWL_LIB. Make sure you followed the steps described in the [Project Setup](#NWL_ProjectSetup) section.
 
     Still not working? Drop me a line: leonardvandriel at gmail.
@@ -225,11 +225,11 @@ First make sure your console *does show stderr* output, for example by printing 
 Technically, NWLogging does not have log levels. Instead, it offers *tags*, which offer the same functionality as levels, but are more flexible. There are three default tags (read levels): `warn`, `info`, `dbug`, but you can use any tag you want. For example, if you want to do very fine grained logging on the trace 'level', use:
 
     NWLogTag(trace, @"Lots of stuff happening here");
-    
+
 You can activate the trace logs with:
 
     NWLPrintTag("trace");
-    
+
 Note that tags don't have any natural ordering. Activating the 'dbug' tag does *not* automatically activate the 'info' tag.
 
 
@@ -239,9 +239,9 @@ The `NWLDump()` function prints the internals of the NWLogging configuration at 
 
     file         : MyClass.m:88
     function     : -[MyClass myMethod]
-    
+
 The location in source where this particular `NWLDump();` statement is run.
-    
+
     DEBUG        : YES
 
 Indicates whether this NWLDump call was compiled in debug configuration. By default, NWLogging is enabled in debug, but disabled in release.
@@ -249,17 +249,17 @@ Indicates whether this NWLDump call was compiled in debug configuration. By defa
     NWL_LIB      : MyLibName
 
 The name of the library that compiled this NWLDump call. This value can be configured by setting `NWL_LIB=$(TARGET_NAME)` in the preprocessor.
-    
+
     NWLog macros : YES
-    
+
 If `YES`, NWLogging calls like NWLog(..) and NWLogInfo(..) are compiled into the binary. If `NO`, all logging calls are stripped out. This value is derived from the `NWL_LIB` macro.
 
     action       : print tag=warn
-    
+
 A list of active filters, formatted: `<action> <property>=<value>`. Filters can be added using `NWLAddFilter(..)`.
 
     printer      : default
-    
+
 A list of printers, where `default` refers to the stderr printer. Printers can be added using `NWLAddPrinter(..)`.
 
     time-offset  : 0.000000
