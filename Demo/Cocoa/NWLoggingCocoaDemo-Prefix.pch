@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'CocoaDemo' target in the 'CocoaDemo' project
+//
+
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#endif
+
+#import "NWLogging.h"
