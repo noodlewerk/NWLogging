@@ -237,6 +237,10 @@ extern int NWLAboutString(char *buffer, int size);
 extern void NWLogAbout(void);
 
 
+/** Restore all internal state, including default printers, default filters, and default clock. **/
+extern void NWLRestore(void);
+
+    
 #pragma mark - Common Configuration
 
 /** Activate the printing of all info statements. */

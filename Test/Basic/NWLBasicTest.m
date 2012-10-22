@@ -131,9 +131,7 @@
 
 - (void)testAbout
 {
-    NWLRestoreDefaultFilters();
-    NWLRestoreDefaultPrinters();
-    NWLRestorePrintClock();
+    NWLRestore();
     
     int aboutLength = 86;
     

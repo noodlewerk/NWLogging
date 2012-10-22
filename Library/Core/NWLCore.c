@@ -303,7 +303,7 @@ void NWLRestoreDefaultFilters(void) {
 
 #pragma mark - Clock
 
-static double NWLTime() {
+static double NWLTime(void) {
     return CFAbsoluteTimeGetCurrent() + 978307200;
 }
 
@@ -373,17 +373,26 @@ void NWLogAbout(void) {
 }
 
 
+#pragma mark - Misc Helpers
+
+void NWLRestore(void) {
+    NWLRestoreDefaultFilters();
+    NWLRestoreDefaultPrinters();
+    NWLRestorePrintClock();
+}
+
+
 #pragma mark - Macro wrappers
 
-void NWLPrintInfo() {
+void NWLPrintInfo(void) {
     NWLAddFilter("info", NULL, NULL, NULL, kNWLAction_print);
 }
 
-void NWLPrintWarn() {
+void NWLPrintWarn(void) {
     NWLAddFilter("warn", NULL, NULL, NULL, kNWLAction_print);
 }
 
-void NWLPrintDbug() {
+void NWLPrintDbug(void) {
     NWLAddFilter("dbug", NULL, NULL, NULL, kNWLAction_print);
 }
 
@@ -391,7 +400,7 @@ void NWLPrintTag(const char *tag) {
     NWLAddFilter(tag, NULL, NULL, NULL, kNWLAction_print);
 }
 
-void NWLPrintAll() {
+void NWLPrintAll(void) {
     NWLAddFilter(NULL, NULL, NULL, NULL, kNWLAction_print);
 }
 
@@ -429,7 +438,7 @@ void NWLPrintDbugInFunction(const char *function) {
 
 
 
-void NWLBreakWarn() {
+void NWLBreakWarn(void) {
     NWLAddFilter("warn", NULL, NULL, NULL, kNWLAction_break);
 }
 
@@ -447,15 +456,15 @@ void NWLBreakTagInLib(const char *tag, const char *lib) {
 
 
 
-void NWLClearInfo() {
+void NWLClearInfo(void) {
     NWLRemoveMatchingFilters("info", NULL, NULL, NULL);
 }
 
-void NWLClearWarn() {
+void NWLClearWarn(void) {
     NWLRemoveMatchingFilters("warn", NULL, NULL, NULL);
 }
 
-void NWLClearDbug() {
+void NWLClearDbug(void) {
     NWLRemoveMatchingFilters("dbug", NULL, NULL, NULL);
 }
 
