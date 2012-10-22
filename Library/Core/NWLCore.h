@@ -70,8 +70,9 @@ extern "C" {
 #define NWLogTag(_tag, _format, ...)             NWLLogWithFilter((#_tag), NWL_LIB_STR, _format, ##__VA_ARGS__)
 
 /** Convenient assert and error macros. */
-#define NWAssert(_condition)                     NWLogWarnIfNot((_condition), @"Expected condition: "#_condition)
+#define NWAssert(_condition)                     NWLogWarnIfNot((_condition), @"Expected true condition: "#_condition)
 #define NWAssertMainThread()                     NWLogWarnIfNot(_NWL_MAIN_THREAD_, @"Expected running on main thread")
+#define NWAssertQueue(_queue)                    NWLogWarnIfNot((_queue) == dispatch_get_current_queue(), @"Expected running on queue: %@", dispatch_get_current_queue())
 #define NWParameterAssert(_condition)            NWLogWarnIfNot((_condition), @"Expected parameter: "#_condition)
 #define NWError(_error)                          NWLogWarnIfError((_error))
 

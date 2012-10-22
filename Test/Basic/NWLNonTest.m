@@ -83,9 +83,19 @@
 #if !RUN_NON_TESTS
     return;
 #endif
-    NWLRestoreDefaultFilters();
-    NWLRestoreDefaultPrinters();
+    NWLRestore();
     NWLDump();
+}
+
+- (void)testAssert
+{
+#if !RUN_NON_TESTS
+    return;
+#endif
+    NWLRestore();
+    BOOL yes = YES;
+    NWAssert(yes == NO);
+    NWAssertQueue(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
 }
 
 @end
