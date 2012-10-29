@@ -61,10 +61,10 @@ extern "C" {
 #define NWLogWarn(_format, ...)                  NWLLogWithFilter("warn", NWL_LIB_STR, _format, ##__VA_ARGS__)
 
 /** Log on an 'warn' tag if the condition is false. */
-#define NWLogWarnIfNot(_condition, _format, ...) do {if (!(_condition)) NWLLogWithFilter("warn", NWL_LIB_STR, _format, ##__VA_ARGS__);} while (0)
+#define NWLogWarnIfNot(_condition, _format, ...) do {if (!(_condition)) NWLogWarn(_format, ##__VA_ARGS__);} while (0)
 
 /** Log error description on the 'warn' tag if error is not nil. */
-#define NWLogWarnIfError(_error)                 do {if((_error)) NWLLogWithFilter("warn", NWL_LIB_STR, @"Caught: %@", (_error));} while (0)
+#define NWLogWarnIfError(_error)                 NWLogWarnIfNot(!(_error), @"Caught: %@", (_error))
 
 /** Log on a custom tag, which can be activated using NWLPrintTag(tag). */
 #define NWLogTag(_tag, _format, ...)             NWLLogWithFilter((#_tag), NWL_LIB_STR, _format, ##__VA_ARGS__)
@@ -74,7 +74,7 @@ extern "C" {
 #define NWAssertMainThread()                     NWLogWarnIfNot(_NWL_MAIN_THREAD_, @"Expected running on main thread")
 #define NWAssertQueue(_queue)                    NWLogWarnIfNot((_queue) == dispatch_get_current_queue(), @"Expected running on queue: %@", dispatch_get_current_queue())
 #define NWParameterAssert(_condition)            NWLogWarnIfNot((_condition), @"Expected parameter: "#_condition)
-#define NWError(_error)                          NWLogWarnIfError((_error))
+#define NWError(_error)                          do {if (_error) NWLogWarn(@"Caught: %@", (_error)); _error = nil;} while (0)
 
 
 #pragma mark - Logging macros
