@@ -121,9 +121,9 @@ How to
 
 *How to log some warning text when a condition fails?*
 
-    NWAssert(1 != 1, @"this warning text is printed");
-    NWLBreakWarn();  // turn on breaking of 'warn' tag
-    NWAssert(1 != 1, @"this warning text is printed and the debugger is paused");
+    NWAssert(1 != 1); // '1 != 1' is printed
+    NWLBreakWarn();   // turn on breaking of 'warn' tag
+    NWAssert(1 != 1); // '1 != 1' is printed and the debugger is paused
 
 *How to log an `NSError`?*
 
