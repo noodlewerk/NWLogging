@@ -432,6 +432,10 @@ void NWLPrintDbugInFile(const char *file) {
     NWLAddFilter("dbug", NULL, file, NULL, kNWLAction_print);
 }
 
+void NWLPrintAllInFile(const char *file) {
+    NWLAddFilter(NULL, NULL, file, NULL, kNWLAction_print);
+}
+
 void NWLPrintDbugInFunction(const char *function) {
     NWLAddFilter("dbug", NULL, NULL, function, kNWLAction_print);
 }

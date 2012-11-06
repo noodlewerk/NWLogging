@@ -279,6 +279,9 @@ extern void NWLPrintAllInLib(const char *lib);
 /** Activate printing of dbug statements in a file. */
 extern void NWLPrintDbugInFile(const char *file);
 
+/** Activate the printing of all statements in a file. */
+extern void NWLPrintAllInFile(const char *file);
+
 /** Activate printing of dbug statements in a function, of the form: -[CLass parmeter:parmeter:]. */
 extern void NWLPrintDbugInFunction(const char *function);
 
@@ -314,6 +317,9 @@ extern void NWLClearAllInLib(const char *lib);
 /** Removes all actions for all filters. */
 extern void NWLClearAll(void);
 
+#define NWLPrintOnlyInThisFile()     do {NWLRemoveAllFilters();NWLPrintAllInFile(_NWL_FILE_);} while (0)
+#define NWLPrintOnlyInThisLib()      do {NWLRemoveAllFilters();NWLPrintAllInLib(NWL_LIB_STR);} while (0)
+    
 
 #pragma mark - Debugging
 
