@@ -244,81 +244,56 @@ extern void NWLRestore(void);
 
 #pragma mark - Common Configuration
 
-/** Activate the printing of all info statements. */
+/** Activate the printing of all log statements. */
 extern void NWLPrintInfo(void);
-
-/** Activate the printing of all warn statements. */
 extern void NWLPrintWarn(void);
-
-/** Activate the printing of all dbug statements. */
 extern void NWLPrintDbug(void);
-
-/** Activate the printing of all statements on a custom tag. */
 extern void NWLPrintTag(const char *tag);
-
-/** Activate the printing of all statements. */
 extern void NWLPrintAll(void);
 
-
-/** Activate the printing of all info statements in one lib. */
+/** Activate the printing in one lib. */
 extern void NWLPrintInfoInLib(const char *lib);
-
-/** Activate the printing of all warn statements in one lib. */
 extern void NWLPrintWarnInLib(const char *lib);
-
-/** Activate the printing of all dbug statements in one lib. */
 extern void NWLPrintDbugInLib(const char *lib);
-
-/** Activate the printing of custom tag statements in one lib. */
 extern void NWLPrintTagInLib(const char *tag, const char *lib);
-
-/** Activate the printing of all statements in one lib. */
 extern void NWLPrintAllInLib(const char *lib);
-
-
-/** Activate printing of dbug statements in a file. */
+    
+#define NWLPrintInfoInThisLib()      NWLPrintInfoInLib(NWL_LIB_STR)
+#define NWLPrintWarnInThisLib()      NWLPrintWarnInLib(NWL_LIB_STR)
+#define NWLPrintDbugInThisLib()      NWLPrintDbugInLib(NWL_LIB_STR)
+#define NWLPrintTagInThisLib(__tag)  NWLPrintTagInLib(__tag, NWL_LIB_STR)
+#define NWLPrintAllInThisLib()       NWLPrintAllInLib(NWL_LIB_STR)
+#define NWLPrintOnlyInThisLib()      do {NWLRemoveAllFilters();NWLPrintAllInLib(NWL_LIB_STR);} while (0)
+    
+/** Activate printing in a file or function. */
 extern void NWLPrintDbugInFile(const char *file);
-
-/** Activate the printing of all statements in a file. */
 extern void NWLPrintAllInFile(const char *file);
-
-/** Activate printing of dbug statements in a function, of the form: -[CLass parmeter:parmeter:]. */
 extern void NWLPrintDbugInFunction(const char *function);
+    
+#define NWLPrintDbugInThisFile()     NWLPrintDbugInFile(_NWL_FILE_)
+#define NWLPrintAllInThisFile()      NWLPrintAllInFile(_NWL_FILE_)
+#define NWLPrintDbugInThisFunction() NWLPrintDbugInFunction(__PRETTY_FUNCTION__)
+#define NWLPrintOnlyInThisFile()     do {NWLRemoveAllFilters();NWLPrintAllInFile(_NWL_FILE_);} while (0)
+#define NWLPrintOnlyInThisFunction() do {NWLRemoveAllFilters();NWLPrintAllInFunction(__PRETTY_FUNCTION__);} while (0)
 
-
-/** Activate breaking on all warn statements. */
+/** Activate breaking. */
 extern void NWLBreakWarn(void);
-
-/** Activate breaking on all warn statements in one lib. */
 extern void NWLBreakWarnInLib(const char *lib);
-
-/** Activate breaking of custom tag statements. */
 extern void NWLBreakTag(const char *tag);
-
-/** Activate breaking of custom tag statements in one lib. */
 extern void NWLBreakTagInLib(const char *tag, const char *lib);
 
+#define NWLBreakWarnInThisLib()       NWLBreakWarnInLib(NWL_LIB_STR)
+#define NWLBreakTagInThisLib(__tag)   NWLBreakTagInLib(__tag, NWL_LIB_STR)
 
-/** Deactivate actions of all info statements. */
+/** Deactivate actions. */
 extern void NWLClearInfo(void);
-
-/** Deactivate actions of all warn statements. */
 extern void NWLClearWarn(void);
-
-/** Deactivate actions of all dbug statements. */
 extern void NWLClearDbug(void);
-
-/** Deactivate actions of custom tag statements. */
 extern void NWLClearTag(const char *tag);
-
-/** Deactivate actions of all statements in one lib. */
 extern void NWLClearAllInLib(const char *lib);
-
-/** Removes all actions for all filters. */
 extern void NWLClearAll(void);
-
-#define NWLPrintOnlyInThisFile()     do {NWLRemoveAllFilters();NWLPrintAllInFile(_NWL_FILE_);} while (0)
-#define NWLPrintOnlyInThisLib()      do {NWLRemoveAllFilters();NWLPrintAllInLib(NWL_LIB_STR);} while (0)
+    
+#define NWLClearAllInThisLib()        NWLClearAllInLib(NWL_LIB_STR)
     
 
 #pragma mark - Debugging
