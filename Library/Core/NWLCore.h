@@ -103,6 +103,8 @@ extern "C" {
 
 // Misc helper macros
 #define _NWL_FILE_ (strrchr((__FILE__), '/') + 1)
+#define NWL_CALLER ({NSString*__line=NSThread.callStackSymbols[1];NSRange r=[__line rangeOfString:@"0x"];[NSString stringWithFormat:@"<%@>",r.length?[__line substringFromIndex:r.location]:__line];})
+#define NWL_STACK(__a) ({NSArray*lines=NSThread.callStackSymbols;[lines subarrayWithRange:NSMakeRange(0,__a<lines.count?__a:lines.count)];})
 
 #if NWL_ACTIVE
 
