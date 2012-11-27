@@ -68,7 +68,7 @@
                 [c appendText:@"To view previous logs, turn on file logging.\n"];
             }
             [c configureWithMultiLogger:NWLMultiLogger.shared];
-            [c addEmailButton:@"leonard@noodlewerk.com" compressAttachment:YES];
+            [c addEmailButton:@"leonard@noodlewerk.com" additionalAttachments:@{@"another.txt":@"See, you can add additional attachments."} compress:YES];
             [c addDefaultFilters];
             [c addAboutButton];
             controller = c;

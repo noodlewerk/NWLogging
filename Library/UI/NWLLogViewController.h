@@ -15,6 +15,7 @@
 - (void)appendText:(NSString *)text;
 
 - (void)addEmailButton:(NSString *)address compressAttachment:(BOOL)compressAttachment;
+- (void)addEmailButton:(NSString *)address additionalAttachments:(NSDictionary *)additional compress:(BOOL)compress;
 - (void)addClearButton:(void(^)(void))block;
 - (void)addDoneButton;
 - (void)addAboutButton;

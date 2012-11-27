@@ -33,6 +33,7 @@
     NWLLogView *textView;
     NSMutableArray *emailAddresses;
     BOOL compressAttachment;
+    NSDictionary *additionalAttachments;
     void(^clearBlock)(void);
     NWLMultiLogger *logger;
     NSMutableArray *filters;
@@ -115,7 +116,12 @@
 
 #pragma mark - Email button
 
-- (void)addEmailButton:(NSString *)address compressAttachment:(BOOL)_compressAttachment
+- (void)addEmailButton:(NSString *)address compressAttachment:(BOOL)_compressAttachment;
+{
+    [self addEmailButton:address additionalAttachments:nil compress:_compressAttachment];
+}
+
+- (void)addEmailButton:(NSString *)address additionalAttachments:(NSDictionary *)additional compress:(BOOL)compress
 {
     if (!emailAddresses.count) {
         NSMutableArray *buttons = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
@@ -123,7 +129,8 @@
         [buttons addObject:item];
         self.navigationItem.rightBarButtonItems = buttons;
         emailAddresses = [NSMutableArray array];
-        compressAttachment = _compressAttachment;
+        compressAttachment = compress;
+        additionalAttachments = additional;
     }
     [emailAddresses addObject:[address copy]];
 }
@@ -138,19 +145,39 @@
     }
     [mailController setMessageBody:NSLocalizedString(@"NWLoggingEmail_Text", @"") isHTML:NO];
 
-    // attach file
-    NSData *data = [textView.text dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *filename = NSLocalizedString(@"NWLoggingEmail_File", @"");
-    NSString *mime = @"text/plain";
-    if (compressAttachment) {
-        NSData *compressed = [self.class compress:data];
-        if (compressed.length) {
-            data = compressed;
-            filename = [filename stringByAppendingString:@".gzip"];
-            mime = @"application/gzip";
+    // attach files
+    NSMutableDictionary *files = [[NSMutableDictionary alloc] initWithCapacity:additionalAttachments.count + 1];
+    NSData *logData = [textView.text dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *logName = NSLocalizedString(@"NWLoggingEmail_File", @"");
+    if (logData.length && logName.length) {
+        files[logName] = logData;
+    }
+    for (NSString *key in additionalAttachments) {
+        id value = additionalAttachments[key];
+        if ([value isKindOfClass:NSData.class]) {
+            files[key] = value;
+        } else if ([value isKindOfClass:NSURL.class]) {
+            NSData *data = [NSData dataWithContentsOfURL:value];
+            if (data) files[key] = data;
+        } else {
+            NSData *data = [[value description] dataUsingEncoding:NSUTF8StringEncoding];
+            if (data) files[key] = data;
         }
     }
-    [mailController addAttachmentData:data mimeType:mime fileName:filename];
+    for (NSString *key in files) {
+        NSData *data = files[key];
+        NSString *filename = key;
+        NSString *mime = @"text/plain";
+        if (compressAttachment) {
+            NSData *compressed = [self.class compress:data];
+            if (compressed.length) {
+                data = compressed;
+                filename = [filename stringByAppendingString:@".gzip"];
+                mime = @"application/gzip";
+            }
+        }
+        [mailController addAttachmentData:data mimeType:mime fileName:filename];
+    }
 
     [self presentViewController:mailController animated:YES completion:NULL];
 }
@@ -169,7 +196,7 @@
         stream.avail_in = data.length;
         int status = deflateInit2(&stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, 15 + 16, 8, Z_DEFAULT_STRATEGY);
         if (status == Z_OK) {
-            NSMutableData *result = [[NSMutableData alloc] initWithLength:data.length * 1.01 + 12];
+            NSMutableData *result = [[NSMutableData alloc] initWithLength:data.length * 1.1 + 32];
             while (status == Z_OK) {
                 stream.next_out = result.mutableBytes + stream.total_out;
                 stream.avail_out = result.length - stream.total_out;
