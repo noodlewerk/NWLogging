@@ -37,14 +37,16 @@
         calendar = NSCalendar.currentCalendar;
     });
     NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
-    short hour = [components hour];
-    short minute = [components minute];
-    short second = [components second];
+    int hour = (int)[components hour];
+    int minute = (int)[components minute];
+    int second = (int)[components second];
+    NSTimeInterval time = date.timeIntervalSince1970;
+    int centi = (int)((time - floor(time)) * 100) % 100;
     NSString *result = nil;
     if (tag.length && ![tag isEqualToString:@"info"]) {
-        result = [NSString stringWithFormat:@"[%02i:%02i:%02i] [%@] %@\n", hour, minute, second, tag, message];
+        result = [NSString stringWithFormat:@"[%02i:%02i:%02i.%02i] [%@] %@\n", hour, minute, second, centi, tag, message];
     } else {
-        result = [NSString stringWithFormat:@"[%02i:%02i:%02i] %@\n", hour, minute, second, message];
+        result = [NSString stringWithFormat:@"[%02i:%02i:%02i.%02i] %@\n", hour, minute, second, centi, message];
     }
     return result;
 }
