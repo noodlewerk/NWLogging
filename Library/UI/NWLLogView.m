@@ -74,9 +74,9 @@
 
 #pragma mark - Printing
 
-- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
+- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function date:(NSDate *)date message:(NSString *)message
 {
-    NSString *text = [NWLTools formatTag:tag lib:lib file:file line:line function:function message:message];
+    NSString *text = [NWLTools formatTag:tag lib:lib file:file line:line function:function date:date message:message];
     [self safeAppendAndFollowText:text];
 }
 

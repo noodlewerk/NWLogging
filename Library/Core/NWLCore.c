@@ -110,7 +110,7 @@ void NWLStderrPrinter(NWLContext context, CFStringRef message, void *info) {
 
     // add time
     int hour = 0, minute = 0, second = 0, micro = 0;
-    NWLClock(&hour, &minute, &second, &micro);
+    NWLClock(context.time, &hour, &minute, &second, &micro);
     char timeBuffer[16];
     int timeLength = snprintf(timeBuffer, sizeof(timeBuffer), "%02i:%02i:%02i.%06i", hour, minute, second, micro);
     iov[i].iov_base = timeBuffer;
@@ -303,7 +303,7 @@ void NWLRestoreDefaultFilters(void) {
 
 #pragma mark - Clock
 
-static double NWLTime(void) {
+double NWLTime(void) {
     return CFAbsoluteTimeGetCurrent() + 978307200;
 }
 
@@ -319,13 +319,12 @@ void NWLRestorePrintClock(void) {
     NWLTimeOffset = 0;
 }
 
-double NWLClock(int *hour, int *minute, int *second, int *micro) {
-    CFAbsoluteTime time = NWLTime() - NWLTimeOffset;
-    *hour = (int)(time / 3600) % 24;
-    *minute = (int)(time / 60) % 60;
-    *second = (int)time % 60;
-    *micro = (int)((time - floor(time)) * 1000000) % 1000000;
-    return time;
+void NWLClock(double time, int *hour, int *minute, int *second, int *micro) {
+    double t = time - NWLTimeOffset;
+    *hour = (int)(t / 3600) % 24;
+    *minute = (int)(t / 60) % 60;
+    *second = (int)t % 60;
+    *micro = (int)((t - floor(t)) * 1000000) % 1000000;
 }
 
 
@@ -366,7 +365,7 @@ int NWLAboutString(char *buffer, int size) {
 void NWLogAbout(void) {
     char buffer[256];
     int length = NWLAboutString(buffer, sizeof(buffer));
-    NWLContext context = {NULL, "NWLogging", NULL, 0, NULL};
+    NWLContext context = {NULL, "NWLogging", NULL, 0, NULL, NWLTime()};
     CFStringRef message = CFStringCreateWithFormat(NULL, 0, CFSTR("About NWLogging\n%s%s"), buffer, length <= sizeof(buffer) - 1 ? "" : "\n   ...");\
     NWLForwardToPrinters(context, message);
     CFRelease(message);

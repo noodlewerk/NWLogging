@@ -20,6 +20,7 @@ const char *NWLLineLoggerAscii = NULL;
 @property (nonatomic, strong) NSString *file;
 @property (nonatomic, assign) NSUInteger line;
 @property (nonatomic, strong) NSString *function;
+@property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic, assign) NSUInteger info;
 @property (nonatomic, strong) NSString *ascii;
@@ -28,7 +29,7 @@ const char *NWLLineLoggerAscii = NULL;
 
 @implementation NWLLogLine
 
-@synthesize tag, lib, file, line, function, message, info, ascii;
+@synthesize tag, lib, file, line, function, date, message, info, ascii;
 
 @end
 
@@ -95,6 +96,11 @@ const char *NWLLineLoggerAscii = NULL;
     return self.data.function;
 }
 
++ (NSDate *)date
+{
+    return self.data.date;
+}
+
 + (NSString *)message
 {
     return self.data.message;
@@ -126,6 +132,7 @@ static void NWLLineLoggerPrinter(NWLContext context, CFStringRef message, void *
     data.file = context.file ? [NSString stringWithCString:context.file encoding:NSUTF8StringEncoding] : nil;
     data.line = context.line;
     data.function = context.function ? [NSString stringWithCString:context.function encoding:NSUTF8StringEncoding] : nil;
+    data.date = context.time ? [NSDate dateWithTimeIntervalSince1970:context.time] : nil;
     data.info = (NSUInteger)info;
 
     NSString *m = (__bridge NSString *)message;

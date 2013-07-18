@@ -12,9 +12,10 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     NSString *libString = context.lib ? [NSString stringWithCString:context.lib encoding:NSUTF8StringEncoding] : nil;
     NSString *fileString = context.file ? [NSString stringWithCString:context.file encoding:NSUTF8StringEncoding] : nil;
     NSString *functionString = context.function ? [NSString stringWithCString:context.function encoding:NSUTF8StringEncoding] : nil;
+    NSDate *date = context.time ? [NSDate dateWithTimeIntervalSince1970:context.time] : nil;
     NSString *messageString = (__bridge NSString *)message;
     NWLLogView *logView = (__bridge NWLLogView *)(info);
-    [logView printWithTag:tagString lib:libString file:fileString line:context.line function:functionString message:messageString];
+    [logView printWithTag:tagString lib:libString file:fileString line:context.line function:functionString date:date message:messageString];
 }
 
 

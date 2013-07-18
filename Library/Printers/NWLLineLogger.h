@@ -23,6 +23,7 @@ extern const char *NWLLineLoggerAscii;
 + (NSString *)file;
 + (NSUInteger)line;
 + (NSString *)function;
++ (NSDate *)date;
 + (NSString *)message;
 + (NSString *)ascii;
 + (NSUInteger)info;

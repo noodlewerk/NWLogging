@@ -111,7 +111,7 @@ extern "C" {
 /** Forwards context and formatted log line to printers. */
 #define NWLLogWithoutFilter(_tag, _lib, _fmt, ...) NWLLogWithoutFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
 #define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) do {\
-        NWLContext __context = {_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__};\
+        NWLContext __context = {_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()};\
         CFStringRef __message = CFStringCreateWithFormat(NULL, 0, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
         NWLForwardToPrinters(__context, __message);\
         CFRelease(__message);\
@@ -120,7 +120,7 @@ extern "C" {
 /** Looks for the best-matching filter and performs the associated action. */
 #define NWLLogWithFilter(_tag, _lib, _fmt, ...) NWLLogWithFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
 #define NWLLogWithFilter_(_tag, _lib, _fmt, ...) do {\
-        NWLContext __context = {_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__};\
+        NWLContext __context = {_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()};\
         NWLAction __type = NWLMatchingActionForContext(__context);\
         if (__type) {\
             CFStringRef __message = CFStringCreateWithFormat(NULL, 0, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
@@ -172,6 +172,7 @@ typedef struct {
     const char *file;
     int line;
     const char *function;
+    double time;
 } NWLContext;
 
 
@@ -230,8 +231,11 @@ extern void NWLOffsetPrintClock(double seconds);
 /** Restore the clock on log prints to UTC time. */
 extern void NWLRestorePrintClock(void);
 
+/** Seconds since epoch. */
+extern double NWLTime(void);
+
 /** Provides clock values, returns time since epoch or since reset. */
-extern double NWLClock(int *hour, int *minute, int *second, int *micro);
+extern void NWLClock(double time, int *hour, int *minute, int *second, int *micro);
 
 /** Returns a human-readable summary of this logger, returns the length of the about text excluding the null byte independent of 'size'. */
 extern int NWLAboutString(char *buffer, int size);

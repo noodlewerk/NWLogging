@@ -118,12 +118,12 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 
 #pragma mark - Printing
 
-- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message name:(NSString *)name
+- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function date:(NSDate *)date message:(NSString *)message name:(NSString *)name
 {
     dispatch_async(serial, ^{
         if (name) {
             id<NWLPrinter> printer = [(NWLPrinterEntry *)[printerEntries objectForKey:name] printer];
-            [printer printWithTag:tag lib:lib file:file line:line function:function message:message];
+            [printer printWithTag:tag lib:lib file:file line:line function:function date:date message:message];
         }
     });
 }
@@ -139,9 +139,10 @@ static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void 
     NSString *libString = context.lib ? [NSString stringWithCString:context.lib encoding:NSUTF8StringEncoding] : nil;
     NSString *fileString = context.file ? [NSString stringWithCString:context.file encoding:NSUTF8StringEncoding] : nil;
     NSString *functionString = context.function ? [NSString stringWithCString:context.function encoding:NSUTF8StringEncoding] : nil;
+    NSDate *date = context.time ? [NSDate dateWithTimeIntervalSince1970:context.time] : nil;
     NSString *messageString = (__bridge NSString *)message;
     NSString *name = (__bridge NSString *)info;
-    [NWLMultiLoggerShared printWithTag:tagString lib:libString file:fileString line:context.line function:functionString message:messageString name:name];
+    [NWLMultiLoggerShared printWithTag:tagString lib:libString file:fileString line:context.line function:functionString date:date message:messageString name:name];
 }
 
 

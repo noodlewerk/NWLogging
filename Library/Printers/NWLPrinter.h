@@ -10,7 +10,7 @@
 @protocol NWLPrinter <NSObject>
 
 @required
-- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message;
+- (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function date:(NSDate *)date message:(NSString *)message;
 
 @optional
 - (NSString *)printerName;

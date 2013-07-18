@@ -28,9 +28,8 @@
     return result;
 }
 
-+ (NSString *)formatTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message
++ (NSString *)formatTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function date:(NSDate *)date message:(NSString *)message
 {
-    NSDate *date = NSDate.date;
     static NSCalendar *calendar = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

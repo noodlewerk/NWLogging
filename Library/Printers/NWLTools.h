@@ -13,7 +13,7 @@
 
 + (NSString *)dateMark;
 + (NSString *)bundleInfo;
-+ (NSString *)formatTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function message:(NSString *)message;
++ (NSString *)formatTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function date:(NSDate *)date message:(NSString *)message;
 
 + (NSString *)nameForPrinter:(id<NWLPrinter>)printer;
 
