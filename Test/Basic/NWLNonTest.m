@@ -95,7 +95,7 @@
     NWLRestore();
     BOOL yes = YES;
     NWAssert(yes == NO);
-    NWAssertQueue(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+    NWAssertQueue(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), com.apple.root.default-priority);
 }
 
 @end

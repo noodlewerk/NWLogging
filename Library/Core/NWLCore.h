@@ -72,7 +72,7 @@ extern "C" {
 /** Convenient assert and error macros. */
 #define NWAssert(_condition)                     NWLogWarnIfNot((_condition), @"Expected true condition '"#_condition@"' in %s:%i", _NWL_FILE_, __LINE__)
 #define NWAssertMainThread()                     NWLogWarnIfNot(_NWL_MAIN_THREAD_, @"Expected running on main thread in %s:%i", _NWL_FILE_, __LINE__)
-#define NWAssertQueue(_queue)                    NWLogWarnIfNot((_queue) == dispatch_get_current_queue(), @"Expected running on '"#_queue@"' in %s:%i", _NWL_FILE_, __LINE__)
+#define NWAssertQueue(_queue,_label)             NWLogWarnIfNot(strcmp(dispatch_queue_get_label(_queue)?:"",#_label)==0, @"Expected running on '%s', not on '%s' in %s:%i", #_label, dispatch_queue_get_label(_queue), _NWL_FILE_, __LINE__)
 #define NWParameterAssert(_condition)            NWLogWarnIfNot((_condition), @"Expected parameter: '"#_condition@"' in %s:%i", _NWL_FILE_, __LINE__)
 #define NWError(_error)                          do {NWLogWarnIfNot(!(_error), @"Caught: %@", (_error)); _error = nil;} while (0)
 
