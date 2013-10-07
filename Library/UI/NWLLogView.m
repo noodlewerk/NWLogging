@@ -66,11 +66,6 @@
     }
 }
 
-- (void)dealloc
-{
-    if (serial) dispatch_release(serial); serial = NULL;
-}
-
 
 #pragma mark - Printing
 

@@ -193,13 +193,13 @@
         z_stream stream;
         memset(&stream, 0, sizeof(z_stream));
         stream.next_in = (Bytef *)data.bytes;
-        stream.avail_in = data.length;
+        stream.avail_in = (uInt)data.length;
         int status = deflateInit2(&stream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, 15 + 16, 8, Z_DEFAULT_STRATEGY);
         if (status == Z_OK) {
             NSMutableData *result = [[NSMutableData alloc] initWithLength:data.length * 1.1 + 32];
             while (status == Z_OK) {
                 stream.next_out = result.mutableBytes + stream.total_out;
-                stream.avail_out = result.length - stream.total_out;
+                stream.avail_out = (uInt)(result.length - stream.total_out);
                 status = deflate(&stream, Z_FINISH);
             }
             deflateEnd(&stream);
@@ -221,7 +221,7 @@
 
 - (void)dismissByDone
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -292,7 +292,7 @@
     [controller loadFilters:filters];
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:controller action:@selector(dismissModalViewControllerAnimated:)];
     UINavigationController *c = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self.navigationController presentModalViewController:c animated:YES];
+    [self.navigationController presentViewController:c animated:YES completion:nil];
 }
 
 - (void)addDefaultFilters

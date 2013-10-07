@@ -55,13 +55,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    if (serial) {
-        dispatch_release(serial); serial = nil;
-    }
-}
-
 
 #pragma mark - Helpers
 

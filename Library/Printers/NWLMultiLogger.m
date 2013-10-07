@@ -43,13 +43,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    if (serial) {
-        dispatch_release(serial); serial = NULL;
-    }
-}
-
 static NWLMultiLogger *NWLMultiLoggerShared = nil;
 + (NWLMultiLogger *)shared
 {
