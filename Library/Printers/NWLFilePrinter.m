@@ -238,7 +238,7 @@
 - (void)unsafeAppend:(NSData *)data
 {
     [self trimForAppendingLength:data.length];
-    NSUInteger remaining = maxLogSize > size ? maxLogSize - size : 0;
+    NSUInteger remaining = (NSUInteger)(maxLogSize > size ? maxLogSize - size : 0);
     if (maxLogSize && data.length > remaining) {
         data = [self.class utf8SubdataFromIndex:data.length - remaining data:data];
     }
