@@ -156,10 +156,8 @@
 - (void)scrollDownNow
 {
 #if TARGET_OS_IPHONE
-    if (self.contentSize.height) {
-        CGRect rect = CGRectMake(0, self.contentSize.height - 1, 1, 1);
-        [self scrollRectToVisible:rect animated:YES];
-    }
+    NSRange bottom = NSMakeRange(self.text.length - 1, 1);
+    [self scrollRangeToVisible:bottom];
 #else
     [self scrollToEndOfDocument:nil];
 #endif
