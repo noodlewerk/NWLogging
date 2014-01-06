@@ -767,7 +767,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#set -e\n\nPROJECT=\"NWLogging\"\nTARGET_TOUCH=\"NWLoggingTouchStatic\"\nTARGET_COCOA=\"NWLoggingCocoaStatic\"\nHEADERS=\"usr/local/include\"\nPRODUCT=\"NWLogging\"\nOUTPUT=\"NWLogging\"\n\necho \"Remove previous\"\nrm -rf \"${SRCROOT}/build/$OUTPUT/\"\nrm -rf \"${SRCROOT}/build/$OUTPUT.framework/\"\n\necho \"Building iphoneos and iphonesimulator\"\nxcodebuild -project \"${SRCROOT}/$PROJECT.xcodeproj\" -target $TARGET_TOUCH -configuration Release -arch \"armv6 armv7 armv7s\" -sdk iphoneos\nxcodebuild -project \"${SRCROOT}/$PROJECT.xcodeproj\" -target $TARGET_TOUCH -configuration Release -arch i386 -sdk iphonesimulator\nxcodebuild -project \"${SRCROOT}/$PROJECT.xcodeproj\" -target $TARGET_COCOA -configuration Release -arch x86_64 -sdk macosx\n\necho \"Lipoing things together\"\nmkdir \"${SRCROOT}/build/$OUTPUT\"\nlipo -create -output \"${SRCROOT}/build/$OUTPUT/lib$OUTPUT.a\" \"${SRCROOT}/build/Release/lib$PRODUCT.a\" \"${SRCROOT}/build/Release-iphoneos/lib$PRODUCT.a\" \"${SRCROOT}/build/Release-iphonesimulator/lib$PRODUCT.a\"\ncp -R \"${SRCROOT}/build/Release/$HEADERS\" \"${SRCROOT}/build/$OUTPUT/Headers\"\n\necho \"Create framework\"\nmkdir -p \"${SRCROOT}/build/$OUTPUT.framework/Versions/A\"\ncp -R \"${SRCROOT}/build/$OUTPUT/Headers\" \"${SRCROOT}/build/$OUTPUT.framework/Versions/A\"\ncp \"${SRCROOT}/build/$OUTPUT/lib$OUTPUT.a\" \"${SRCROOT}/build/$OUTPUT.framework/Versions/A/$OUTPUT\"\n\nln -s \"A\" \"${SRCROOT}/build/$OUTPUT.framework/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${SRCROOT}/build/$OUTPUT.framework/Headers\"\nln -s \"Versions/Current/$OUTPUT\" \"${SRCROOT}/build/$OUTPUT.framework/$OUTPUT\"\n\necho \"Cleaning up\"\nrm -rf \"${SRCROOT}/build/Release/\"\nrm -rf \"${SRCROOT}/build/Release-iphoneos/\"\nrm -rf \"${SRCROOT}/build/Release-iphonesimulator/\"\nrm -rf \"${SRCROOT}/build/$PROJECT.build/\"\n\necho \"Done\"\n";
+			shellScript = "#set -e\n\nPROJECT=\"NWLogging\"\nTARGET_TOUCH=\"NWLoggingTouchStatic\"\nTARGET_COCOA=\"NWLoggingCocoaStatic\"\nHEADERS=\"usr/local/include\"\nPRODUCT=\"NWLogging\"\nOUTPUT=\"NWLogging\"\n\necho \"Remove previous\"\nrm -rf \"${SRCROOT}/build/$OUTPUT/\"\nrm -rf \"${SRCROOT}/build/$OUTPUT.framework/\"\n\necho \"Building iphoneos and iphonesimulator\"\nxcodebuild -project \"${SRCROOT}/$PROJECT.xcodeproj\" -target $TARGET_TOUCH -configuration Release -sdk iphoneos\nxcodebuild -project \"${SRCROOT}/$PROJECT.xcodeproj\" -target $TARGET_TOUCH -configuration Release -arch i386 -sdk iphonesimulator\nxcodebuild -project \"${SRCROOT}/$PROJECT.xcodeproj\" -target $TARGET_COCOA -configuration Release -arch x86_64 -sdk macosx\n\necho \"Lipoing things together\"\nmkdir \"${SRCROOT}/build/$OUTPUT\"\nlipo -create -output \"${SRCROOT}/build/$OUTPUT/lib$OUTPUT.a\" \"${SRCROOT}/build/Release/lib$PRODUCT.a\" \"${SRCROOT}/build/Release-iphoneos/lib$PRODUCT.a\" \"${SRCROOT}/build/Release-iphonesimulator/lib$PRODUCT.a\"\ncp -R \"${SRCROOT}/build/Release/$HEADERS\" \"${SRCROOT}/build/$OUTPUT/Headers\"\n\necho \"Create framework\"\nmkdir -p \"${SRCROOT}/build/$OUTPUT.framework/Versions/A\"\ncp -R \"${SRCROOT}/build/$OUTPUT/Headers\" \"${SRCROOT}/build/$OUTPUT.framework/Versions/A\"\ncp \"${SRCROOT}/build/$OUTPUT/lib$OUTPUT.a\" \"${SRCROOT}/build/$OUTPUT.framework/Versions/A/$OUTPUT\"\n\nln -s \"A\" \"${SRCROOT}/build/$OUTPUT.framework/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${SRCROOT}/build/$OUTPUT.framework/Headers\"\nln -s \"Versions/Current/$OUTPUT\" \"${SRCROOT}/build/$OUTPUT.framework/$OUTPUT\"\n\necho \"Cleaning up\"\nrm -rf \"${SRCROOT}/build/Release/\"\nrm -rf \"${SRCROOT}/build/Release-iphoneos/\"\nrm -rf \"${SRCROOT}/build/Release-iphonesimulator/\"\nrm -rf \"${SRCROOT}/build/$PROJECT.build/\"\n\necho \"Done\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1022,6 +1022,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1056,6 +1057,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
