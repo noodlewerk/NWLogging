@@ -163,6 +163,7 @@
 
 /* Begin PBXFileReference section */
 		B3116F01161C2FC4006562E3 /* NWLNonTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLNonTest.m; sourceTree = "<group>"; };
+		B3126A9518BF862900337E2E /* NWLogging.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = NWLogging.podspec; sourceTree = "<group>"; };
 		B332839115E4FAFF00B76F2B /* NWLLogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLLogView.h; sourceTree = "<group>"; };
 		B332839215E4FAFF00B76F2B /* NWLLogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLLogView.m; sourceTree = "<group>"; };
 		B34EA6DA15D4FE4E007B041F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -307,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				B34EA6DA15D4FE4E007B041F /* README.md */,
+				B3126A9518BF862900337E2E /* NWLogging.podspec */,
 				B34EA6DC15D4FEC7007B041F /* Library */,
 				B384689A15D6BC7900780B6C /* Test */,
 				B386180F16355532005C69BF /* Demo */,
