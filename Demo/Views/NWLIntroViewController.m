@@ -35,7 +35,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     about.scrollEnabled = NO;
     about.editable = NO;
     about.text = @"Welcome to the introduction to NWLogging. NWLogging is a basic logging framework with a focus on performance and ease of use. It consists of a core (mostly) written in C and a set of convenience classes written in Objective-C.\n \nThis demo showcases the core components of NWLogging: printers and filters. Filters control which log lines are in effect and what action should be performed. Printers output text to a certain medium. This demo is purely based on the core, as defined in NWLCore.h, which was designed to have minimal inpact at runtime. It therefore does not do any thread locking or heap allocation. During the demo, keep eye on this view, the console, and the source code.";
-    CGFloat height = [about.text sizeWithFont:about.font constrainedToSize:CGSizeMake(self.view.bounds.size.width - 20, 1000) lineBreakMode:UILineBreakModeWordWrap].height + 10;
+    CGFloat height = [about.text sizeWithFont:about.font constrainedToSize:CGSizeMake(self.view.bounds.size.width - 20, 1000) lineBreakMode:UILineBreakModeWordWrap].height + 80;
     about.frame = CGRectMake(10, 10, self.view.bounds.size.width - 20, height);
     [self.view addSubview:about];
 
@@ -126,7 +126,7 @@ static void runC() {
     NWLogInfo(@"-| This line should not be visible, because info is not yet on");
     NWLPrintInfoInLib(NWL_LIB_STR);
     NWLogInfo(@"M| We're still in C, logging on 'info'.");
-    NWLPrintTagInLib(NWL_LIB_STR, "C");
+    NWLPrintTagInLib("C", NWL_LIB_STR);
     NWLogTag(C, @"   N| And on the 'C' tag.");
 
     NWLClearInfo();

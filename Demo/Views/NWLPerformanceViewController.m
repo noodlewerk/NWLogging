@@ -199,7 +199,7 @@
     stop = YES;
     [NSThread sleepForTimeInterval:.1];
 
-    [self appendLine:[NSString stringWithFormat:@"\n.. done, that's about %u concurrent operations per second.\n", ((NSUInteger)(total / span) / 1000) * 1000]];
+    [self appendLine:[NSString stringWithFormat:@"\n.. done, that's about %u concurrent operations per second.\n", ((int)(total / span) / 1000) * 1000]];
 }
 
 @end
