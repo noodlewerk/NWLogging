@@ -56,7 +56,10 @@ extern "C" {
 
 /** Log on the 'info' tag, which can be activated using NWLPrintInfo(). */
 #define NWLogInfo(_format, ...)                  NWLLogWithFilter("info", NWL_LIB_STR, _format, ##__VA_ARGS__)
-
+    
+/** Log on the 'info' tag if the condition is true. */
+#define NWLogInfoIf(_condition, _format, ...)    do {if (_condition) NWLogInfo(_format, ##__VA_ARGS__);} while (0)
+    
 /** Log on the 'warn' tag, which can be activated using NWLPrintWarn(). */
 #define NWLogWarn(_format, ...)                  NWLLogWithFilter("warn", NWL_LIB_STR, _format, ##__VA_ARGS__)
 
@@ -137,8 +140,8 @@ extern "C" {
 
 #else
 
-#define NWLLogWithoutFilter(_tag, _lib, _fmt, ...)
-#define NWLLogWithFilter(_tag, _lib, _fmt, ...)
+#define NWLLogWithoutFilter(_tag, _lib, _fmt, ...) do {} while (0)
+#define NWLLogWithFilter(_tag, _lib, _fmt, ...) do {} while (0)
 
 #endif
 
