@@ -60,6 +60,31 @@ void NWLForwardToPrinters(NWLContext context, CFStringRef message) {
     }
 }
 
+void NWLForwardWithoutFilter(NWLContext context, CFStringRef format, ...) {
+    va_list arglist;
+    va_start(arglist, format);
+    CFStringRef message = CFStringCreateWithFormatAndArguments(NULL, 0, format, arglist);
+    va_end(arglist);
+    NWLForwardToPrinters(context, message);
+    CFRelease(message);
+}
+
+void NWLForwardWithFilter(NWLContext context, CFStringRef format, ...) {
+    NWLAction type = NWLMatchingActionForContext(context);
+    if (type) {
+        va_list arglist;
+        va_start(arglist, format);
+        CFStringRef message = CFStringCreateWithFormatAndArguments(NULL, 0, format, arglist);
+        va_end(arglist);
+        switch (type) {
+            case kNWLAction_print: NWLForwardToPrinters(context, message); break;
+            case kNWLAction_break: NWLForwardToPrinters(context, message); NWLBreakInDebugger(); break;
+            default: CFShow(message); break;
+        }
+        CFRelease(message);
+    }
+}
+
 int NWLAddPrinter(const char *name, void(*func)(NWLContext, CFStringRef, void *), void *info) {
     int count = NWLPrinters.count;
     if (count < kNWLPrinterListSize) {
@@ -344,8 +369,6 @@ int NWLAboutString(char *buffer, int size) {
 #define _NWL_ABOUT_ACTION_(_action) do {if (filter->action == kNWLAction_##_action) {_NWL_PRINT_(buffer, s, "   action       : "#_action);}} while (0)
         _NWL_ABOUT_ACTION_(print);
         _NWL_ABOUT_ACTION_(break);
-        _NWL_ABOUT_ACTION_(raise);
-        _NWL_ABOUT_ACTION_(assert);
         const char *value = NULL;
 #define _NWL_ABOUT_PROP_(_prop) do {if ((value = filter->properties[kNWLProperty_##_prop])) {_NWL_PRINT_(buffer, s, " "#_prop"=%s", value);}} while (0)
         _NWL_ABOUT_PROP_(tag);

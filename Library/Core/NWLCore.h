@@ -92,15 +92,9 @@ extern "C" {
 // C/Objective-C support
 #ifdef __OBJC__
 #define _NWL_CFSTRING_(_str) ((_NWL_BRIDGE_ CFStringRef)_str)
-#define _NWL_EXCEPTION_(_msg) [NSException raise:@"NWLogging" format:@"%@", _msg]
-#define _NWL_ASSERT_(_msg) NSCAssert1(NO, @"%@", _msg)
-#define _NWL_LOG_(_msg, _fmt, ...) NSLog(_fmt, ##__VA_ARGS__)
 #define _NWL_MAIN_THREAD_ [NSThread isMainThread]
 #else // __OBJC__
 #define _NWL_CFSTRING_(_str) CFSTR(_str)
-#define _NWL_EXCEPTION_(_msg) CFShow(_msg)
-#define _NWL_ASSERT_(_msg) assert(false)
-#define _NWL_LOG_(_msg, _fmt, ...) CFShow(_msg)
 #define _NWL_MAIN_THREAD_ (dispatch_get_main_queue() == dispatch_get_current_queue())
 #endif // __OBJC__
 
@@ -113,30 +107,12 @@ extern "C" {
 
 /** Forwards context and formatted log line to printers. */
 #define NWLLogWithoutFilter(_tag, _lib, _fmt, ...) NWLLogWithoutFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
-#define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) do {\
-        NWLContext __context = {_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()};\
-        CFStringRef __message = CFStringCreateWithFormat(NULL, 0, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
-        NWLForwardToPrinters(__context, __message);\
-        CFRelease(__message);\
-    } while (0)
+#define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) NWLForwardWithoutFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
+
 
 /** Looks for the best-matching filter and performs the associated action. */
 #define NWLLogWithFilter(_tag, _lib, _fmt, ...) NWLLogWithFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
-#define NWLLogWithFilter_(_tag, _lib, _fmt, ...) do {\
-        NWLContext __context = {_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()};\
-        NWLAction __type = NWLMatchingActionForContext(__context);\
-        if (__type) {\
-            CFStringRef __message = CFStringCreateWithFormat(NULL, 0, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
-            switch (__type) {\
-                case kNWLAction_print: NWLForwardToPrinters(__context, __message); break;\
-                case kNWLAction_break: NWLForwardToPrinters(__context, __message); NWLBreakInDebugger(); break;\
-                case kNWLAction_raise: _NWL_EXCEPTION_(__message); break;\
-                case kNWLAction_assert: _NWL_ASSERT_(__message); break;\
-                default: _NWL_LOG_(__message, _fmt, ##__VA_ARGS__); break;\
-            }\
-            CFRelease(__message);\
-        }\
-    } while (0)
+#define NWLLogWithFilter_(_tag, _lib, _fmt, ...) NWLForwardWithFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
 
 #else
 
@@ -163,9 +139,7 @@ typedef enum {
     kNWLAction_none   = 0,
     kNWLAction_print  = 1,
     kNWLAction_break  = 2,
-    kNWLAction_raise  = 3,
-    kNWLAction_assert = 4,
-    kNWLAction_count  = 5,
+    kNWLAction_count  = 3,
 } NWLAction;
 
 /** The properties of a logging statement. */
@@ -182,7 +156,8 @@ typedef struct {
 #pragma mark - Configuration
 
 /** Sends printing data to all printers. */
-extern void NWLForwardToPrinters(NWLContext context, CFStringRef message);
+extern void NWLForwardWithoutFilter(NWLContext context, CFStringRef format, ...) CF_FORMAT_FUNCTION(2,3);
+extern void NWLForwardWithFilter(NWLContext context, CFStringRef format, ...) CF_FORMAT_FUNCTION(2,3);
 
 /** Forward printing of line to printers, return true if added. */
 extern int NWLAddPrinter(const char *name, void(*)(NWLContext, CFStringRef, void *), void *info);
