@@ -158,7 +158,7 @@
 
         for (NSUInteger i = 0; i < sizeof(buffer); i++) {
             if (i < MIN(size, aboutLength + 1)) {
-                STAssertFalse(buffer[i] == 254, @"");
+                STAssertFalse(buffer[i] == (char)254, @"");
             } else {
                 STAssertEquals(buffer[i], (char)254, @"");
             }
