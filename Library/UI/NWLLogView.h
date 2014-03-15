@@ -10,11 +10,13 @@
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
-@interface NWLLogView : UITextView <NWLPrinter>
-#else
+#define NWLTextView UITextView
+#else // TARGET_OS_IPHONE
 #import <Cocoa/Cocoa.h>
-@interface NWLLogView : NSTextView <NWLPrinter>
-#endif
+#define NWLTextView NSTextView
+#endif // TARGET_OS_IPHONE
+
+@interface NWLLogView : NWLTextView <NWLPrinter>
 
 @property (nonatomic, assign) NSUInteger maxLogSize;
 

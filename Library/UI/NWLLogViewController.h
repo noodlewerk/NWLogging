@@ -6,6 +6,9 @@
 //
 
 #import "NWLPrinter.h"
+#include "TargetConditionals.h"
+
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 
 @class NWLFilePrinter, NWLMultiLogger;
@@ -28,3 +31,5 @@
 - (void)configureWithMultiLogger:(NWLMultiLogger *)logger;
 
 @end
+
+#endif // TARGET_OS_IPHONE
