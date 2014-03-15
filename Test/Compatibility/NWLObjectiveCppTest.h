@@ -10,12 +10,12 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif // __cplusplus
 
 void NWLObjectiveCppTest(id);
 
 #ifdef __cplusplus
 }
-#endif
+#endif // __cplusplus
 
-#endif
+#endif // NWLogging_NWLObjectiveCppTest_h

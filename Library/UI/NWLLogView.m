@@ -57,11 +57,11 @@
         self.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         if ([self respondsToSelector:@selector(setSpellCheckingType:)]) self.spellCheckingType = UITextSpellCheckingTypeNo;
-#else
+#else // TARGET_OS_IPHONE
         self.backgroundColor = NSColor.blackColor;
         self.textColor = NSColor.whiteColor;
         self.font = [NSFont fontWithName:@"Courier" size:10];
-#endif
+#endif // TARGET_OS_IPHONE
         self.editable = NO;
     }
 }
@@ -124,9 +124,9 @@
 {
 #if TARGET_OS_IPHONE
     NSString *text = self.text;
-#else
+#else // TARGET_OS_IPHONE
     NSString *text = self.string;
-#endif
+#endif // TARGET_OS_IPHONE
     if (string) {
         text = [text stringByAppendingString:string];
         if (maxLogSize && text.length > maxLogSize) {
@@ -140,9 +140,9 @@
     }
 #if TARGET_OS_IPHONE
     self.text = text;
-#else
+#else // TARGET_OS_IPHONE
     self.string = text;
-#endif
+#endif // TARGET_OS_IPHONE
 }
 
 
@@ -160,9 +160,9 @@
         NSRange bottom = NSMakeRange(self.text.length - 1, 1);
         [self scrollRangeToVisible:bottom];
     }
-#else
+#else // TARGET_OS_IPHONE
     [self scrollToEndOfDocument:nil];
-#endif
+#endif // TARGET_OS_IPHONE
 }
 
 - (BOOL)isScrollAtEnd
@@ -172,9 +172,9 @@
     NSUInteger size = self.contentSize.height;
     BOOL result = offset >= size - 50;
     return result;
-#else
+#else // TARGET_OS_IPHONE
     return YES;
-#endif
+#endif // TARGET_OS_IPHONE
 }
 
 @end

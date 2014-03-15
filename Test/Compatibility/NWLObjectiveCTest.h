@@ -10,4 +10,4 @@
 
 void NWLObjectiveCTest(id);
 
-#endif
+#endif // NWLogging_NWLObjectiveCTest_h

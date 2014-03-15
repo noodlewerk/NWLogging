@@ -19,7 +19,7 @@
 {
 #if !RUN_NON_TESTS
     return;
-#endif
+#endif // !RUN_NON_TESTS
     NWLContext context = {"tag", "lib", "file", 1, "function", NWLTime()};
     NWLStderrPrinter(context, NULL, NULL);
     NWLStderrPrinter(context, CFSTR(""), NULL);
@@ -75,14 +75,14 @@
     NWLLogWithFilter("tag", "lib", @"long long is no int: %i", 1LL);
     NWLLogWithFilter("tag", "lib", @"int is no long long: %lli", 1);
 
-#endif
+#endif // RUN_NON_TESTS
 }
 
 - (void)testDump
 {
 #if !RUN_NON_TESTS
     return;
-#endif
+#endif // !RUN_NON_TESTS
     NWLRestore();
     NWLDump();
 }
@@ -91,7 +91,7 @@
 {
 #if !RUN_NON_TESTS
     return;
-#endif
+#endif // !RUN_NON_TESTS
     NWLRestore();
     BOOL yes = YES;
     NWAssert(yes == NO);

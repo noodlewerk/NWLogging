@@ -10,4 +10,4 @@
 
 void NWLCTest(void *);
 
-#endif
+#endif // NWLogging_NWLCTest_h

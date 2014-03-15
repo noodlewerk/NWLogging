@@ -15,7 +15,6 @@
 #include "NWLObjectiveCppTest.h"
 
 
-
 @interface NWLCompatibilityTest : SenTestCase @end
 
 @implementation NWLCompatibilityTest {

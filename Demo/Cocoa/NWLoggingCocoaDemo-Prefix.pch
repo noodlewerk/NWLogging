@@ -4,6 +4,6 @@
 
 #ifdef __OBJC__
 #import <Cocoa/Cocoa.h>
-#endif
+#endif // __OBJC__
 
 #import "NWLogging.h"

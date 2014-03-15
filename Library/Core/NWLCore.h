@@ -17,7 +17,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif // __cplusplus
 
 #ifndef _NWLCORE_H_
 #define _NWLCORE_H_
@@ -34,16 +34,16 @@ extern "C" {
 #define NWL_ACTIVE 1
 #define NWL_LIB_STR NWL_STR(NWL_LIB)
 
-#else
+#else // NWL_LIB
 
 #if DEBUG
 #define NWL_ACTIVE 1
-#else
+#else // DEBUG
 #define NWL_ACTIVE 0
-#endif
+#endif // DEBUG
 #define NWL_LIB_STR NULL
 
-#endif
+#endif // NWL_LIB
 
 
 #pragma mark - Common logging operations
@@ -85,9 +85,9 @@ extern "C" {
 // ARC helper
 #if __has_feature(objc_arc)
 #define _NWL_BRIDGE_ __bridge
-#else
+#else // __has_feature(objc_arc)
 #define _NWL_BRIDGE_
-#endif
+#endif // __has_feature(objc_arc)
 
 // C/Objective-C support
 #ifdef __OBJC__
@@ -290,9 +290,9 @@ extern void NWLDumpFlags(int active, const char *lib, int debug, const char *fil
 extern void NWLDumpConfig(void);
 #if DEBUG
 #define NWL_DEBUG 1
-#else
+#else // DEBUG
 #define NWL_DEBUG 0
-#endif
+#endif // DEBUG
 #define NWLDump() do {NWLDumpFlags(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__);NWLDumpConfig();} while (0)
 
 
@@ -300,4 +300,4 @@ extern void NWLDumpConfig(void);
 
 #ifdef __cplusplus
 } // extern "C"
-#endif
+#endif // __cplusplus

@@ -30,4 +30,4 @@ extern const char *NWLLineLoggerAscii;
 
 @end
 
-#endif
+#endif // __OBJC__
