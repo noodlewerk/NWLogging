@@ -21,8 +21,8 @@
 
 
 @implementation NWLMultiLogger {
-    NSMutableDictionary *printerEntries;
-    dispatch_queue_t serial;
+    NSMutableDictionary *_printerEntries;
+    dispatch_queue_t _serial;
 }
 
 
@@ -37,8 +37,8 @@
 {
     self = [super init];
     if (self) {
-        serial = dispatch_queue_create("NWLMultiLogger", DISPATCH_QUEUE_SERIAL);
-        printerEntries = [[NSMutableDictionary alloc] init];
+        _serial = dispatch_queue_create("NWLMultiLogger", DISPATCH_QUEUE_SERIAL);
+        _printerEntries = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -59,11 +59,11 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 - (void)addPrinter:(id<NWLPrinter>)printer
 {
     if (printer) {
-        dispatch_sync(serial, ^{
+        dispatch_sync(_serial, ^{
             [self unsafeRemovePrinter:printer];
             NWLPrinterEntry *entry = [[NWLPrinterEntry alloc] initWithPrinter:printer];
             NSString *key = entry.key;
-            [printerEntries setObject:entry forKey:key];
+            [_printerEntries setObject:entry forKey:key];
             NWLAddPrinter(entry.copy, NWLMultiLoggerPrinter, (__bridge void *)key);
         });
     }
@@ -72,10 +72,10 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 - (void)unsafeRemovePrinter:(id<NWLPrinter>)printer
 {
     NSString *key = [NWLPrinterEntry keyWithPrinter:printer];
-    NWLPrinterEntry *entry = [printerEntries objectForKey:key];
+    NWLPrinterEntry *entry = [_printerEntries objectForKey:key];
     if (entry) {
         NWLRemovePrinter(entry.copy);
-        [printerEntries removeObjectForKey:key];
+        [_printerEntries removeObjectForKey:key];
     }
 }
 
@@ -83,7 +83,7 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 - (void)removePrinter:(id<NWLPrinter>)printer
 {
     if (printer) {
-        dispatch_sync(serial, ^{
+        dispatch_sync(_serial, ^{
             [self unsafeRemovePrinter:printer];
         });
     }
@@ -91,8 +91,8 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 
 - (void)removeAllPrinters
 {
-    dispatch_sync(serial, ^{
-        NSArray *printers = [printerEntries.allValues valueForKey:@"printer"];
+    dispatch_sync(_serial, ^{
+        NSArray *printers = [_printerEntries.allValues valueForKey:@"printer"];
         for (id<NWLPrinter> printer in printers) {
             [self unsafeRemovePrinter:printer];
         }
@@ -102,8 +102,8 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 - (NSUInteger)count
 {
     __block NSUInteger result = 0;
-    dispatch_sync(serial, ^{
-        result = printerEntries.count;
+    dispatch_sync(_serial, ^{
+        result = _printerEntries.count;
     });
     return result;
 }
@@ -113,9 +113,9 @@ static NWLMultiLogger *NWLMultiLoggerShared = nil;
 
 - (void)printWithTag:(NSString *)tag lib:(NSString *)lib file:(NSString *)file line:(NSUInteger)line function:(NSString *)function date:(NSDate *)date message:(NSString *)message name:(NSString *)name
 {
-    dispatch_async(serial, ^{
+    dispatch_async(_serial, ^{
         if (name) {
-            id<NWLPrinter> printer = [(NWLPrinterEntry *)[printerEntries objectForKey:name] printer];
+            id<NWLPrinter> printer = [(NWLPrinterEntry *)[_printerEntries objectForKey:name] printer];
             [printer printWithTag:tag lib:lib file:file line:line function:function date:date message:message];
         }
     });
@@ -145,28 +145,26 @@ static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void 
 
 @implementation NWLPrinterEntry
 
-@synthesize printer, copy, key;
-
-- (instancetype)initWithPrinter:(id<NWLPrinter>)_printer
+- (instancetype)initWithPrinter:(id<NWLPrinter>)printer
 {
     self = [super init];
     if (self) {
-        NSString *_key = [self.class keyWithPrinter:_printer];
-        const char *utf8 = _key.UTF8String;
+        NSString *key = [self.class keyWithPrinter:printer];
+        const char *utf8 = key.UTF8String;
         size_t length = strlen(utf8) + 1;
-        char *_copy = calloc(length, sizeof(char));
-        memcpy(_copy, utf8, length);
-        printer = _printer;
-        key = _key;
-        copy = _copy;
+        char *copy = calloc(length, sizeof(char));
+        memcpy(copy, utf8, length);
+        _printer = printer;
+        _key = key;
+        _copy = copy;
     }
     return self;
 }
 
 - (void)dealloc
 {
-    if (copy) {
-        free(copy); copy = NULL;
+    if (_copy) {
+        free(_copy); _copy = NULL;
     }
 }
 

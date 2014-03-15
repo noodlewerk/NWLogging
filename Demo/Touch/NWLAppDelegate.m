@@ -11,8 +11,6 @@
 
 @implementation NWLAppDelegate
 
-@synthesize window = _window;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NWParameterAssert(application);

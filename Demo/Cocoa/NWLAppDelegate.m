@@ -8,18 +8,18 @@
 #import "NWLAppDelegate.h"
 
 @implementation NWLAppDelegate {
-    IBOutlet NWLLogView *logView;
+    IBOutlet NWLLogView *_logView;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [NWLLogView class];
-    [NWLMultiLogger.shared addPrinter:logView];
+    [NWLMultiLogger.shared addPrinter:_logView];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-    [NWLMultiLogger.shared removePrinter:logView];
+    [NWLMultiLogger.shared removePrinter:_logView];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application

@@ -30,13 +30,13 @@
 
 
 @implementation NWLLogViewController {
-    NWLLogView *textView;
-    NSMutableArray *emailAddresses;
-    BOOL compressAttachment;
-    NSDictionary *additionalAttachments;
-    void(^clearBlock)(void);
-    NWLMultiLogger *logger;
-    NSMutableArray *filters;
+    NWLLogView *_textView;
+    NSMutableArray *_emailAddresses;
+    BOOL _compressAttachment;
+    NSDictionary *_additionalAttachments;
+    void(^_clearBlock)(void);
+    NWLMultiLogger *_logger;
+    NSMutableArray *_filters;
 }
 
 
@@ -46,7 +46,7 @@
 {
     self = [super init];
     if (self) {
-        textView = [[NWLLogView alloc] init];
+        _textView = [[NWLLogView alloc] init];
     }
     return self;
 }
@@ -54,27 +54,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    textView.frame = self.view.bounds;
-    textView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:textView];
+    _textView.frame = self.view.bounds;
+    _textView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:_textView];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    textView = nil;
+    _textView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [logger addPrinter:textView];
+    [_logger addPrinter:_textView];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [logger removePrinter:textView];
+    [_logger removePrinter:_textView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -84,7 +84,7 @@
 
 - (void)appendText:(NSString *)text
 {
-    [textView appendAndScrollText:text];
+    [_textView appendAndScrollText:text];
 }
 
 
@@ -96,7 +96,7 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearLogs)];
     [buttons addObject:item];
     self.navigationItem.rightBarButtonItems = buttons;
-    clearBlock = [block copy];
+    _clearBlock = [block copy];
 }
 
 - (void)clearLogs
@@ -108,31 +108,31 @@
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(buttonIndex != alertView.cancelButtonIndex && alertView.tag == 1237){
-        textView.text = @"";
-        if (clearBlock) clearBlock();
+        _textView.text = @"";
+        if (_clearBlock) _clearBlock();
     }
 }
 
 
 #pragma mark - Email button
 
-- (void)addEmailButton:(NSString *)address compressAttachment:(BOOL)_compressAttachment;
+- (void)addEmailButton:(NSString *)address compressAttachment:(BOOL)compressAttachment;
 {
-    [self addEmailButton:address additionalAttachments:nil compress:_compressAttachment];
+    [self addEmailButton:address additionalAttachments:nil compress:compressAttachment];
 }
 
 - (void)addEmailButton:(NSString *)address additionalAttachments:(NSDictionary *)additional compress:(BOOL)compress
 {
-    if (!emailAddresses.count) {
+    if (!_emailAddresses.count) {
         NSMutableArray *buttons = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(emailLogs)];
         [buttons addObject:item];
         self.navigationItem.rightBarButtonItems = buttons;
-        emailAddresses = [NSMutableArray array];
-        compressAttachment = compress;
-        additionalAttachments = additional;
+        _emailAddresses = [NSMutableArray array];
+        _compressAttachment = compress;
+        _additionalAttachments = additional;
     }
-    [emailAddresses addObject:[address copy]];
+    [_emailAddresses addObject:[address copy]];
 }
 
 - (void)emailLogs
@@ -140,20 +140,20 @@
     MFMailComposeViewController* mailController = [[MFMailComposeViewController alloc] init];
     [mailController setMailComposeDelegate:(id<MFMailComposeViewControllerDelegate>)self];
     [mailController setSubject:NSLocalizedString(@"NWLoggingEmail_Subject", @"")];
-    if (emailAddresses.count) {
-        [mailController setToRecipients:emailAddresses];
+    if (_emailAddresses.count) {
+        [mailController setToRecipients:_emailAddresses];
     }
     [mailController setMessageBody:NSLocalizedString(@"NWLoggingEmail_Text", @"") isHTML:NO];
 
     // attach files
-    NSMutableDictionary *files = [[NSMutableDictionary alloc] initWithCapacity:additionalAttachments.count + 1];
-    NSData *logData = [textView.text dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *files = [[NSMutableDictionary alloc] initWithCapacity:_additionalAttachments.count + 1];
+    NSData *logData = [_textView.text dataUsingEncoding:NSUTF8StringEncoding];
     NSString *logName = NSLocalizedString(@"NWLoggingEmail_File", @"");
     if (logData.length && logName.length) {
         files[logName] = logData;
     }
-    for (NSString *key in additionalAttachments) {
-        id value = additionalAttachments[key];
+    for (NSString *key in _additionalAttachments) {
+        id value = _additionalAttachments[key];
         if ([value isKindOfClass:NSData.class]) {
             files[key] = value;
         } else if ([value isKindOfClass:NSURL.class]) {
@@ -168,7 +168,7 @@
         NSData *data = files[key];
         NSString *filename = key;
         NSString *mime = @"text/plain";
-        if (compressAttachment) {
+        if (_compressAttachment) {
             NSData *compressed = [self.class compress:data];
             if (compressed.length) {
                 data = compressed;
@@ -240,7 +240,7 @@
     char buffer[1024];
     NWLAboutString(buffer, sizeof(buffer));
     NSString *about = [NSString stringWithFormat:@"%s", buffer];
-    [textView appendAndScrollText:about];
+    [_textView appendAndScrollText:about];
 }
 
 #pragma mark - Convenient configuration
@@ -252,13 +252,13 @@
             [printer clear];
         }];
         NSString *text = [NSString stringWithContentsOfFile:printer.path encoding:NSUTF8StringEncoding error:nil];
-        [textView appendAndScrollText:text];
+        [_textView appendAndScrollText:text];
     }
 }
 
-- (void)configureWithMultiLogger:(NWLMultiLogger *)_logger
+- (void)configureWithMultiLogger:(NWLMultiLogger *)logger
 {
-    logger = _logger;
+    _logger = logger;
 }
 
 
@@ -271,11 +271,11 @@
     filter.lib = lib;
     filter.file = file;
     filter.function = function;
-    if (!filters) {
-        filters = [[NSMutableArray alloc] init];
+    if (!_filters) {
+        _filters = [[NSMutableArray alloc] init];
         [self addFilterButton];
     }
-    [filters addObject:filter];
+    [_filters addObject:filter];
 }
 
 - (void)addFilterButton
@@ -289,7 +289,7 @@
 - (void)showFilters
 {
     NWLFilterViewController *controller = [[NWLFilterViewController alloc] initWithStyle:UITableViewStylePlain];
-    [controller loadFilters:filters];
+    [controller loadFilters:_filters];
     controller.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:controller action:@selector(dismissModalViewControllerAnimated:)];
     UINavigationController *c = [[UINavigationController alloc] initWithRootViewController:controller];
     [self.navigationController presentViewController:c animated:YES completion:nil];
@@ -314,22 +314,20 @@
 
 @implementation NWLFilter
 
-@synthesize tag, lib, file, function;
-
 - (NSString *)text
 {
     NSMutableString *result = [[NSMutableString alloc] init];
-    if (tag) {
-        [result appendFormat:@"tag:%s ", tag];
+    if (_tag) {
+        [result appendFormat:@"tag:%s ", _tag];
     }
-    if (lib) {
-        [result appendFormat:@"lib:%s ", lib];
+    if (_lib) {
+        [result appendFormat:@"lib:%s ", _lib];
     }
-    if (file) {
-        [result appendFormat:@"file:%s ", file];
+    if (_file) {
+        [result appendFormat:@"file:%s ", _file];
     }
-    if (function) {
-        [result appendFormat:@"function:%s ", function];
+    if (_function) {
+        [result appendFormat:@"function:%s ", _function];
     }
     if (!result.length) {
         [result appendString:@"ALL"];
@@ -339,7 +337,7 @@
 
 - (BOOL)active
 {
-    NWLAction action = NWLHasFilter(tag, lib, file, function);
+    NWLAction action = NWLHasFilter(_tag, _lib, _file, _function);
     BOOL result = (action != kNWLAction_none);
     return result;
 }
@@ -348,7 +346,7 @@
 {
     if (self.active ^ active) {
         NWLAction action = active ? kNWLAction_print : kNWLAction_none;
-        NWLAddFilter(tag, lib, file, function, action);
+        NWLAddFilter(_tag, _lib, _file, _function, action);
     }
 }
 
@@ -356,7 +354,7 @@
 
 
 @implementation NWLFilterViewController {
-    NSArray *filters;
+    NSArray *_filters;
 }
 
 - (void)viewDidLoad
@@ -370,15 +368,15 @@
 
 - (void)uncheckAll
 {
-    for (NWLFilter *filter in filters) {
+    for (NWLFilter *filter in _filters) {
         filter.active = NO;
     }
     [self.tableView reloadData];
 }
 
-- (void)loadFilters:(NSArray *)_filters
+- (void)loadFilters:(NSArray *)filters
 {
-    filters = _filters;
+    _filters = filters;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -395,7 +393,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return filters.count;
+    return _filters.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -404,7 +402,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] init];
     }
-    NWLFilter *filter = [filters objectAtIndex:indexPath.row];
+    NWLFilter *filter = [_filters objectAtIndex:indexPath.row];
     cell.textLabel.text = filter.text;
     cell.accessoryType = filter.active ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     return cell;
@@ -418,7 +416,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     BOOL checked = cell.accessoryType == UITableViewCellAccessoryCheckmark;
     cell.accessoryType = checked ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
-    NWLFilter *filter = [filters objectAtIndex:indexPath.row];
+    NWLFilter *filter = [_filters objectAtIndex:indexPath.row];
     filter.active = !checked;
 }
 

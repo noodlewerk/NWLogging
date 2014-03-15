@@ -17,15 +17,15 @@
 @interface NWLFilePrinterTest : SenTestCase @end
 
 @implementation NWLFilePrinterTest {
-    NWLFilePrinter *printer;
+    NWLFilePrinter *_printer;
 }
 
 - (void)setUp {
     [super setUp];
 
-    printer = [[NWLFilePrinter alloc] initForTesting];
+    _printer = [[NWLFilePrinter alloc] initForTesting];
     NSString *path = [NWLFilePrinter pathForName:@"test"];
-    [printer openPath:path];
+    [_printer openPath:path];
 
     NWLRemoveAllFilters();
     NWLRemoveAllPrinters();
@@ -42,57 +42,57 @@
 
 - (void)testPrinterBasic
 {
-    printer.maxLogSize = 10;
-    [printer clear];
+    _printer.maxLogSize = 10;
+    [_printer clear];
 
-    STAssertEquals((int)printer.content.length, 0, @"");
+    STAssertEquals((int)_printer.content.length, 0, @"");
 
-    [printer append:@"test"];
-    STAssertEqualObjects(printer.content, @"test", @"");
+    [_printer append:@"test"];
+    STAssertEqualObjects(_printer.content, @"test", @"");
 
-    [printer append:@"test"];
-    STAssertEqualObjects(printer.content, @"testtest", @"");
+    [_printer append:@"test"];
+    STAssertEqualObjects(_printer.content, @"testtest", @"");
 
-    [printer append:@"abc"];
-    STAssertEqualObjects(printer.content, @"ttestabc", @"");
+    [_printer append:@"abc"];
+    STAssertEqualObjects(_printer.content, @"ttestabc", @"");
 }
 
 - (void)testPrinterSmall
 {
-    printer.maxLogSize = 2;
-    [printer clear];
-    [printer append:@""];
-    STAssertEqualObjects(printer.content, @"", @"");
-    [printer append:@"a"];
-    STAssertEqualObjects(printer.content, @"a", @"");
-    [printer append:@"b"];
-    STAssertEqualObjects(printer.content, @"ab", @"");
-    [printer append:@"c"];
-    STAssertEqualObjects(printer.content, @"bc", @"");
-    [printer append:@"de"];
-    STAssertEqualObjects(printer.content, @"de", @"");
-    [printer append:@"fgh"];
-    STAssertEqualObjects(printer.content, @"gh", @"");
+    _printer.maxLogSize = 2;
+    [_printer clear];
+    [_printer append:@""];
+    STAssertEqualObjects(_printer.content, @"", @"");
+    [_printer append:@"a"];
+    STAssertEqualObjects(_printer.content, @"a", @"");
+    [_printer append:@"b"];
+    STAssertEqualObjects(_printer.content, @"ab", @"");
+    [_printer append:@"c"];
+    STAssertEqualObjects(_printer.content, @"bc", @"");
+    [_printer append:@"de"];
+    STAssertEqualObjects(_printer.content, @"de", @"");
+    [_printer append:@"fgh"];
+    STAssertEqualObjects(_printer.content, @"gh", @"");
 
-    printer.maxLogSize = 1;
-    [printer clear];
-    [printer append:@""];
-    STAssertEqualObjects(printer.content, @"", @"");
-    [printer append:@"a"];
-    STAssertEqualObjects(printer.content, @"a", @"");
-    [printer append:@"b"];
-    STAssertEqualObjects(printer.content, @"b", @"");
-    [printer append:@"cd"];
-    STAssertEqualObjects(printer.content, @"d", @"");
+    _printer.maxLogSize = 1;
+    [_printer clear];
+    [_printer append:@""];
+    STAssertEqualObjects(_printer.content, @"", @"");
+    [_printer append:@"a"];
+    STAssertEqualObjects(_printer.content, @"a", @"");
+    [_printer append:@"b"];
+    STAssertEqualObjects(_printer.content, @"b", @"");
+    [_printer append:@"cd"];
+    STAssertEqualObjects(_printer.content, @"d", @"");
 
-    printer.maxLogSize = 0;
-    [printer clear];
-    [printer append:@""];
-    STAssertEqualObjects(printer.content, @"", @"");
-    [printer append:@"a"];
-    STAssertEqualObjects(printer.content, @"a", @"");
-    [printer append:@"bc"];
-    STAssertEqualObjects(printer.content, @"abc", @"");
+    _printer.maxLogSize = 0;
+    [_printer clear];
+    [_printer append:@""];
+    STAssertEqualObjects(_printer.content, @"", @"");
+    [_printer append:@"a"];
+    STAssertEqualObjects(_printer.content, @"a", @"");
+    [_printer append:@"bc"];
+    STAssertEqualObjects(_printer.content, @"abc", @"");
 }
 
 - (void)testPrinterUnicode
@@ -100,29 +100,29 @@
     NSString *encoded = @"[\\245,\\243,\\u20ac,$,\\242,\\u20a1,\\u20a2,\\u20a3,\\u20a4,\\u20a5,\\u20a6,\\u20a7,\\u20a8,\\u20a9,\\u20aa,\\u20ab,\\u20ad,\\u20ae,\\u20af,\\u20b9,\\u89d2,\\u7530,\\u5bb6,\\ud83c\\udf35]";
     NSString *utf8 = [[NSString alloc] initWithData:[encoded dataUsingEncoding:NSASCIIStringEncoding] encoding:NSNonLossyASCIIStringEncoding];
 
-    printer.maxLogSize = 10;
-    [printer clear];
-    [printer append:utf8];
-    STAssertEquals((int)[printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 10, @"");
-    STAssertEqualObjects(printer.content, [utf8 substringFromIndex:44], @"");
+    _printer.maxLogSize = 10;
+    [_printer clear];
+    [_printer append:utf8];
+    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 10, @"");
+    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:44], @"");
 
-    printer.maxLogSize = 9;
-    [printer clear];
-    [printer append:utf8];
-    STAssertEquals((int)[printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 9, @"");
-    STAssertEqualObjects(printer.content, [utf8 substringFromIndex:45], @"");
+    _printer.maxLogSize = 9;
+    [_printer clear];
+    [_printer append:utf8];
+    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 9, @"");
+    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:45], @"");
 
-    printer.maxLogSize = 6;
-    [printer clear];
-    [printer append:utf8];
-    STAssertEquals((int)[printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 6, @"");
-    STAssertEqualObjects(printer.content, [utf8 substringFromIndex:46], @"");
+    _printer.maxLogSize = 6;
+    [_printer clear];
+    [_printer append:utf8];
+    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 6, @"");
+    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:46], @"");
 
-    printer.maxLogSize = 1;
-    [printer clear];
-    [printer append:utf8];
-    STAssertEquals((int)[printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 1, @"");
-    STAssertEqualObjects(printer.content, [utf8 substringFromIndex:49], @"");
+    _printer.maxLogSize = 1;
+    [_printer clear];
+    [_printer append:utf8];
+    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 1, @"");
+    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:49], @"");
 }
 
 @end

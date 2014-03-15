@@ -18,7 +18,7 @@
 @interface NWLCompatibilityTest : SenTestCase @end
 
 @implementation NWLCompatibilityTest {
-    NSString *description;
+    NSString *_description;
 }
 
 - (void)setUp
@@ -33,7 +33,7 @@
 {
     NSString *encoded = @"[\\245,\\243,\\u20ac,$,\\242,\\u20a1,\\u20a2,\\u20a3,\\u20a4,\\u20a5,\\u20a6,\\u20a7,\\u20a8,\\u20a9,\\u20aa,\\u20ab,\\u20ad,\\u20ae,\\u20af,\\u20b9,\\u89d2,\\u7530,\\u5bb6,\\ud83c\\udf35]";
     NSString *utf8 = [[NSString alloc] initWithData:[encoded dataUsingEncoding:NSASCIIStringEncoding] encoding:NSNonLossyASCIIStringEncoding];
-    description = utf8;
+    _description = utf8;
 
     NWLCTest((__bridge void *)self);
     NWLCppTest((__bridge void *)self);
@@ -42,7 +42,7 @@
     [self NWLInObjectTest:self];
     [self.class NWLInClassTest:self];
 
-    description = nil;
+    _description = nil;
 }
 
 - (void)NWLInObjectTest:(id)object
@@ -67,7 +67,7 @@
 
 - (NSString *)description
 {
-    return description ? description : [super description];
+    return _description ? _description : [super description];
 }
 
 @end

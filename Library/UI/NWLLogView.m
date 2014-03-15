@@ -9,12 +9,10 @@
 #import "NWLTools.h"
 
 @implementation NWLLogView {
-    NSMutableString *buffer;
-    BOOL waitingToPrint;
-    dispatch_queue_t serial;
+    NSMutableString *_buffer;
+    BOOL _waitingToPrint;
+    dispatch_queue_t _serial;
 }
-
-@synthesize maxLogSize;
 
 - (instancetype)init
 {
@@ -45,10 +43,10 @@
 
 - (void)setup
 {
-    if (!serial) {
-        serial = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
-        maxLogSize = 100 * 1000; // 100 KB
-        buffer = [[NSMutableString alloc] init];
+    if (!_serial) {
+        _serial = dispatch_queue_create("NWLLogViewController-append", DISPATCH_QUEUE_SERIAL);
+        _maxLogSize = 100 * 1000; // 100 KB
+        _buffer = [[NSMutableString alloc] init];
 
 #if TARGET_OS_IPHONE
         self.backgroundColor = UIColor.blackColor;
@@ -85,21 +83,21 @@
 
 - (void)safeAppendAndFollowText:(NSString *)text
 {
-    dispatch_async(serial, ^{
-        if (waitingToPrint) {
-            [buffer appendString:text];
+    dispatch_async(_serial, ^{
+        if (_waitingToPrint) {
+            [_buffer appendString:text];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self appendAndFollowText:text];
             });
-            waitingToPrint = YES;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .2 * NSEC_PER_SEC), serial, ^(void){
-                NSString *b = buffer;
+            _waitingToPrint = YES;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .2 * NSEC_PER_SEC), _serial, ^(void){
+                NSString *b = _buffer;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self appendAndFollowText:b];
                 });
-                buffer = [[NSMutableString alloc] init];
-                waitingToPrint = NO;
+                _buffer = [[NSMutableString alloc] init];
+                _waitingToPrint = NO;
             });
         }
     });
@@ -129,9 +127,9 @@
 #endif // TARGET_OS_IPHONE
     if (string) {
         text = [text stringByAppendingString:string];
-        if (maxLogSize && text.length > maxLogSize) {
-            NSUInteger index = text.length - maxLogSize;
-            NSRange r = [text rangeOfCharacterFromSet:NSCharacterSet.newlineCharacterSet options:0 range:NSMakeRange(index, maxLogSize)];
+        if (_maxLogSize && text.length > _maxLogSize) {
+            NSUInteger index = text.length - _maxLogSize;
+            NSRange r = [text rangeOfCharacterFromSet:NSCharacterSet.newlineCharacterSet options:0 range:NSMakeRange(index, _maxLogSize)];
             if (r.length) {
                 index = r.location;
             }

@@ -14,7 +14,6 @@ const char *NWLLineLoggerAscii = NULL;
 
 
 @interface NWLLogLine : NSObject
-
 @property (nonatomic, strong) NSString *tag;
 @property (nonatomic, strong) NSString *lib;
 @property (nonatomic, strong) NSString *file;
@@ -24,13 +23,9 @@ const char *NWLLineLoggerAscii = NULL;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic, assign) NSUInteger info;
 @property (nonatomic, strong) NSString *ascii;
-
 @end
 
 @implementation NWLLogLine
-
-@synthesize tag, lib, file, line, function, date, message, info, ascii;
-
 @end
 
 

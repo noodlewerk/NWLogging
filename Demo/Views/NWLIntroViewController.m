@@ -20,7 +20,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
 
 
 @implementation NWLIntroViewController {
-    NWLLogView *logView;
+    NWLLogView *_logView;
 }
 
 - (void)viewDidLoad
@@ -34,7 +34,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     about.font = [UIFont systemFontOfSize:10];
     about.scrollEnabled = NO;
     about.editable = NO;
-    about.text = @"Welcome to the introduction to NWLogging. NWLogging is a basic logging framework with a focus on performance and ease of use. It consists of a core (mostly) written in C and a set of convenience classes written in Objective-C.\n \nThis demo showcases the core components of NWLogging: printers and filters. Filters control which log lines are in effect and what action should be performed. Printers output text to a certain medium. This demo is purely based on the core, as defined in NWLCore.h, which was designed to have minimal inpact at runtime. It therefore does not do any thread locking or heap allocation. During the demo, keep eye on this view, the console, and the source code.";
+    about.text = @"Welcome to the introduction to NWLogging. NWLogging is a basic logging framework with a focus on performance and ease of use. It consists of a core (mostly) written in C and a set of convenience classes written in Objective-C.\n \nThis demo showcases the core components of NWLogging: printers and filters. Filters control which log lines are in effect and what action should be performed. Printers output text to a certain medium. This demo is purely based on the core, as defined in NWLCore.h, which was designed to have minimal impact at runtime. For example, it does not perform any thread locking or heap allocation. During the demo keep eye on this view, the console, and the source code.";
     CGFloat height = [about.text sizeWithFont:about.font constrainedToSize:CGSizeMake(self.view.bounds.size.width - 20, 1000) lineBreakMode:UILineBreakModeWordWrap].height + 80;
     about.frame = CGRectMake(10, 10, self.view.bounds.size.width - 20, height);
     [self.view addSubview:about];
@@ -45,9 +45,9 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
     [button addTarget:self action:@selector(run) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
 
-    logView = [[NWLLogView alloc] init];
-    logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
-    [self.view addSubview:logView];
+    _logView = [[NWLLogView alloc] init];
+    _logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
+    [self.view addSubview:_logView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -63,7 +63,7 @@ static void NWLLoggingDemoPrinter(NWLContext context, CFStringRef message, void 
 - (void)run
 {
     NWLClearAll();
-    NWLAddPrinter("demo-printer", NWLLoggingDemoPrinter, (void *)CFBridgingRetain(logView));
+    NWLAddPrinter("demo-printer", NWLLoggingDemoPrinter, (void *)CFBridgingRetain(_logView));
 
     NWLog(@"       A| Welcome to the logging overview demo.");
     NWLog(@"       B| Let's log some text and see what happens where..");

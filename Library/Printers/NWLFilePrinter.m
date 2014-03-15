@@ -11,14 +11,10 @@
 
 
 @implementation NWLFilePrinter {
-    NSFileHandle *handle;
-    dispatch_queue_t serial;
-    unsigned long long size;
-    NSCalendar *calendar;
+    NSFileHandle *_handle;
+    dispatch_queue_t _serial;
+    unsigned long long _size;
 }
-
-@synthesize maxLogSize, path;
-
 
 #pragma mark - Object life cycle
 
@@ -26,9 +22,8 @@
 {
     self = [super init];
     if (self) {
-        maxLogSize = 100 * 1000; // 100 KB
-        serial = dispatch_queue_create("NWLFilePrinter", DISPATCH_QUEUE_SERIAL);
-        calendar = NSCalendar.currentCalendar;
+        _maxLogSize = 100 * 1000; // 100 KB
+        _serial = dispatch_queue_create("NWLFilePrinter", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
@@ -36,22 +31,22 @@
 - (instancetype)initForTesting
 {
     self = [self init];
-    serial = nil;
+    _serial = nil;
     return self;
 }
 
 - (instancetype)initAndOpenName:(NSString *)name
 {
     self = [self init];
-    NSString *_path = [self.class pathForName:name];
-    [self unsafeOpenPath:_path];
+    NSString *path = [self.class pathForName:name];
+    [self unsafeOpenPath:path];
     return self;
 }
 
-- (instancetype)initAndOpenPath:(NSString *)_path
+- (instancetype)initAndOpenPath:(NSString *)path
 {
     self = [self init];
-    [self unsafeOpenPath:_path];
+    [self unsafeOpenPath:path];
     return self;
 }
 
@@ -101,79 +96,79 @@
 
 - (void)trimForAppendingLength:(NSUInteger)length
 {
-    if (maxLogSize && size + length > maxLogSize) {
-        [handle synchronizeFile];
-        NSData *data = [NSData dataWithContentsOfFile:path options:0 error:nil]; // no logging on purpose
-        NSUInteger keep = maxLogSize / 2 > length ? maxLogSize / 2 : (maxLogSize > length ? maxLogSize - length : 0);
+    if (_maxLogSize && _size + length > _maxLogSize) {
+        [_handle synchronizeFile];
+        NSData *data = [NSData dataWithContentsOfFile:_path options:0 error:nil]; // no logging on purpose
+        NSUInteger keep = _maxLogSize / 2 > length ? _maxLogSize / 2 : (_maxLogSize > length ? _maxLogSize - length : 0);
         NSUInteger index = data.length > keep ? data.length - keep : 0;
         if (index) {
             data = [self.class utf8SubdataFromIndex:index data:data];
         }
-        [data writeToFile:path atomically:NO];
-        handle = [NSFileHandle fileHandleForWritingAtPath:path];
-        size = [handle seekToEndOfFile];
+        [data writeToFile:_path atomically:NO];
+        _handle = [NSFileHandle fileHandleForWritingAtPath:_path];
+        _size = [_handle seekToEndOfFile];
     }
 }
 
 
 #pragma mark - Logging control
 
-- (BOOL)openPath:(NSString *)_path
+- (BOOL)openPath:(NSString *)path
 {
     __block BOOL result = NO;
     void(^b)(void) = ^{
-        result = [self unsafeOpenPath:_path];
+        result = [self unsafeOpenPath:path];
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
     return result;
 }
 
-- (BOOL)unsafeOpenPath:(NSString *)_path
+- (BOOL)unsafeOpenPath:(NSString *)path
 {
-    path = _path;
-    handle = [self.class handleForPath:path];
-    size = [handle seekToEndOfFile];
-    BOOL result = !!handle;
+    _path = path;
+    _handle = [self.class handleForPath:_path];
+    _size = [_handle seekToEndOfFile];
+    BOOL result = !!_handle;
     return result;
 }
 
 - (void)close
 {
     void(^b)(void) = ^{
-        [handle synchronizeFile];
-        handle = nil;
-        path = nil;
-        size = 0;
+        [_handle synchronizeFile];
+        _handle = nil;
+        _path = nil;
+        _size = 0;
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
 }
 
 - (void)sync
 {
     void(^b)(void) = ^{
-        [handle synchronizeFile];
+        [_handle synchronizeFile];
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
 }
 
 - (void)clear
 {
     void(^b)(void) = ^{
-        [[NSData data] writeToFile:path atomically:NO];
-        handle = [NSFileHandle fileHandleForWritingAtPath:path];
-        size = [handle seekToEndOfFile];
+        [[NSData data] writeToFile:_path atomically:NO];
+        _handle = [NSFileHandle fileHandleForWritingAtPath:_path];
+        _size = [_handle seekToEndOfFile];
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
 }
 
 - (NSString *)content
 {
     __block NSString *result = nil;
     void(^b)(void) = ^{
-        [handle synchronizeFile];
-        result = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil]; // no logging on purpose
+        [_handle synchronizeFile];
+        result = [NSString stringWithContentsOfFile:_path encoding:NSUTF8StringEncoding error:nil]; // no logging on purpose
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
     return result;
 }
 
@@ -181,10 +176,10 @@
 {
     __block NSData *result = nil;
     void(^b)(void) = ^{
-        [handle synchronizeFile];
-        result = [NSData dataWithContentsOfFile:path];
+        [_handle synchronizeFile];
+        result = [NSData dataWithContentsOfFile:_path];
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
     return result;
 }
 
@@ -207,7 +202,7 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         [self unsafeAppend:data];
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
 }
 
 - (void)appendAsync:(NSString *)string
@@ -216,7 +211,7 @@
         NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
         [self unsafeAppend:data];
     };
-    if (serial) dispatch_async(serial, b); else b();
+    if (_serial) dispatch_async(_serial, b); else b();
 }
 
 - (void)appendData:(NSData *)data
@@ -224,7 +219,7 @@
     void(^b)(void) = ^{
         [self unsafeAppend:data];
     };
-    if (serial) dispatch_sync(serial, b); else b();
+    if (_serial) dispatch_sync(_serial, b); else b();
 }
 
 - (void)appendDataAsync:(NSData *)data
@@ -232,18 +227,18 @@
     void(^b)(void) = ^{
         [self unsafeAppend:data];
     };
-    if (serial) dispatch_async(serial, b); else b();
+    if (_serial) dispatch_async(_serial, b); else b();
 }
 
 - (void)unsafeAppend:(NSData *)data
 {
     [self trimForAppendingLength:data.length];
-    NSUInteger remaining = (NSUInteger)(maxLogSize > size ? maxLogSize - size : 0);
-    if (maxLogSize && data.length > remaining) {
+    NSUInteger remaining = (NSUInteger)(_maxLogSize > _size ? _maxLogSize - _size : 0);
+    if (_maxLogSize && data.length > remaining) {
         data = [self.class utf8SubdataFromIndex:data.length - remaining data:data];
     }
-    [handle writeData:data];
-    size += data.length;
+    [_handle writeData:data];
+    _size += data.length;
 }
 
 @end

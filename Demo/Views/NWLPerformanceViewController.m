@@ -9,7 +9,7 @@
 
 
 @implementation NWLPerformanceViewController {
-    NWLLogView *logView;
+    NWLLogView *_logView;
 }
 
 - (void)viewDidLoad
@@ -40,14 +40,14 @@
     [randButton addTarget:self action:@selector(runRandomAsync) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:randButton];
 
-    logView = [[NWLLogView alloc] init];
-    logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
-    [self.view addSubview:logView];
+    _logView = [[NWLLogView alloc] init];
+    _logView.frame = CGRectMake(10, 70 + height, self.view.bounds.size.width - 20, self.view.bounds.size.height - 130 - height);
+    [self.view addSubview:_logView];
 }
 
 - (void)runTimingAsync
 {
-    [logView safeAppendAndFollowText:@"\n == Logging Time Demo == \n\n"];
+    [_logView safeAppendAndFollowText:@"\n == Logging Time Demo == \n\n"];
 
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
         [self runTiming:1];
@@ -56,7 +56,7 @@
 
 - (void)appendLine:(NSString *)line
 {
-    [logView safeAppendAndFollowText:[line stringByAppendingString:@"\n"]];
+    [_logView safeAppendAndFollowText:[line stringByAppendingString:@"\n"]];
 }
 
 #define LOG_Empty @""
@@ -126,7 +126,7 @@
 
 - (void)runRandomAsync
 {
-    [logView safeAppendAndFollowText:@"\n == Logging Concurrency Demo == \n\n"];
+    [_logView safeAppendAndFollowText:@"\n == Logging Concurrency Demo == \n\n"];
 
     [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
         [self runRandom:1];
