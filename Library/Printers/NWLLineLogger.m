@@ -41,7 +41,7 @@ const char *NWLLineLoggerAscii = NULL;
 
 @implementation NWLLineLogger
 
-- (id)init
+- (instancetype)init
 {
     return nil;
 }

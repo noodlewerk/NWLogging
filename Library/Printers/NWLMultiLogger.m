@@ -15,7 +15,7 @@
 @property (nonatomic, strong) id<NWLPrinter> printer;
 @property (nonatomic, readonly) char *copy;
 @property (nonatomic, readonly) id key;
-- (id)initWithPrinter:(id<NWLPrinter>)printer;
+- (instancetype)initWithPrinter:(id<NWLPrinter>)printer;
 + (NSString *)keyWithPrinter:(id<NWLPrinter>)printer;
 @end
 
@@ -28,12 +28,12 @@
 
 #pragma mark - Object life cycle
 
-- (id)init
+- (instancetype)init
 {
     return nil;
 }
 
-- (id)initPrivate
+- (instancetype)initPrivate
 {
     self = [super init];
     if (self) {
@@ -147,7 +147,7 @@ static void NWLMultiLoggerPrinter(NWLContext context, CFStringRef message, void 
 
 @synthesize printer, copy, key;
 
-- (id)initWithPrinter:(id<NWLPrinter>)_printer
+- (instancetype)initWithPrinter:(id<NWLPrinter>)_printer
 {
     self = [super init];
     if (self) {

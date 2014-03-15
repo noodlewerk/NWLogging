@@ -22,7 +22,7 @@
 
 #pragma mark - Object life cycle
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -33,14 +33,14 @@
     return self;
 }
 
-- (id)initForTesting
+- (instancetype)initForTesting
 {
     self = [self init];
     serial = nil;
     return self;
 }
 
-- (id)initAndOpenName:(NSString *)name
+- (instancetype)initAndOpenName:(NSString *)name
 {
     self = [self init];
     NSString *_path = [self.class pathForName:name];
@@ -48,7 +48,7 @@
     return self;
 }
 
-- (id)initAndOpenPath:(NSString *)_path
+- (instancetype)initAndOpenPath:(NSString *)_path
 {
     self = [self init];
     [self unsafeOpenPath:_path];

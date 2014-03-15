@@ -11,7 +11,7 @@
 
 
 @interface NWLFilePrinter ()
-- (id)initForTesting;
+- (instancetype)initForTesting;
 @end
 
 @interface NWLFilePrinterTest : SenTestCase @end

@@ -13,9 +13,9 @@
 @property (nonatomic, assign) NSUInteger maxLogSize;
 @property (nonatomic, readonly) NSString *path;
 
-- (id)init;
-- (id)initAndOpenName:(NSString *)name;
-- (id)initAndOpenPath:(NSString *)path;
+- (instancetype)init;
+- (instancetype)initAndOpenName:(NSString *)name;
+- (instancetype)initAndOpenPath:(NSString *)path;
 
 - (BOOL)openPath:(NSString *)path;
 
