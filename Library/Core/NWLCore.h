@@ -103,23 +103,16 @@ extern "C" {
 #define NWL_CALLER ({NSString*__line=NSThread.callStackSymbols[1];NSRange r=[__line rangeOfString:@"0x"];[NSString stringWithFormat:@"<%@>",r.length?[__line substringFromIndex:r.location]:__line];})
 #define NWL_STACK(__a) ({NSArray*lines=NSThread.callStackSymbols;[lines subarrayWithRange:NSMakeRange(0,__a<lines.count?__a:lines.count)];})
 
-#if NWL_ACTIVE
-
-/** Forwards context and formatted log line to printers. */
 #define NWLLogWithoutFilter(_tag, _lib, _fmt, ...) NWLLogWithoutFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
-#define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) NWLForwardWithoutFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
-
-
-/** Looks for the best-matching filter and performs the associated action. */
 #define NWLLogWithFilter(_tag, _lib, _fmt, ...) NWLLogWithFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
-#define NWLLogWithFilter_(_tag, _lib, _fmt, ...) NWLForwardWithFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);\
-
-#else
-
-#define NWLLogWithoutFilter(_tag, _lib, _fmt, ...) do {} while (0)
-#define NWLLogWithFilter(_tag, _lib, _fmt, ...) do {} while (0)
-
-#endif
+    
+#if NWL_ACTIVE
+#define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) NWLForwardWithoutFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);
+#define NWLLogWithFilter_(_tag, _lib, _fmt, ...) NWLForwardWithFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);
+#else // NWL_ACTIVE
+#define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) do {} while (0)
+#define NWLLogWithFilter_(_tag, _lib, _fmt, ...) do {} while (0)
+#endif // NWL_ACTIVE
 
 
 #pragma mark - Type definitions
@@ -155,8 +148,10 @@ typedef struct {
 
 #pragma mark - Configuration
 
-/** Sends printing data to all printers. */
+/** Forwards context and formatted log line to printers. */
 extern void NWLForwardWithoutFilter(NWLContext context, CFStringRef format, ...) CF_FORMAT_FUNCTION(2,3);
+
+/** Looks for the best-matching filter and performs the associated action. */
 extern void NWLForwardWithFilter(NWLContext context, CFStringRef format, ...) CF_FORMAT_FUNCTION(2,3);
 
 /** Forward printing of line to printers, return true if added. */
