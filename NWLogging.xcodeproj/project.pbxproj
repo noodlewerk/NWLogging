@@ -665,8 +665,10 @@
 		B34EA6CB15D4FDE4007B041F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = NWL;
 				LastTestingUpgradeCheck = 0510;
 				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = noodlewerk;
 			};
 			buildConfigurationList = B34EA6CE15D4FDE4007B041F /* Build configuration list for PBXProject "NWLogging" */;
 			compatibilityVersion = "Xcode 3.2";

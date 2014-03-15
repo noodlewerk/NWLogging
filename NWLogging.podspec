@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'NWLogging'
-  s.version       = '1.2.2'
+  s.version       = '1.2.3'
   s.summary       = 'A minimalistic logging framework for Cocoa.'
   s.homepage      = 'https://github.com/noodlewerk/NWLogging'
   s.license       = { :type => 'BSD', :file => 'LICENSE.txt' }
