@@ -107,8 +107,8 @@ extern "C" {
 #define NWLLogWithFilter(_tag, _lib, _fmt, ...) NWLLogWithFilter_(_tag, _lib, _fmt, ##__VA_ARGS__)
     
 #if NWL_ACTIVE
-#define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) NWLForwardWithoutFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);
-#define NWLLogWithFilter_(_tag, _lib, _fmt, ...) NWLForwardWithFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__);
+#define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) NWLForwardWithoutFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__)
+#define NWLLogWithFilter_(_tag, _lib, _fmt, ...) NWLForwardWithFilter((NWLContext){_tag, _lib, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__, NWLTime()}, _NWL_CFSTRING_(_fmt), ##__VA_ARGS__)
 #else // NWL_ACTIVE
 #define NWLLogWithoutFilter_(_tag, _lib, _fmt, ...) do {} while (0)
 #define NWLLogWithFilter_(_tag, _lib, _fmt, ...) do {} while (0)
