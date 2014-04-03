@@ -54,6 +54,7 @@
         self.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10];
         self.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.text = @"\n";
         if ([self respondsToSelector:@selector(setSpellCheckingType:)]) self.spellCheckingType = UITextSpellCheckingTypeNo;
 #else // TARGET_OS_IPHONE
         self.backgroundColor = NSColor.blackColor;
@@ -114,30 +115,36 @@
     BOOL follow = [self isScrollAtEnd];
     [self append:text];
     if (follow) {
-        [self scrollDown];
+        if ([self respondsToSelector:@selector(textStorage)]) {
+            [self scrollDownNow];
+        } else {
+            [self scrollDown];
+        }
     }
 }
 
 - (void)append:(NSString *)string
 {
 #if TARGET_OS_IPHONE
-    NSString *text = self.text;
+    NSMutableString *text = [self respondsToSelector:@selector(textStorage)] ? self.textStorage.mutableString : self.text.mutableCopy;
 #else // TARGET_OS_IPHONE
-    NSString *text = self.string;
+    NSMutableString *text = self.string.mutableCopy;
 #endif // TARGET_OS_IPHONE
     if (string) {
-        text = [text stringByAppendingString:string];
+        [text appendString:string];
         if (_maxLogSize && text.length > _maxLogSize) {
             NSUInteger index = text.length - _maxLogSize;
             NSRange r = [text rangeOfCharacterFromSet:NSCharacterSet.newlineCharacterSet options:0 range:NSMakeRange(index, _maxLogSize)];
             if (r.length) {
                 index = r.location;
             }
-            text = [@"..." stringByAppendingString:[text substringFromIndex:index]];
+            [text replaceCharactersInRange:NSMakeRange(0, index) withString:@"..."];
         }
     }
 #if TARGET_OS_IPHONE
-    self.text = text;
+    if (![self respondsToSelector:@selector(textStorage)]) {
+        self.text = text;
+    }
 #else // TARGET_OS_IPHONE
     self.string = text;
 #endif // TARGET_OS_IPHONE
