@@ -137,6 +137,8 @@
 
 - (void)emailLogs
 {
+    if (![MFMailComposeViewController canSendMail]) return;
+    
     MFMailComposeViewController* mailController = [[MFMailComposeViewController alloc] init];
     [mailController setMailComposeDelegate:(id<MFMailComposeViewControllerDelegate>)self];
     [mailController setSubject:NSLocalizedString(@"NWLoggingEmail_Subject", @"")];
