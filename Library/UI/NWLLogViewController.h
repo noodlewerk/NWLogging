@@ -6,6 +6,7 @@
 //
 
 #import "NWLPrinter.h"
+#import <MessageUI/MessageUI.h>
 #include "TargetConditionals.h"
 
 #if TARGET_OS_IPHONE
@@ -29,6 +30,8 @@
 
 - (void)configureWithFilePrinter:(NWLFilePrinter *)printer;
 - (void)configureWithMultiLogger:(NWLMultiLogger *)logger;
+
++ (MFMailComposeViewController *)mailComposeViewControllerWithText:(NSString *)text emailAddresses:(NSArray *)emailAddresses additionalAttachments:(NSDictionary *)additionalAttachments compressAttachment:(BOOL)compress;
 
 @end
 

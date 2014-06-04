@@ -11,7 +11,6 @@
 #import "NWLFilePrinter.h"
 #import "NWLMultiLogger.h"
 #import "NWLLogView.h"
-#import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #include <zlib.h>
 
@@ -28,6 +27,7 @@
 - (void)loadFilters:(NSArray *)filters;
 @end
 
+@interface NWLLogViewController () <MFMailComposeViewControllerDelegate> @end
 
 @implementation NWLLogViewController {
     NWLLogView *_textView;
@@ -138,24 +138,30 @@
 - (void)emailLogs
 {
     if (![MFMailComposeViewController canSendMail]) return;
-    
+
+    MFMailComposeViewController *mailController = [self.class mailComposeViewControllerWithText:_textView.text emailAddresses:_emailAddresses additionalAttachments:_additionalAttachments compressAttachment:_compressAttachment];
+    mailController.mailComposeDelegate = self;
+    [self presentViewController:mailController animated:YES completion:NULL];
+}
+
++ (MFMailComposeViewController *)mailComposeViewControllerWithText:(NSString *)text emailAddresses:(NSArray *)emailAddresses additionalAttachments:(NSDictionary *)additionalAttachments compressAttachment:(BOOL)compress
+{
     MFMailComposeViewController* mailController = [[MFMailComposeViewController alloc] init];
-    [mailController setMailComposeDelegate:(id<MFMailComposeViewControllerDelegate>)self];
     [mailController setSubject:NSLocalizedString(@"NWLoggingEmail_Subject", @"")];
-    if (_emailAddresses.count) {
-        [mailController setToRecipients:_emailAddresses];
+    if (emailAddresses.count) {
+        [mailController setToRecipients:emailAddresses];
     }
     [mailController setMessageBody:NSLocalizedString(@"NWLoggingEmail_Text", @"") isHTML:NO];
-
+    
     // attach files
-    NSMutableDictionary *files = [[NSMutableDictionary alloc] initWithCapacity:_additionalAttachments.count + 1];
-    NSData *logData = [_textView.text dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableDictionary *files = [[NSMutableDictionary alloc] initWithCapacity:additionalAttachments.count + 1];
+    NSData *logData = [text dataUsingEncoding:NSUTF8StringEncoding];
     NSString *logName = NSLocalizedString(@"NWLoggingEmail_File", @"");
     if (logData.length && logName.length) {
         files[logName] = logData;
     }
-    for (NSString *key in _additionalAttachments) {
-        id value = _additionalAttachments[key];
+    for (NSString *key in additionalAttachments) {
+        id value = additionalAttachments[key];
         if ([value isKindOfClass:NSData.class]) {
             files[key] = value;
         } else if ([value isKindOfClass:NSURL.class]) {
@@ -170,7 +176,7 @@
         NSData *data = files[key];
         NSString *filename = key;
         NSString *mime = @"text/plain";
-        if (_compressAttachment) {
+        if (compress) {
             NSData *compressed = [self.class compress:data];
             if (compressed.length) {
                 data = compressed;
@@ -180,8 +186,8 @@
         }
         [mailController addAttachmentData:data mimeType:mime fileName:filename];
     }
-
-    [self presentViewController:mailController animated:YES completion:NULL];
+    
+    return mailController;
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
