@@ -141,7 +141,7 @@
 
     MFMailComposeViewController *mailController = [self.class mailComposeViewControllerWithText:_textView.text emailAddresses:_emailAddresses additionalAttachments:_additionalAttachments compressAttachment:_compressAttachment];
     mailController.mailComposeDelegate = self;
-    [self presentViewController:mailController animated:YES completion:NULL];
+    if (mailController) [self presentViewController:mailController animated:YES completion:NULL];
 }
 
 + (MFMailComposeViewController *)mailComposeViewControllerWithText:(NSString *)text emailAddresses:(NSArray *)emailAddresses additionalAttachments:(NSDictionary *)additionalAttachments compressAttachment:(BOOL)compress
