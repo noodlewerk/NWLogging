@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'NWLogging'
-  s.version       = '1.2.4'
+  s.version       = '1.2.5'
   s.summary       = 'A minimalistic logging framework for Cocoa.'
   s.homepage      = 'https://github.com/noodlewerk/NWLogging'
   s.license       = { :type => 'BSD', :file => 'LICENSE.txt' }
@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.source        = { :git => 'https://github.com/noodlewerk/NWLogging.git', :tag => s.version.to_s }
   s.source_files  = 'Library/**/*.{h,m,c}'
   s.osx.exclude_files = 'Library/UI/NWLLogViewController.{h,m}'
-  s.ios.framework     = 'MessageUI', 'UIKit'
+  s.ios.framework = 'MessageUI', 'UIKit'
   s.libraries     = 'z'
 end
