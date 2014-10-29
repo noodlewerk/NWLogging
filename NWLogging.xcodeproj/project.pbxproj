@@ -620,7 +620,7 @@
 			name = NWLoggingCocoaTest;
 			productName = NWLoggingMacTest;
 			productReference = B384688915D6BC5700780B6C /* NWLoggingCocoaTest.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		B386697715FD04B000EF217C /* NWLoggingCocoaDemo */ = {
 			isa = PBXNativeTarget;
@@ -657,7 +657,7 @@
 			name = NWLoggingTouchTest;
 			productName = NWLoggingTouchTest;
 			productReference = B3AC2E2315D7CD71003F4F88 /* NWLoggingTouchTest.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -666,7 +666,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = NWL;
-				LastTestingUpgradeCheck = 0510;
+				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = noodlewerk;
 			};
