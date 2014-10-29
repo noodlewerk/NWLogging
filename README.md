@@ -1,3 +1,6 @@
+<img src="icon.png" alt="NWLogging Icon" width="72"/>
+
+
 NWLogging
 =========
 
