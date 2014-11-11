@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #include "NWLCore.h"
 #import "NWLFilePrinter.h"
 
@@ -14,7 +14,7 @@
 - (instancetype)initForTesting;
 @end
 
-@interface NWLFilePrinterTest : SenTestCase @end
+@interface NWLFilePrinterTest : XCTestCase @end
 
 @implementation NWLFilePrinterTest {
     NWLFilePrinter *_printer;
@@ -37,7 +37,7 @@
     p.maxLogSize = 10;
     NSString *path = [NWLFilePrinter pathForName:@"test-open"];
     BOOL opened = [p openPath:path];
-    STAssertTrue(opened, @"");
+    XCTAssertTrue(opened, @"");
 }
 
 - (void)testPrinterBasic
@@ -45,16 +45,16 @@
     _printer.maxLogSize = 10;
     [_printer clear];
 
-    STAssertEquals((int)_printer.content.length, 0, @"");
+    XCTAssertEqual((int)_printer.content.length, 0, @"");
 
     [_printer append:@"test"];
-    STAssertEqualObjects(_printer.content, @"test", @"");
+    XCTAssertEqualObjects(_printer.content, @"test", @"");
 
     [_printer append:@"test"];
-    STAssertEqualObjects(_printer.content, @"testtest", @"");
+    XCTAssertEqualObjects(_printer.content, @"testtest", @"");
 
     [_printer append:@"abc"];
-    STAssertEqualObjects(_printer.content, @"ttestabc", @"");
+    XCTAssertEqualObjects(_printer.content, @"ttestabc", @"");
 }
 
 - (void)testPrinterSmall
@@ -62,37 +62,37 @@
     _printer.maxLogSize = 2;
     [_printer clear];
     [_printer append:@""];
-    STAssertEqualObjects(_printer.content, @"", @"");
+    XCTAssertEqualObjects(_printer.content, @"", @"");
     [_printer append:@"a"];
-    STAssertEqualObjects(_printer.content, @"a", @"");
+    XCTAssertEqualObjects(_printer.content, @"a", @"");
     [_printer append:@"b"];
-    STAssertEqualObjects(_printer.content, @"ab", @"");
+    XCTAssertEqualObjects(_printer.content, @"ab", @"");
     [_printer append:@"c"];
-    STAssertEqualObjects(_printer.content, @"bc", @"");
+    XCTAssertEqualObjects(_printer.content, @"bc", @"");
     [_printer append:@"de"];
-    STAssertEqualObjects(_printer.content, @"de", @"");
+    XCTAssertEqualObjects(_printer.content, @"de", @"");
     [_printer append:@"fgh"];
-    STAssertEqualObjects(_printer.content, @"gh", @"");
+    XCTAssertEqualObjects(_printer.content, @"gh", @"");
 
     _printer.maxLogSize = 1;
     [_printer clear];
     [_printer append:@""];
-    STAssertEqualObjects(_printer.content, @"", @"");
+    XCTAssertEqualObjects(_printer.content, @"", @"");
     [_printer append:@"a"];
-    STAssertEqualObjects(_printer.content, @"a", @"");
+    XCTAssertEqualObjects(_printer.content, @"a", @"");
     [_printer append:@"b"];
-    STAssertEqualObjects(_printer.content, @"b", @"");
+    XCTAssertEqualObjects(_printer.content, @"b", @"");
     [_printer append:@"cd"];
-    STAssertEqualObjects(_printer.content, @"d", @"");
+    XCTAssertEqualObjects(_printer.content, @"d", @"");
 
     _printer.maxLogSize = 0;
     [_printer clear];
     [_printer append:@""];
-    STAssertEqualObjects(_printer.content, @"", @"");
+    XCTAssertEqualObjects(_printer.content, @"", @"");
     [_printer append:@"a"];
-    STAssertEqualObjects(_printer.content, @"a", @"");
+    XCTAssertEqualObjects(_printer.content, @"a", @"");
     [_printer append:@"bc"];
-    STAssertEqualObjects(_printer.content, @"abc", @"");
+    XCTAssertEqualObjects(_printer.content, @"abc", @"");
 }
 
 - (void)testPrinterUnicode
@@ -103,26 +103,26 @@
     _printer.maxLogSize = 10;
     [_printer clear];
     [_printer append:utf8];
-    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 10, @"");
-    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:44], @"");
+    XCTAssertEqual((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 10, @"");
+    XCTAssertEqualObjects(_printer.content, [utf8 substringFromIndex:44], @"");
 
     _printer.maxLogSize = 9;
     [_printer clear];
     [_printer append:utf8];
-    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 9, @"");
-    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:45], @"");
+    XCTAssertEqual((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 9, @"");
+    XCTAssertEqualObjects(_printer.content, [utf8 substringFromIndex:45], @"");
 
     _printer.maxLogSize = 6;
     [_printer clear];
     [_printer append:utf8];
-    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 6, @"");
-    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:46], @"");
+    XCTAssertEqual((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 6, @"");
+    XCTAssertEqualObjects(_printer.content, [utf8 substringFromIndex:46], @"");
 
     _printer.maxLogSize = 1;
     [_printer clear];
     [_printer append:utf8];
-    STAssertEquals((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 1, @"");
-    STAssertEqualObjects(_printer.content, [utf8 substringFromIndex:49], @"");
+    XCTAssertEqual((int)[_printer.content dataUsingEncoding:NSUTF8StringEncoding].length, 1, @"");
+    XCTAssertEqualObjects(_printer.content, [utf8 substringFromIndex:49], @"");
 }
 
 @end

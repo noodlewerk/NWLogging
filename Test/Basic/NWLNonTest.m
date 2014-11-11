@@ -5,21 +5,19 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #include "NWLCore.h"
 
 //#define RUN_NON_TESTS 1
 
 
-@interface NWLNonTest : SenTestCase @end
+@interface NWLNonTest : XCTestCase @end
 
 @implementation NWLNonTest
 
 - (void)testStderrPrinter
 {
-#if !RUN_NON_TESTS
-    return;
-#endif // !RUN_NON_TESTS
+#if RUN_NON_TESTS
     NWLContext context = {"tag", "lib", "file", 1, "function", NWLTime()};
     NWLStderrPrinter(context, NULL, NULL);
     NWLStderrPrinter(context, CFSTR(""), NULL);
@@ -40,6 +38,7 @@
     NWLStderrPrinter(nofile, CFSTR("no file"), NULL);
     NWLContext nofunction = {"tag", "lib", "file", 1, "", NWLTime()};
     NWLStderrPrinter(nofunction, CFSTR("no function"), NULL);
+#endif // RUN_NON_TESTS
 }
 
 - (void)testFormatWarnings
@@ -80,22 +79,20 @@
 
 - (void)testDump
 {
-#if !RUN_NON_TESTS
-    return;
-#endif // !RUN_NON_TESTS
+#if RUN_NON_TESTS
     NWLRestore();
     NWLDump();
+#endif // RUN_NON_TESTS
 }
 
 - (void)testAssert
 {
-#if !RUN_NON_TESTS
-    return;
-#endif // !RUN_NON_TESTS
+#if RUN_NON_TESTS
     NWLRestore();
     BOOL yes = YES;
     NWAssert(yes == NO);
     NWAssertQueue(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), com.apple.root.default-priority);
+#endif // RUN_NON_TESTS
 }
 
 @end

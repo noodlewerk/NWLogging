@@ -6,7 +6,7 @@
 //
 
 #import "NWLLineLogger.h"
-#import "NWLogging.h"
+#import "NWLCore.h"
 
 
 const char *NWLLineLoggerMessage = NULL;

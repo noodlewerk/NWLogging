@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #include "NWLCore.h"
 #import "NWLLineLogger.h"
 
@@ -15,7 +15,7 @@
 #include "NWLObjectiveCppTest.h"
 
 
-@interface NWLCompatibilityTest : SenTestCase @end
+@interface NWLCompatibilityTest : XCTestCase @end
 
 @implementation NWLCompatibilityTest {
     NSString *_description;
@@ -48,11 +48,11 @@
 - (void)NWLInObjectTest:(id)object
 {
     NWLog(@"NWLInObjectTest");
-    STAssertEqualObjects(NWLLineLogger.message, @"NWLInObjectTest", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"NWLInObjectTest", @"");
     NWLog(@"%@=%i %@", @"1", 1, object);
-    STAssertEqualObjects(NWLLineLogger.ascii, @"1=1 [U245,U243,U20ac,$,U242,U20a1,U20a2,U20a3,U20a4,U20a5,U20a6,U20a7,U20a8,U20a9,U20aa,U20ab,U20ad,U20ae,U20af,U20b9,U89d2,U7530,U5bb6,Ud83cUdf35]", @"");
+    XCTAssertEqualObjects(NWLLineLogger.ascii, @"1=1 [U245,U243,U20ac,$,U242,U20a1,U20a2,U20a3,U20a4,U20a5,U20a6,U20a7,U20a8,U20a9,U20aa,U20ab,U20ad,U20ae,U20af,U20b9,U89d2,U7530,U5bb6,Ud83cUdf35]", @"");
     NWLogWarn(@"%@=%i %@", @"1", 1, object);
-    STAssertEqualObjects(NWLLineLogger.ascii, @"1=1 [U245,U243,U20ac,$,U242,U20a1,U20a2,U20a3,U20a4,U20a5,U20a6,U20a7,U20a8,U20a9,U20aa,U20ab,U20ad,U20ae,U20af,U20b9,U89d2,U7530,U5bb6,Ud83cUdf35]", @"");
+    XCTAssertEqualObjects(NWLLineLogger.ascii, @"1=1 [U245,U243,U20ac,$,U242,U20a1,U20a2,U20a3,U20a4,U20a5,U20a6,U20a7,U20a8,U20a9,U20aa,U20ab,U20ad,U20ae,U20af,U20b9,U89d2,U7530,U5bb6,Ud83cUdf35]", @"");
 }
 
 + (void)NWLInClassTest:(id)object

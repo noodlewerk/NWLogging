@@ -6,7 +6,6 @@
 //
 
 #import "NWLFilePrinter.h"
-#import "NWLogging.h"
 #import "NWLTools.h"
 
 

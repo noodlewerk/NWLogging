@@ -5,12 +5,12 @@
 //  Copyright (c) 2012 noodlewerk. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #include "NWLCore.h"
 #import "NWLLineLogger.h"
 
 
-@interface NWLBasicTest : SenTestCase @end
+@interface NWLBasicTest : XCTestCase @end
 
 @implementation NWLBasicTest
 
@@ -26,16 +26,16 @@
     [NWLLineLogger start:13];
 
     NWLog(@"");
-    STAssertEqualObjects(NWLLineLogger.message, @"", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"", @"");
 
     NWLog(@"testNWLLog");
-    STAssertEqualObjects(NWLLineLogger.tag, NULL, @"");
-    STAssertEqualObjects(NWLLineLogger.lib, @"NWLoggingTest", @"");
-    STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
-    STAssertEquals(NWLLineLogger.line, (NSUInteger)31, @"");
-    STAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLog]", @"");
-    STAssertEqualObjects(NWLLineLogger.message, @"testNWLLog", @"");
-    STAssertEquals(NWLLineLogger.info, (NSUInteger)13, @"");
+    XCTAssertEqualObjects(NWLLineLogger.tag, NULL, @"");
+    XCTAssertEqualObjects(NWLLineLogger.lib, @"NWLoggingTest", @"");
+    XCTAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
+    XCTAssertEqual(NWLLineLogger.line, (NSUInteger)31, @"");
+    XCTAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLog]", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"testNWLLog", @"");
+    XCTAssertEqual(NWLLineLogger.info, (NSUInteger)13, @"");
 }
 
 - (void)testNWLLogTag
@@ -44,31 +44,31 @@
 
     NWLPrintTagInLib("tag", "NWLDemo");
     NWLLogWithFilter("tag", "NWLDemo", @"");
-    STAssertEqualObjects(NWLLineLogger.message, @"", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"", @"");
 
     NWLLogWithFilter("tag", "NWLDemo", @"testNWLLogTag");
-    STAssertEqualObjects(NWLLineLogger.tag, @"tag", @"");
-    STAssertEqualObjects(NWLLineLogger.lib, @"NWLDemo", @"");
-    STAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
-    STAssertEquals(NWLLineLogger.line, (NSUInteger)49, @"");
-    STAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLogTag]", @"");
-    STAssertEqualObjects(NWLLineLogger.message, @"testNWLLogTag", @"");
-    STAssertEquals(NWLLineLogger.info, (NSUInteger)14, @"");
+    XCTAssertEqualObjects(NWLLineLogger.tag, @"tag", @"");
+    XCTAssertEqualObjects(NWLLineLogger.lib, @"NWLDemo", @"");
+    XCTAssertEqualObjects(NWLLineLogger.file, @"NWLBasicTest.m", @"");
+    XCTAssertEqual(NWLLineLogger.line, (NSUInteger)49, @"");
+    XCTAssertEqualObjects(NWLLineLogger.function, @"-[NWLBasicTest testNWLLogTag]", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"testNWLLogTag", @"");
+    XCTAssertEqual(NWLLineLogger.info, (NSUInteger)14, @"");
 }
 
 - (void)testConfiguring
 {
-    STAssertEquals(NWLHasFilter(NULL, NULL, NULL, NULL), kNWLAction_none, @"");
+    XCTAssertEqual(NWLHasFilter(NULL, NULL, NULL, NULL), kNWLAction_none, @"");
     NWLPrintAll();
-    STAssertEquals(NWLHasFilter(NULL, NULL, NULL, NULL), kNWLAction_print, @"");
+    XCTAssertEqual(NWLHasFilter(NULL, NULL, NULL, NULL), kNWLAction_print, @"");
 
-    STAssertEquals(NWLHasFilter("info", NULL, NULL, NULL), kNWLAction_none, @"");
+    XCTAssertEqual(NWLHasFilter("info", NULL, NULL, NULL), kNWLAction_none, @"");
     NWLPrintInfo();
-    STAssertEquals(NWLHasFilter("info", NULL, NULL, NULL), kNWLAction_print, @"");
+    XCTAssertEqual(NWLHasFilter("info", NULL, NULL, NULL), kNWLAction_print, @"");
 
-    STAssertEquals(NWLHasFilter("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_none, @"");
+    XCTAssertEqual(NWLHasFilter("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_none, @"");
     NWLPrintDbugInFile("NWLBasicTest.m");
-    STAssertEquals(NWLHasFilter("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_print, @"");
+    XCTAssertEqual(NWLHasFilter("dbug", NULL, "NWLBasicTest.m", NULL), kNWLAction_print, @"");
 }
 
 - (void)testPrinter
@@ -76,27 +76,27 @@
     [NWLLineLogger start];
 
     NWLog(@"a");
-    STAssertEqualObjects(NWLLineLogger.message, @"a", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"a", @"");
 
     [NWLLineLogger stop];
 
     NWLog(@"b");
-    STAssertEqualObjects(NWLLineLogger.message, @"a", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"a", @"");
 
     [NWLLineLogger start];
 
     NWLog(@"c");
-    STAssertEqualObjects(NWLLineLogger.message, @"c", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"c", @"");
 
     NWLRemoveAllPrinters();
 
     NWLog(@"d");
-    STAssertEqualObjects(NWLLineLogger.message, @"c", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"c", @"");
 
     [NWLLineLogger start];
 
     NWLog(@"e");
-    STAssertEqualObjects(NWLLineLogger.message, @"e", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"e", @"");
 }
 
 - (void)testFilterTag
@@ -106,12 +106,12 @@
     NWLPrintTag("1");
 
     NWLLogWithFilter("1", "NWLDemo", @"a");
-    STAssertEqualObjects(NWLLineLogger.message, @"a", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"a", @"");
 
     NWLClearTag("1");
 
     NWLLogWithFilter("1", "NWLDemo", @"b");
-    STAssertEqualObjects(NWLLineLogger.message, @"a", @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, @"a", @"");
 
     // TODO: to be continued...
 }
@@ -126,7 +126,7 @@
 
     NWLog(@"*%@*", bad);
     NSString *s = [NSString stringWithFormat:@"*%@*", bad];
-    STAssertEqualObjects(NWLLineLogger.message, s, @"");
+    XCTAssertEqualObjects(NWLLineLogger.message, s, @"");
 }
 
 - (void)testAbout
@@ -140,27 +140,27 @@
     // test about length is correct
     NWLAboutString(buffer, sizeof(buffer));
     NSString *s = [NSString stringWithCString:buffer encoding:NSUTF8StringEncoding];
-    STAssertEquals((int)s.length, aboutLength, @"");
+    XCTAssertEqual((int)s.length, aboutLength, @"");
 
     // test response correct with about-right length
-    STAssertEquals(NWLAboutString(buffer, aboutLength - 2), (int)aboutLength, @"");
-    STAssertEquals(NWLAboutString(buffer, aboutLength - 1), (int)aboutLength, @"");
-    STAssertEquals(NWLAboutString(buffer, aboutLength    ), (int)aboutLength, @"");
-    STAssertEquals(NWLAboutString(buffer, aboutLength + 1), (int)aboutLength, @"");
-    STAssertEquals(NWLAboutString(buffer, aboutLength + 2), (int)aboutLength, @"");
+    XCTAssertEqual(NWLAboutString(buffer, aboutLength - 2), (int)aboutLength, @"");
+    XCTAssertEqual(NWLAboutString(buffer, aboutLength - 1), (int)aboutLength, @"");
+    XCTAssertEqual(NWLAboutString(buffer, aboutLength    ), (int)aboutLength, @"");
+    XCTAssertEqual(NWLAboutString(buffer, aboutLength + 1), (int)aboutLength, @"");
+    XCTAssertEqual(NWLAboutString(buffer, aboutLength + 2), (int)aboutLength, @"");
 
     // test all possible lengths exactly
     for (int size = 0; size < 2 * aboutLength; size++) {
         memset(buffer, 254, sizeof(buffer));
         int length = NWLAboutString(buffer, size);
 
-        STAssertEquals(length, aboutLength, @"");
+        XCTAssertEqual(length, aboutLength, @"");
 
         for (NSUInteger i = 0; i < sizeof(buffer); i++) {
             if (i < MIN(size, aboutLength + 1)) {
-                STAssertFalse(buffer[i] == (char)254, @"");
+                XCTAssertFalse(buffer[i] == (char)254, @"");
             } else {
-                STAssertEquals(buffer[i], (char)254, @"");
+                XCTAssertEqual(buffer[i], (char)254, @"");
             }
         }
     }
