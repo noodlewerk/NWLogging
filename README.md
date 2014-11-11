@@ -77,7 +77,7 @@ The minimal setup has already been introduced in the [Getting Started](#NWL_Gett
 
 Most classes are loosely coupled, allowing you to add components as you go. Alternatively you can also included the complete famework with CocoaPods:
 
-    pod 'NWLogging', '~> 1.2.5'
+    pod 'NWLogging', '~> 1.2.6'
 
 To filter logs based on the library they occur in, you should set the library name by defining the `NWL_LIB` preprocessor variable, for example by adding `NWL_LIB=$(TARGET_NAME)` to the 'Preprocessor Macros' parameter in your target's build settings:
 
