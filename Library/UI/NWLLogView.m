@@ -54,12 +54,18 @@
         self.font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10];
         self.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.text = @"\n";
+        self.text = @"";
         if ([self respondsToSelector:@selector(setSpellCheckingType:)]) self.spellCheckingType = UITextSpellCheckingTypeNo;
 #else // TARGET_OS_IPHONE
         self.backgroundColor = NSColor.blackColor;
         self.textColor = NSColor.whiteColor;
         self.font = [NSFont fontWithName:@"Courier" size:10];
+        self.automaticDashSubstitutionEnabled = NO;
+        self.automaticDataDetectionEnabled = NO;
+        self.automaticLinkDetectionEnabled = NO;
+        self.automaticQuoteSubstitutionEnabled = NO;
+        self.automaticSpellingCorrectionEnabled = NO;
+        self.automaticTextReplacementEnabled = NO;
 #endif // TARGET_OS_IPHONE
         self.editable = NO;
     }
