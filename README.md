@@ -75,11 +75,9 @@ There are various ways to add NWLogging to your project setup. Which approach fi
 
 The minimal setup has already been introduced in the [Getting Started](#NWL_GettingStarted) section. In short: add the NWLCore files to your project and include the NWLCore header where needed. To avoid collision with uses in other projects, it is recommended to *not* compile `NWLCore.m` into any shared library, but only in the final application binary.
 
-NWLogging can also included as static or dynamic framework into your Cocoa Touch or Cocoa application. While this approach doesn't include the NWLogging source, it does provide a single package that can be conveniently included in Xcode. To build `NWLogging.framework`, run the `NWLoggingUniversal` target, which outputs to the `build` folder in the project root.
+Most classes are loosely coupled, allowing you to add components as you go. Alternatively you can also included the complete famework with CocoaPods:
 
-To make NWLogging functions available throughout your project, include the main `NWLogging.h` header in your project by referencing it in your Prefix Header file (`.pch`). For example:
-
-    #import <NWLogging/NWLogging.h>
+    pod 'NWLogging', '~> 1.2.5'
 
 To filter logs based on the library they occur in, you should set the library name by defining the `NWL_LIB` preprocessor variable, for example by adding `NWL_LIB=$(TARGET_NAME)` to the 'Preprocessor Macros' parameter in your target's build settings:
 
