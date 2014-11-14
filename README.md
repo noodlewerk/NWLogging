@@ -75,7 +75,7 @@ There are various ways to add NWLogging to your project setup. Which approach fi
 
 The minimal setup has already been introduced in the [Getting Started](#NWL_GettingStarted) section. In short: add the NWLCore files to your project and include the NWLCore header where needed. To avoid collision with uses in other projects, it is recommended to *not* compile `NWLCore.m` into any shared library, but only in the final application binary.
 
-Most classes are loosely coupled, allowing you to add components as you go. Alternatively you can also included the complete famework with CocoaPods:
+Most classes are loosely coupled, allowing you to add components as you go. Alternatively you can also included the complete framework with CocoaPods:
 
     pod 'NWLogging', '~> 1.2.6'
 
@@ -153,7 +153,7 @@ Design
 ------
 
 ### Conceptual
-The three primary concepts in NWLogging are *filters*, *actions*, and *printers*. When a log statement is executed, it is first passed though a series of filters. The filter that matches the properties of that log statement best decides which action should be performed. A printer is function that formats and outputs the log text and its properties.
+The three primary concepts in NWLogging are *filters*, *actions*, and *printers*. When a log statement is executed, it is first passed though a series of filters. The filter that matches the properties of that log statement best decides which action should be performed. A printer is a function that formats and outputs the log text and its properties.
 
 A filter is a set of constrains on the properties of the log statement. For example: "should be in file X.m" or "should be in library Y and have tag Z". Filters have a fixed format, which allows them to be efficiently matched. For every property of a log statement, it either specifies its value or doesn't care about that property. Available properties are:
 
@@ -169,9 +169,9 @@ Every filter has an associated action. When the best-matching filter has been fo
 * *raise* - Raise an exception with the log text as reason.
 * *assert* - Assert false with the log text as description.
 
-In most cases, a filter is associated with the print action, which forwards the log text and its properties to the set of printer functions. The default printer formats the log properties conveniently, appends the log text, and outputs to STDERR. In contrast to filters, printers designed to be open-ended, allowing any formatting and outputting, for example to file, stream, UI views, etc.
+In most cases, a filter is associated with the print action, which forwards the log text and its properties to the set of printer functions. The default printer formats the log properties conveniently, appends the log text, and outputs to STDERR. In contrast to filters, printers are designed to be open-ended, allowing any formatting and outputting, for example to file, stream, UI views, etc.
 
-One important concept shortly mentioned earlier, is that of *tags*. Tags provide a flexible way to control the filtering of log statements. By associating a tag with every log statement, the printing of log text can also be controlled based on these tag, next to the function, file, or library they are in. By default NWLogging uses the tags *warn*, *info*, and *dbug*, which mimmic the log *levels* often used in logging frameworks. It is however possible to define new tags, tailored to the different modules or cross-sections of your code.
+One important concept shortly mentioned earlier, is that of *tags*. Tags provide a flexible way to control the filtering of log statements. By associating a tag with every log statement, the printing of log text can also be controlled based on these tags, next to the function, file, or library they are in. By default NWLogging uses the tags *warn*, *info*, and *dbug*, which mimic the log *levels* often used in logging frameworks. It is however possible to define new tags, tailored to the different modules or cross-sections of your code.
 
 
 ### Core
@@ -179,12 +179,12 @@ NWLogging consists of a small core written in C and a collection of tools writte
 
 1. Generic logging methods for direct logging and filtered logging. `NWLLogWithoutFilter` simply forwards the log message to all printers. The NWLog method is based on this. `NWLLogWithFilter` first matches properties like tag, file and function with available filters to see if that message needs printing.
 
-2. Configuration methods to manage filters, printers, and the clock. Th
+2. Configuration methods to manage filters, printers, and the clock.
 
 3. A set of convenience methods for general use. These define the standard tags 'Dbug', 'Info' and 'Warn', which are not present in the previous two parts.
 
 ### Tools
-The NWLogging tools set focusses on extending the core into Cocoa. It provide Objective-C interfaces to the core functionality allowing it to be easily integrated into a Cocoa or Cocoa Touch application.
+The NWLogging tools set focuses on extending the core into Cocoa. It provides Objective-C interfaces to the core functionality, allowing it to be easily integrated into a Cocoa or Cocoa Touch application.
 
 
 <a name="NWL_FAQ"></a>
@@ -236,7 +236,7 @@ Note that tags don't have any natural ordering. Activating the 'dbug' tag does *
 
 #### What's the meaning of the stuff `NWLDump()` prints?
 
-The `NWLDump()` function prints the internals of the NWLogging configuration at a specific point in code and execution. It can be invoked both from de debugger and from source. A call to NWLDump from source typically provides the following information:
+The `NWLDump()` function prints the internals of the NWLogging configuration at a specific point in code and execution. It can be invoked both from the debugger and from source. A call to NWLDump from source typically provides the following information:
 
     file         : MyClass.m:88
     function     : -[MyClass myMethod]

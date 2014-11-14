@@ -66,6 +66,9 @@ extern "C" {
 /** Log on an 'warn' tag if the condition is false. */
 #define NWLogWarnIfNot(_condition, _format, ...) do {if (!(_condition)) NWLogWarn(_format, ##__VA_ARGS__);} while (0)
 
+/** Log on an 'warn' tag if the condition is true. */
+#define NWLogWarnIf(_condition, _format, ...) do {if ((_condition)) NWLogWarn(_format, ##__VA_ARGS__);} while (0)
+
 /** Log error description on the 'warn' tag if error is not nil. */
 #define NWLogWarnIfError(_error)                 NWLogWarnIfNot(!(_error), @"Caught: %@", (_error))
 
