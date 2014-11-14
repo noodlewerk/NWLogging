@@ -63,24 +63,21 @@ extern "C" {
 /** Log on the 'warn' tag, which can be activated using NWLPrintWarn(). */
 #define NWLogWarn(_format, ...)                  NWLLogWithFilter("warn", NWL_LIB_STR, _format, ##__VA_ARGS__)
 
-/** Log on an 'warn' tag if the condition is false. */
-#define NWLogWarnIfNot(_condition, _format, ...) do {if (!(_condition)) NWLogWarn(_format, ##__VA_ARGS__);} while (0)
-
 /** Log on an 'warn' tag if the condition is true. */
 #define NWLogWarnIf(_condition, _format, ...) do {if ((_condition)) NWLogWarn(_format, ##__VA_ARGS__);} while (0)
 
 /** Log error description on the 'warn' tag if error is not nil. */
-#define NWLogWarnIfError(_error)                 NWLogWarnIfNot(!(_error), @"Caught: %@", (_error))
+#define NWLogWarnIfError(_error)                 NWLogWarnIf((_error), @"Caught: %@", (_error))
 
 /** Log on a custom tag, which can be activated using NWLPrintTag(tag). */
 #define NWLogTag(_tag, _format, ...)             NWLLogWithFilter((#_tag), NWL_LIB_STR, _format, ##__VA_ARGS__)
 
 /** Convenient assert and error macros. */
-#define NWAssert(_condition)                     NWLogWarnIfNot((_condition), @"Expected true condition '"#_condition@"' in %s:%i", _NWL_FILE_, __LINE__)
-#define NWAssertMainThread()                     NWLogWarnIfNot(_NWL_MAIN_THREAD_, @"Expected running on main thread in %s:%i", _NWL_FILE_, __LINE__)
-#define NWAssertQueue(_queue,_label)             NWLogWarnIfNot(strcmp(dispatch_queue_get_label(_queue)?:"",#_label)==0, @"Expected running on '%s', not on '%s' in %s:%i", #_label, dispatch_queue_get_label(_queue), _NWL_FILE_, __LINE__)
-#define NWParameterAssert(_condition)            NWLogWarnIfNot((_condition), @"Expected parameter: '"#_condition@"' in %s:%i", _NWL_FILE_, __LINE__)
-#define NWError(_error)                          do {NWLogWarnIfNot(!(_error), @"Caught: %@", (_error)); _error = nil;} while (0)
+#define NWAssert(_condition)                     NWLogWarnIf(!(_condition), @"Expected true condition '"#_condition@"' in %s:%i", _NWL_FILE_, __LINE__)
+#define NWAssertMainThread()                     NWLogWarnIf(!_NWL_MAIN_THREAD_, @"Expected running on main thread in %s:%i", _NWL_FILE_, __LINE__)
+#define NWAssertQueue(_queue,_label)             NWLogWarnIf(strcmp(dispatch_queue_get_label(_queue)?:"",#_label)!=0, @"Expected running on '%s', not on '%s' in %s:%i", #_label, dispatch_queue_get_label(_queue), _NWL_FILE_, __LINE__)
+#define NWParameterAssert(_condition)            NWLogWarnIf(!(_condition), @"Expected parameter: '"#_condition@"' in %s:%i", _NWL_FILE_, __LINE__)
+#define NWError(_error)                          do {NWLogWarnIf((_error), @"Caught: %@", (_error)); _error = nil;} while (0)
 
 
 #pragma mark - Logging macros
@@ -293,6 +290,11 @@ extern void NWLDumpConfig(void);
 #endif // DEBUG
 #define NWLDump() do {NWLDumpFlags(NWL_ACTIVE, NWL_LIB_STR, NWL_DEBUG, _NWL_FILE_, __LINE__, __PRETTY_FUNCTION__);NWLDumpConfig();} while (0)
 
+
+#pragma mark - Deprecated
+
+/** Deprecated, use `NWLogWarnIf` or `NWAssert` instead. */
+#define NWLogWarnIfNot(_condition, _format, ...) NWLogWarnIf(!(_condition), _format, ##__VA_ARGS__)
 
 #endif // _NWLCORE_H_
 
