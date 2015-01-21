@@ -150,6 +150,8 @@
 #if TARGET_OS_IPHONE
     if (![self respondsToSelector:@selector(textStorage)]) {
         self.text = text;
+    } else {
+        [self.textStorage setAttributes:@{UITextAttributeTextColor: self.textColor, UITextAttributeFont: self.font} range:NSMakeRange(0, [text length])];
     }
 #else // TARGET_OS_IPHONE
     self.string = text;
