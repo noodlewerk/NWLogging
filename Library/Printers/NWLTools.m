@@ -35,7 +35,7 @@
     dispatch_once(&onceToken, ^{
         calendar = NSCalendar.currentCalendar;
     });
-    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
+    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:date];
     int hour = (int)[components hour];
     int minute = (int)[components minute];
     int second = (int)[components second];
