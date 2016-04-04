@@ -41,6 +41,10 @@
 		B33A82061A121B050020F853 /* NWLCTest.c in Sources */ = {isa = PBXBuildFile; fileRef = B38468A115D6BC7900780B6C /* NWLCTest.c */; };
 		B33A82071A121B050020F853 /* NWLObjectiveCppTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = B38468A415D6BC7900780B6C /* NWLObjectiveCppTest.mm */; };
 		B33A82081A121B050020F853 /* NWLObjectiveCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B38468A615D6BC7900780B6C /* NWLObjectiveCTest.m */; };
+		B34C32971CB31F8100329EE3 /* NWLAsl.h in Headers */ = {isa = PBXBuildFile; fileRef = B34C32951CB31F8100329EE3 /* NWLAsl.h */; };
+		B34C32981CB31F8100329EE3 /* NWLAsl.h in Headers */ = {isa = PBXBuildFile; fileRef = B34C32951CB31F8100329EE3 /* NWLAsl.h */; };
+		B34C32991CB31F8100329EE3 /* NWLAsl.c in Sources */ = {isa = PBXBuildFile; fileRef = B34C32961CB31F8100329EE3 /* NWLAsl.c */; };
+		B34C329A1CB31F8100329EE3 /* NWLAsl.c in Sources */ = {isa = PBXBuildFile; fileRef = B34C32961CB31F8100329EE3 /* NWLAsl.c */; };
 		B34EA70815D5007C007B041F /* NWLCore.c in Sources */ = {isa = PBXBuildFile; fileRef = B34EA6DE15D4FEC7007B041F /* NWLCore.c */; };
 		B34EA70C15D500D1007B041F /* libNWLogging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA6E815D4FFBA007B041F /* libNWLogging.a */; };
 		B34EA70E15D500E7007B041F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34EA70D15D500E7007B041F /* CoreFoundation.framework */; };
@@ -164,6 +168,8 @@
 		B332839215E4FAFF00B76F2B /* NWLLogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWLLogView.m; sourceTree = "<group>"; };
 		B33A81DD1A121AA10020F853 /* NWLoggingTouchTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NWLoggingTouchTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B33A81ED1A121AAB0020F853 /* NWLoggingCocoaTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NWLoggingCocoaTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B34C32951CB31F8100329EE3 /* NWLAsl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWLAsl.h; sourceTree = "<group>"; };
+		B34C32961CB31F8100329EE3 /* NWLAsl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NWLAsl.c; sourceTree = "<group>"; };
 		B34EA6DA15D4FE4E007B041F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		B34EA6DE15D4FEC7007B041F /* NWLCore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = NWLCore.c; sourceTree = "<group>"; };
 		B34EA6DF15D4FEC7007B041F /* NWLCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NWLCore.h; sourceTree = "<group>"; };
@@ -367,6 +373,8 @@
 				B384682315D6B6C100780B6C /* NWLPrinter.h */,
 				B384682515D6B6C100780B6C /* NWLTools.h */,
 				B384682615D6B6C100780B6C /* NWLTools.m */,
+				B34C32951CB31F8100329EE3 /* NWLAsl.h */,
+				B34C32961CB31F8100329EE3 /* NWLAsl.c */,
 			);
 			path = Printers;
 			sourceTree = "<group>";
@@ -496,6 +504,7 @@
 				B384682E15D6B6C100780B6C /* NWLMultiLogger.h in Headers */,
 				B384683015D6B6C100780B6C /* NWLPrinter.h in Headers */,
 				B384683215D6B6C100780B6C /* NWLTools.h in Headers */,
+				B34C32971CB31F8100329EE3 /* NWLAsl.h in Headers */,
 				B3B9C2A515D7D72B001483BA /* NWLogging.h in Headers */,
 				B3B9C2A615D7D735001483BA /* NWLCore.h in Headers */,
 				B38669C215FD109C00EF217C /* NWLLogView.h in Headers */,
@@ -512,6 +521,7 @@
 				B3B9C2AA15D7D767001483BA /* NWLLineLogger.h in Headers */,
 				B3B9C2AB15D7D767001483BA /* NWLMultiLogger.h in Headers */,
 				B3B9C2AC15D7D767001483BA /* NWLPrinter.h in Headers */,
+				B34C32981CB31F8100329EE3 /* NWLAsl.h in Headers */,
 				B3B9C2AD15D7D767001483BA /* NWLTools.h in Headers */,
 				B3B9C2AE15D7D767001483BA /* NWLLogViewController.h in Headers */,
 				B3B9C2AF15D7D767001483BA /* NWLogging.h in Headers */,
@@ -788,6 +798,7 @@
 				B38669A715FD064A00EF217C /* NWLTools.m in Sources */,
 				B38669A815FD065D00EF217C /* NWLMultiLogger.m in Sources */,
 				B38669A915FD06E700EF217C /* NWLLogView.m in Sources */,
+				B34C32991CB31F8100329EE3 /* NWLAsl.c in Sources */,
 				B38669AA15FD09D500EF217C /* NWLFilePrinter.m in Sources */,
 				B38669AB15FD09DC00EF217C /* NWLLineLogger.m in Sources */,
 			);
@@ -807,6 +818,7 @@
 			files = (
 				B39DC10C15D7C4FB00374BE5 /* NWLCore.c in Sources */,
 				B39DC11215D7C51B00374BE5 /* NWLFilePrinter.m in Sources */,
+				B34C329A1CB31F8100329EE3 /* NWLAsl.c in Sources */,
 				B39DC11315D7C51B00374BE5 /* NWLLineLogger.m in Sources */,
 				B39DC11415D7C51B00374BE5 /* NWLMultiLogger.m in Sources */,
 				B39DC11615D7C51B00374BE5 /* NWLTools.m in Sources */,

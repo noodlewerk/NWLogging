@@ -9,6 +9,7 @@
 #define _NWLOGGING_H_
 
 #include "NWLCore.h"
+#include "NWLAsl.h"
 
 #ifdef __OBJC__
 
